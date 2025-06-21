@@ -65,49 +65,59 @@ Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
 
 The core functionality of this package is the **workflow template document** (`workflow_template_v2.md`). Here's how to use it effectively: | 此包的核心功能是**工作流模板文档** (`workflow_template_v2.md`)。以下是有效使用方法：
 
-#### Step 1: Create Task-Specific Document | 步骤1：创建任务专用文档
+#### Step 1: Copy Project to Your Workspace | 步骤1：将项目复制到你的工作空间
 
-```powershell
-# Copy the template for your specific debugging task | 为特定调试任务复制模板
-Copy-Item "debug-system\workflow_template_v2.md" "debug-system\workflow_[task-name]_v2.md"
+```bash
+# Clone or copy the project to your local workspace | 克隆或复制项目到本地工作空间
+git clone https://github.com/Linearl/copilot_debug_workflow.git
+# Or copy the debug-system folder to your existing project | 或将debug-system文件夹复制到现有项目中
 ```
 
-**Example** | **示例**:
-- `workflow_高DPI缩放问题_v2.md` (High DPI scaling issue)
-- `workflow_数据库连接错误_v2.md` (Database connection error)
-- `workflow_API响应超时_v2.md` (API timeout issue)
-
-#### Step 2: Initialize Debug Environment | 步骤2：初始化调试环境
+#### Step 2: Open Workflow Document in VS Code | 步骤2：在VS Code中打开工作流文档
 
 ```powershell
-# Create structured debug directory | 创建结构化调试目录
-mkdir debug; cd debug; $round = 1
-mkdir $round\{src,core,archive,deprecated,docs,logs,files}
-Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
+# Open the workflow template in VS Code | 在VS Code中打开工作流模板
+code debug-system/workflow_template_v2.md
 ```
 
-#### Step 3: Follow the 7-Step Standard Process | 步骤3：遵循7步标准流程
+#### Step 3: Enable Copilot Agent Mode | 步骤3：启用Copilot Agent模式
 
-The workflow template guides you through: | 工作流模板将引导您完成：
+1. **Enable Agent Mode** | **启用Agent模式**: Use `@workspace` or agent commands in VS Code | 在VS Code中使用`@workspace`或agent命令
+2. **Start Debugging Session** | **开始调试会话**: Follow the guidance in the workflow document | 按照工作流文档中的指引进行
 
-1. **Problem Description** | **问题描述**: Clearly describe the issue using structured format | 使用结构化格式清晰描述问题
-2. **AI Analysis** | **AI分析**: Let AI parse and format the problem information | 让AI解析并格式化问题信息
-3. **User Confirmation** | **用户确认**: Review and confirm AI's understanding | 检查并确认AI的理解
-4. **Document Creation** | **文档创建**: Auto-generate task-specific workflow document | 自动生成任务专用工作流文档
+#### Step 4: Describe Your Problem and Start Debugging | 步骤4：描述问题并开始调试
+
+Follow the 7-step process outlined in the workflow document: | 按照工作流文档中概述的7步流程：
+
+1. **Problem Description** | **问题描述**: Clearly describe your issue using the structured format provided | 使用提供的结构化格式清晰描述问题
+2. **AI Analysis** | **AI分析**: Let the agent parse and understand your problem | 让agent解析并理解你的问题
+3. **User Confirmation** | **用户确认**: Review and confirm the agent's understanding | 检查并确认agent的理解
+4. **Document Creation** | **文档创建**: Agent creates task-specific workflow document | Agent创建任务专用工作流文档
 5. **Environment Setup** | **环境设置**: Initialize organized debug workspace | 初始化有组织的调试工作空间
 6. **Debug Iteration** | **调试迭代**: Execute structured debugging cycles | 执行结构化调试循环
 7. **Documentation** | **文档记录**: Record results and organize files | 记录结果并整理文件
 
-#### Step 4: Use the Debug Iteration Cycle | 步骤4：使用调试迭代循环
+### 🤖 Agent Configuration Recommendations | Agent配置建议
 
-Within each debug session, follow the 6-step cycle: | 在每个调试会话中，遵循6步循环：
+#### Model and Settings | 模型和设置
 
-- 📋 **Plan** | **计划**: Define objectives | 确定目标
-- 🔍 **Analyze** | **分析**: Investigate root causes | 调查根本原因  
-- 💡 **Design** | **设计**: Create solution approach | 创建解决方案
-- ⚙️ **Implement** | **实施**: Execute and test changes | 执行并测试更改
-- ✅ **Verify** | **验证**: Confirm results | 确认结果
-- 📊 **Document** | **记录**: Update documentation | 更新文档
+- **Preferred Model** | **推荐模型**: Use Claude 4.0 for best results | 使用Claude 4.0以获得最佳效果
+- **Enable Thinking Mode** | **启用思考模式**: Turn on agent thinking mode for better analysis | 开启agent思考模式以获得更好的分析
+- **Terminal Access** | **终端访问权限**: Configure and enable terminal usage permissions | 配置并启用终端使用权限
+
+#### Budget and Control | 预算和控制
+
+- **Request Budget** | **请求预算**: Set agent call budget to 10-20 requests per session | 将每次会话的agent调用预算设置为10-20次
+- **Budget Warning** | **预算警告**: Too many requests may cause the agent to drift off-topic | 过多的请求可能导致agent偏离主题
+- **Active Monitoring** | **主动监控**: Monitor agent progress and intervene when necessary | 监控agent进度，必要时进行干预
+
+#### Best Practices | 最佳实践
+
+⚠️ **Important** | **重要提示**: If you notice the agent drifting off-topic or have new ideas, **pause immediately** and provide additional instructions. | 如果发现agent跑偏或有新的思路，请**立即暂停**并补充新指令。
+
+- **Stay Engaged** | **保持参与**: Actively review agent's analysis and suggestions | 积极审查agent的分析和建议
+- **Provide Feedback** | **提供反馈**: Give clear feedback on agent's direction | 就agent的方向给出明确反馈
+- **Course Correction** | **纠正方向**: Don't hesitate to redirect when agent goes off-track | 当agent偏离轨道时不要犹豫进行重定向
 
 ### File Organization System | 文件组织系统
 
