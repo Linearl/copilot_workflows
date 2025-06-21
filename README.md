@@ -1,85 +1,136 @@
-# 🛠️ 调试工作流程包
+# Debug Workflow Templates
 
-> 完整的调试工作流模板包，提取自保密项目
+A comprehensive debugging workflow template package for systematic problem-solving and code debugging.
 
-## 📦 包含内容
+## � Table of Contents
 
-### 🛠️ 核心工作流模板
-- `debug-system/workflow_template_v2.md` - V2版本模板（简洁语言 + 人工确认机制）
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Usage](#-usage)
+- [Templates](#-templates)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-### 📝 模板资源文件
-- `debug-system/templates/` - 所有模板文件
-  - `README-template.md` - 调试记录标准模板
-  - `summary-template.md` - 项目总结模板
-  - `experience-template.md` - 经验总结模板
-  - `INDEX-template.md` - 调试索引模板
-  - `SUMMARY-TEMPLATE-UPDATE.md` - 总结模板更新版
+## ✨ Features
 
-### 📚 参考文档
-- `debug-system/docs/常用符号.md` - 项目中使用的所有符号对照表
+- **Systematic Debugging Process**: 6-step debugging cycle for consistent problem-solving
+- **Template Collection**: Pre-built templates for documentation and workflow management
+- **Symbol Reference**: Comprehensive symbol guide for project organization
+- **Human-AI Collaboration**: Optimized workflow for AI-assisted debugging
+- **Modular Structure**: Organized file system for efficient debugging sessions
 
-## 🚀 快速开始
+## � Project Structure
 
-### 使用 V2 模板
+```
+debug-system/
+├── workflow_template_v2.md          # Core V2 workflow template
+├── templates/                       # Template collection
+│   ├── README-template.md           # Debug session documentation
+│   ├── summary-template.md          # Project summary template
+│   ├── experience-template.md       # Experience summary template
+│   ├── INDEX-template.md            # Debug index template
+│   └── SUMMARY-TEMPLATE-UPDATE.md   # Updated summary template
+└── docs/
+    └── 常用符号.md                   # Symbol reference guide
+```
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Linearl/copilot_debug_workflow.git
+cd copilot_debug_workflow
+```
+
+### 2. Create a New Debug Session
+
 ```powershell
-# 1. 创建任务专用文档
-Copy-Item "debug-system\workflow_template_v2.md" "debug-system\workflow_任务名_v2.md"
+# Copy the workflow template for your specific task
+Copy-Item "debug-system\workflow_template_v2.md" "debug-system\workflow_[task-name]_v2.md"
 
-# 2. 初始化调试环境
+# Initialize debug environment
 mkdir debug; cd debug; $round = 1
 mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
-
-# 3. 开始调试循环：计划→分析→修正→执行→检查→记录
 ```
 
-## 📋 调试循环6步
+## 🔄 Usage
 
-| 步骤 | 符号 | 阶段名称 | 核心任务 |
-|------|------|----------|----------|
-| 6.1 | 📋 | 计划阶段 | 确定目标，制定计划 |
-| 6.2 | 🔍 | 分析阶段 | 问题分析，原因定位 |
-| 6.3 | 💡 | 修正阶段 | 方案设计，策略选择 |
-| 6.4 | ⚙️ | 执行阶段 | 代码修改，测试验证 |
-| 6.5 | ✅ | 检查阶段 | 结果验证，状态确认 |
-| 6.6 | 📊 | 记录阶段 | 文档更新，归档整理 |
+### The 6-Step Debug Cycle
 
-## 🗂️ 文件归档系统
+| Step | Symbol | Phase | Core Task |
+|------|--------|-------|-----------|
+| 1 | 📋 | Planning | Define objectives and create plan |
+| 2 | 🔍 | Analysis | Problem analysis and root cause identification |
+| 3 | 💡 | Solution | Design approach and strategy selection |
+| 4 | ⚙️ | Implementation | Code modification and testing |
+| 5 | ✅ | Verification | Result validation and status confirmation |
+| 6 | 📊 | Documentation | Update docs and organize files |
 
-| 符号 | 目录名 | 文件类型 | 存储规则 |
-|------|--------|----------|----------|
-| 🔴 | core/ | 核心解决方案 | 5-10个关键文件 |
-| 📚 | archive/ | 重要调试历程 | 阶段性成果 |
-| 🗑️ | deprecated/ | 无效或被替代 | 废弃文件 |
-| 📝 | docs/ | 分析文档 | 说明文档 |
-| 📋 | logs/ | 测试日志 | 运行记录 |
-| 🗂️ | files/ | 其他文件 | 支持文件 |
-| 🐍 | src/ | 工作目录 | 调试过程中的代码和脚本 |
+### File Organization System
 
-## 💡 核心调试原则
+| Symbol | Directory | File Type | Storage Rule |
+|--------|-----------|-----------|--------------|
+| 🔴 | core/ | Core solutions | 5-10 key files |
+| 📚 | archive/ | Important milestones | Staged results |
+| 🗑️ | deprecated/ | Obsolete/replaced | Discarded files |
+| 📝 | docs/ | Analysis documents | Documentation |
+| 📋 | logs/ | Test logs | Runtime records |
+| 🗂️ | files/ | Other files | Supporting files |
+| 🐍 | src/ | Working directory | Code and scripts during debugging |
 
-### 小工作集调试法
-- **原理**: 创建最小化独立测试环境
-- **适用**: 复杂系统中特定问题隔离
-- **步骤**: 简化环境 → 简化数据 → 精确监控 → 问题复现
+## � Templates
 
-### 人机协作模式
-- **AI负责**: 分析、建议、代码生成
-- **用户负责**: 测试执行、结果确认、决策选择
-- **协作要点**: 及时反馈测试结果，明确描述现象
+The `debug-system/templates/` directory contains:
 
-## 📖 符号使用指南
+- **README-template.md**: Standard template for debugging session documentation
+- **summary-template.md**: Project summary template for comprehensive reporting
+- **experience-template.md**: Experience summary template for lessons learned
+- **INDEX-template.md**: Debug index template for session organization
+- **SUMMARY-TEMPLATE-UPDATE.md**: Updated version of summary template
 
-详细的符号对照表请参考 `debug-system/docs/常用符号.md`，包含：
-- 🎯 核心符号表：通用符号和主要功能域常用符号
-- 📊 完整符号表：项目中所有符号的全面索引
-- 🎨 使用指南：优秀案例和使用规范
-- 📋 工作流模板符号使用指南
-- 📑 符号速查表
+## 📖 Documentation
+
+### Core Debugging Principles
+
+#### Minimal Working Set Debugging
+- **Principle**: Create minimal isolated test environment
+- **Application**: Isolate specific issues in complex systems
+- **Process**: Simplify environment → Simplify data → Precise monitoring → Problem reproduction
+
+#### Human-AI Collaboration Mode
+- **AI Responsibility**: Analysis, suggestions, code generation
+- **Human Responsibility**: Test execution, result confirmation, decision making
+- **Collaboration Key**: Timely feedback on test results, clear description of phenomena
+
+### Symbol Reference
+
+For detailed symbol reference, see `debug-system/docs/常用符号.md` which includes:
+- 🎯 Core symbol table: Common symbols and domain-specific symbols
+- 📊 Complete symbol table: Comprehensive index of all project symbols
+- 🎨 Usage guide: Best practices and usage standards
+- 📋 Workflow template symbol usage guide
+- 📑 Symbol quick reference
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit issues and pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-**包创建时间**: 2025年6月21日  
-**来源项目**: 保密  
-**版本**: 精简版 v2.0  
-**适用场景**: 技术项目调试、问题排查、系统优化
+**Created**: June 21, 2025  
+**Version**: v2.0  
+**Use Cases**: Technical project debugging, problem troubleshooting, system optimization
