@@ -87,9 +87,9 @@ code debug-system/workflow_template_v2.md
 
 #### Step 4: Describe Your Problem and Start Debugging | 步骤4：描述问题并开始调试
 
-Follow the 7-step process outlined in the workflow document: | 按照工作流文档中概述的7步流程：
+Simply describe your problem in natural language - the workflow will handle the parsing and formatting automatically: | 只需用自然语言描述你的问题 - 工作流会自动处理解析和格式化：
 
-1. **Problem Description** | **问题描述**: Clearly describe your issue using the structured format provided | 使用提供的结构化格式清晰描述问题
+1. **Problem Description** | **问题描述**: Describe your issue naturally, the agent will parse it | 自然地描述你的问题，agent会自动解析
 2. **AI Analysis** | **AI分析**: Let the agent parse and understand your problem | 让agent解析并理解你的问题
 3. **User Confirmation** | **用户确认**: Review and confirm the agent's understanding | 检查并确认agent的理解
 4. **Document Creation** | **文档创建**: Agent creates task-specific workflow document | Agent创建任务专用工作流文档
