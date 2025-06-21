@@ -1,5 +1,7 @@
 # Debug Workflow Templates | 调试工作流程模板
 
+> 🌍 **Language Versions | 语言版本**: [English](README_en.md) | [中文](README_ch.md)
+
 A comprehensive debugging workflow template package for systematic problem-solving and code debugging.
 
 > 完整的调试工作流模板包，用于系统化问题解决和代码调试。
