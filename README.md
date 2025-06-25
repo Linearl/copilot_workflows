@@ -97,24 +97,42 @@ git clone https://github.com/Linearl/copilot_debug_workflow.git
 cd copilot_debug_workflow
 ```
 
-### 2. Open Workflow Document in VS Code | 在VS Code中打开工作流文档
-
-```powershell
-# For debugging tasks | 调试任务
-code debug-system/debug_workflow_[task-name].md
-
-# For file organization tasks | 文件整理任务  
-code organize/[task-name]/file_organize_workflow_[task-name].md
-```
-
-### 3. Enable Copilot Agent Mode | 启用Copilot Agent模式
+### 2. Enable Copilot Agent Mode | 启用Copilot Agent模式
 
 1. **Enable Agent Mode** | **启用Agent模式**: Use `@workspace` or agent commands in VS Code | 在VS Code中使用`@workspace`或agent命令
 2. **Start Workflow Session** | **开始工作流会话**: Follow the guidance in the workflow document | 按照工作流文档中的指引进行
 
-### 4. Configure Auto-Trigger (Optional) | 配置自动触发（可选）
+## 🔀 Choose Your Workflow Approach | 选择工作流方式
 
-You can create a `.copilot-instructions.md` file in your project root to enable automatic workflow triggering: | 您可以在项目根目录创建`.copilot-instructions.md`文件来启用自动工作流触发：
+After completing steps 1-2, you have two options to proceed: | 完成步骤1-2后，您有两种方式继续：
+
+---
+
+## 📋 Option A: Manual Workflow | 方式A：手动工作流
+
+### 3A. Open Workflow Template in VS Code | 在VS Code中打开工作流模板
+
+```powershell
+# For debugging tasks | 调试任务
+code debug-system/debug_workflow_template.md
+
+# For file organization tasks | 文件整理任务  
+code file-organize-system/file_organize_workflow_template.md
+```
+
+> **📝 Note** | **说明**: These are template files. The actual workflow documents will be automatically generated when you start the workflow process. | 这些是模板文件。实际的工作流文档会在开始工作流程时自动生成。
+
+### 4A. Describe Your Task and Start Working | 描述任务并开始工作
+
+Simply describe your problem or organization task in natural language - the workflow will handle the parsing and formatting automatically: | 只需用自然语言描述你的问题或整理任务 - 工作流会自动处理解析和格式化：
+
+---
+
+## ⚡ Option B: Auto-Trigger Workflow | 方式B：自动触发工作流
+
+### 3B. Configure Auto-Trigger | 配置自动触发
+
+Create a `.copilot-instructions.md` file in your project root to enable automatic workflow triggering: | 在项目根目录创建`.copilot-instructions.md`文件来启用自动工作流触发：
 
 ```markdown
 # Copilot Workflow Instructions
@@ -134,15 +152,19 @@ Automatically suggest: "I see you need file organization assistance. Would you l
 - File Organization Template: `file-organize-system/file_organize_workflow_template.md`
 ```
 
-**Choose Your Approach** | **选择您的方式**:
-- **Automatic Trigger** | **自动触发**: Configure `.copilot-instructions.md` for seamless workflow activation | 配置`.copilot-instructions.md`实现无缝工作流激活
-- **Manual Trigger** | **手动触发**: Open workflow template documents manually | 手动打开工作流模板文档
+### 4B. Natural Language Interaction | 自然语言交互
 
-### 5. Describe Your Task and Start Working | 描述任务并开始工作
+Once configured, simply mention your needs in conversation - AI will automatically suggest the appropriate workflow: | 配置完成后，只需在对话中提及您的需求 - AI会自动建议合适的工作流：
 
-Simply describe your problem or organization task in natural language - the workflow will handle the parsing and formatting automatically: | 只需用自然语言描述你的问题或整理任务 - 工作流会自动处理解析和格式化：
+**Example triggers** | **触发示例**:
+- "I need to debug this error..." → Debug workflow suggestion
+- "I want to organize these files..." → File organization workflow suggestion
 
-#### For Debug Workflow | 调试工作流流程
+---
+
+## 📋 Workflow Execution Details | 工作流执行详情
+
+### For Debug Workflow | 调试工作流流程
 
 > **📄 Working Document** | **工作文档**: Created in `debug-system/debug_workflow_[task-name].md` | 在 `debug-system/debug_workflow_[任务名].md` 中创建
 
@@ -154,7 +176,7 @@ Simply describe your problem or organization task in natural language - the work
 6. **Debug Iteration** | **调试迭代**: Execute structured debugging cycles | 执行结构化调试循环
 7. **Documentation** | **文档记录**: Record results and organize files | 记录结果并整理文件
 
-#### For File Organization Workflow | 文件整理工作流流程
+### For File Organization Workflow | 文件整理工作流流程
 
 > **📄 Working Document** | **工作文档**: Created in `organize/[task-name]/file_organize_workflow_[task-name].md` | 在 `organize/[任务名]/file_organize_workflow_[任务名].md` 中创建
 
