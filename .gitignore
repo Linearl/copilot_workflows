@@ -1,0 +1,74 @@
+# Copilot Workflow System .gitignore
+
+# AI协作配置文件 - 包含敏感信息，不应上传到公共仓库
+.copilot-instructions.md
+
+# 工作流生成的临时文件
+debug-system/debug_workflow_*.md
+!debug-system/debug_workflow_template.md
+
+file-organize-system/organize/*/
+!file-organize-system/organize/.gitkeep
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE和编辑器文件
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+
+# 缓存目录
+.cache/
+.temp/
+
+# 用户特定配置
+.env
+.env.local
+config.local.*
+
+# 备份文件
+*.orig
+*.rej
+
+# 压缩文件
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# 个人笔记和草稿
+notes/
+drafts/
+personal/
+private/
+
+# 测试输出
+test-output/
+test-results/
+coverage/
+
+# 工具生成的文件
+file-organize-system/tools/output/
+file-organize-system/tools/temp/
