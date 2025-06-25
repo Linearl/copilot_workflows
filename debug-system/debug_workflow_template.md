@@ -1,6 +1,6 @@
-# 🛠️ 调试工作流程模板 V2
+# 🛠️ 调试工作流程模板
 
-> **V2版本特点**: 简洁语言 + 人工确认机制 + 精炼经验总结
+> **版本特点**: 简洁语言 + 人工确认机制 + 精炼经验总结
 
 ## 📑 快速导航
 
@@ -12,7 +12,7 @@
 ### ⚡ 快速开始
 ```powershell
 # 1. 描述问题 → 2. 确认解析 → 3. 创建文档 → 4. 初始化环境
-Copy-Item "debug-system\workflow_template_v2.md" "debug-system\workflow_任务名_v2.md"
+Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 mkdir debug; cd debug; $round = 1
 mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 # 5. 开始循环：计划→分析→修正→执行→检查→记录
@@ -36,8 +36,8 @@ mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 
 ```
 debug-system/
-├── workflow_template_v2.md        # V2模板
-├── workflow_任务名_v2.md           # 任务专用文档
+├── debug_workflow_template.md      # 调试工作流模板
+├── debug_workflow_任务名.md         # 任务专用文档
 ├── templates/                     # 模板文件
 └── debug/
     └── 1/                        # 调试轮次
@@ -67,10 +67,10 @@ AI提取关键信息并生成标准化任务描述。
 ### 步骤4：创建专用文档
 **AI必须执行以下操作**：
 ```powershell
-Copy-Item "debug-system\workflow_template_v2.md" "debug-system\workflow_任务名_v2.md"
+Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 ```
 - 为当前调试任务创建专用的工作流文档
-- 文档名应反映具体的调试任务（如：workflow_高DPI缩放问题_v2.md）
+- 文档名应反映具体的调试任务（如：debug_workflow_高DPI缩放问题.md）
 - **更新自动生成区域**：在任务专用文档中填充具体的任务信息
 
 ### 步骤5：初始化调试环境
@@ -94,13 +94,13 @@ Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
 
 **满足条件时的归档步骤**：
 1. **🗂️ 执行最终归档**: 将src中的文件按重要性分类到core/archive/deprecated目录
-2. **📄 复制工作流文档**: 将`debug-system/workflow_任务名_v2.md`复制到对应的数字文件夹`debug/{轮次}/`中
+2. **📄 复制工作流文档**: 将`debug_workflow_任务名.md`复制到对应的数字文件夹`debug/{轮次}/`中
 3. **📋 更新INDEX.md**: 记录该轮调试的时间、问题、进展、结论，并更新问题状态
 4. **📝 生成总结报告**: 完成调试轮次的总结文档
 
 **复制工作流文档示例**：
 ```powershell
-Copy-Item "debug-system\workflow_仿真图像保存错误_v2.md" "debug\18\"
+Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
 ```
 
 ---
@@ -214,7 +214,7 @@ Copy-Item "debug-system\workflow_仿真图像保存错误_v2.md" "debug\18\"
 > 
 > **📋 INDEX.md更新要求**: 问题完全解决后必须更新`debug/INDEX.md`，记录该轮调试的时间、问题、进展、结论，并更新问题状态
 > 
-> **📄 INDEX.md模板**: 如果`debug/INDEX.md`不存在，使用`debug-system/templates/INDEX-template.md`创建
+> **📄 INDEX.md模板**: 如果`debug/INDEX.md`不存在，使用`templates/INDEX-template.md`创建
 
 ---
 
@@ -234,13 +234,12 @@ Copy-Item "debug-system\workflow_仿真图像保存错误_v2.md" "debug\18\"
 
 ### 文件命名规范
 - 调试轮次：数字编号 (1/, 2/, ...)
-- 工作流文档：workflow_任务名_v2.md
+- 工作流文档：debug_workflow_任务名.md
 - 归档文件：按重要性分类存放
 
 ---
 
-**V2版本更新**: 2025-06-20
-- 简化语言表达
-- 强化人工确认机制  
-- 精炼经验总结
-- 移除具体案例细节
+**模板更新**: 2025-06-24
+- 文件重命名为debug_workflow_template.md
+- 更新文档中所有相关引用
+- 统一命名规范为功能_workflow_template.md格式
