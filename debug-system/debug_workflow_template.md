@@ -13,6 +13,7 @@
 
 ```powershell
 # 1. 描述问题 → 2. 确认解析 → 3. 创建文档 → 4. 初始化环境
+cd debug-system
 Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 mkdir debug; cd debug; $round = 1
 mkdir $round\{src,core,archive,deprecated,docs,logs,files}
@@ -74,9 +75,11 @@ AI提取关键信息并生成标准化任务描述。
 **AI必须执行以下操作**：
 
 ```powershell
+cd debug-system
 Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 ```
 
+- **首先进入debug-system目录**：确保在工作流模板文档所在的正确目录
 - 为当前调试任务创建专用的工作流文档
 - 文档名应反映具体的调试任务（如：debug_workflow_高DPI缩放问题.md）
 - **更新自动生成区域**：在任务专用文档中填充具体的任务信息
@@ -136,6 +139,7 @@ Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
 - 定位问题范围
 - **AI可能请求**: 网络资源、环境信息、配置详情等额外信息
 - **推荐**: 使用小工作集方法隔离问题
+- **注意**: 不要急于动手，应该进行充分的观察和思考，这会提升工作效率
 
 ### 6.3 💡 修正
 

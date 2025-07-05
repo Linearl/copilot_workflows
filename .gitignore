@@ -3,6 +3,9 @@
 # AI协作配置文件 - 包含敏感信息，不应上传到公共仓库
 .copilot-instructions.md
 
+# git提交规范流程
+git-commit-workflow.md
+
 # 工作流生成的临时文件
 debug-system/debug_workflow_*.md
 !debug-system/debug_workflow_template.md
