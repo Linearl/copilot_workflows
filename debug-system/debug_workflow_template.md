@@ -15,12 +15,16 @@
 # 1. 描述问题 → 2. 确认解析 → 3. 创建文档 → 4. 初始化环境
 cd debug-system
 Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
-mkdir debug; cd debug; $round = 1
+mkdir debug; cd debug
+# 创建工作流文档存档目录
+mkdir workflow_archive -ErrorAction SilentlyContinue
+$round = 1
 mkdir $round\{src,core,archive,deprecated,docs,logs,files}
+# 初始化Bug管理系统
+mkdir ..\buglist -ErrorAction SilentlyContinue
+Copy-Item "..\templates\bug-list-template.md" "..\buglist\bug_list.md" -ErrorAction SilentlyContinue
 # 5. 开始循环：计划→分析→修正→执行→检查→记录
 ```
-
----
 
 ## 🤖 自动生成区域
 
@@ -37,12 +41,19 @@ mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 
 ## 📁 目录结构
 
-```
+```text
 debug-system/
 ├── debug_workflow_template.md      # 调试工作流模板
 ├── debug_workflow_任务名.md         # 任务专用文档
 ├── templates/                     # 模板文件
+│   ├── bug-list-template.md      # Bug清单模板
+│   └── bug-report-template.md    # Bug说明文档模板
+├── buglist/                       # Bug管理目录
+│   ├── bug_list.md               # Bug简要记录和统计 (从模板创建)
+│   ├── to_fix/                   # 待修复Bug说明文档
+│   └── fixed/                    # 已解决Bug说明文档
 └── debug/
+    ├── workflow_archive/          # 已完成任务的工作流文档存档
     └── 1/                        # 调试轮次
         ├── README.md             # 调试记录
         ├── src/                  # 工作文件
@@ -91,15 +102,22 @@ Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 
 ```powershell
 mkdir debug; cd debug
+# 创建工作流文档存档目录
+mkdir workflow_archive -ErrorAction SilentlyContinue
 $round = (Get-ChildItem -Directory -Name | Where-Object { $_ -match '^\d+$' } | Measure-Object -Maximum).Maximum + 1
 if ($null -eq $round) { $round = 1 }
 mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
+# 初始化Bug管理系统
+mkdir ..\buglist -ErrorAction SilentlyContinue
+Copy-Item "..\debug-system\templates\bug-list-template.md" "..\buglist\bug_list.md" -ErrorAction SilentlyContinue
 ```
 
 - 创建标准化的调试环境目录结构
+- 创建workflow_archive文件夹用于存档已完成任务的工作流文档
 - 确定下一轮调试编号
 - 初始化各个功能目录
+- 创建Bug清单文件（如果不存在）
 
 ### 步骤6：开始调试循环
 
@@ -112,14 +130,51 @@ Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
 **满足条件时的归档步骤**：
 
 1. **🗂️ 执行最终归档**: 将src中的文件按重要性分类到core/archive/deprecated目录
-2. **📄 复制工作流文档**: 将 `debug_workflow_任务名.md`复制到对应的数字文件夹 `debug/{轮次}/`中
-3. **📋 更新INDEX.md**: 记录该轮调试的时间、问题、进展、结论，并更新问题状态
-4. **📝 生成总结报告**: 完成调试轮次的总结文档
+2. **📋 检查并处理Bug列表**:
+   - **检查bug_list.md**: 仔细查看`buglist/bug_list.md`中的待修复Bug列表，确认本次调试是否解决了其中的问题
+   - **移动已解决Bug文档**: 如果本次解决了bug_list.md中记录的Bug，将对应的Bug说明文档从`buglist/to_fix/`移动到`buglist/fixed/`
+   - **更新Bug说明文档**: 在移动后的Bug说明文档中添加解决信息（解决日期、解决方案、相关文件等）
+   - **更新bug_list.md**: 将已解决的Bug从待修复列表移至已解决列表，更新Bug统计信息
+   - **创建新Bug文档**: 为新发现的问题编写详细的Bug说明文档，使用`templates/bug-report-template.md`模板，保存到`buglist/to_fix/`目录，并在bug_list.md中添加记录
+3. **📄 复制工作流文档**: 将 `debug_workflow_任务名.md`复制到对应的数字文件夹 `debug/{轮次}/`中
+4. **� 存档工作流文档**: 将任务专用文档 `debug_workflow_任务名.md`移动到 `debug/workflow_archive/`目录进行存档
+5. **�📋 更新INDEX.md**: 记录该轮调试的时间、问题、进展、结论，并更新问题状态
+6. **📝 生成总结报告**: 完成调试轮次的总结文档
 
 **复制工作流文档示例**：
 
 ```powershell
+# 复制到调试轮次目录
 Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
+# 移动到存档目录
+Move-Item "debug_workflow_仿真图像保存错误.md" "debug\workflow_archive\"
+```
+
+**Bug处理操作示例**：
+
+```powershell
+# 步骤1：检查bug_list.md，确认本次调试解决的Bug
+Get-Content "buglist\bug_list.md" | Select-String "BUG-\d+" | ForEach-Object { Write-Host $_.Line }
+
+# 步骤2：如果解决了现有Bug（如BUG-001），执行以下操作：
+# 移动Bug说明文档到已解决目录
+Move-Item "buglist\to_fix\BUG-001_高DPI缩放问题.md" "buglist\fixed\"
+
+# 步骤3：更新被移动的Bug说明文档，添加解决信息
+# 在文档中添加：
+# - 解决日期：2025-XX-XX
+# - 解决方案：[具体解决方案描述]
+# - 相关文件：[修改的文件列表]
+# - 调试轮次：第X轮
+
+# 步骤4：更新bug_list.md
+# 从待修复列表中移除已解决的Bug
+# 在已解决列表中添加该Bug
+# 更新统计信息（待修复数量-1，已解决数量+1）
+
+# 步骤5：如果发现新Bug，创建新的Bug说明文档
+Copy-Item "templates\bug-report-template.md" "buglist\to_fix\BUG-XXX_新问题描述.md"
+# 在bug_list.md中添加新Bug的记录
 ```
 
 ---
@@ -135,11 +190,12 @@ Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
 ### 6.2 🔍 分析
 
 - 复现问题现象
-- 分析错误原因
 - 定位问题范围
+- 确定关键链路
+- 分析错误原因
 - **AI可能请求**: 网络资源、环境信息、配置详情等额外信息
 - **推荐**: 使用小工作集方法隔离问题
-- **注意**: 不要急于动手，应该进行充分的观察和思考，这会提升工作效率
+- **注意**: 不要急于动手，应该进行充分和仔细的观察和思考，这会提升工作效率
 
 ### 6.3 💡 修正
 
@@ -149,7 +205,7 @@ Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
 
 ### 6.4 ⚙️ 执行
 
-- 实施代码修改
+- 实施代码修改（务必生成代码文件作为过程资产，不要使用-c在终端执行python代码）
 - 执行测试验证
 
 > **🤖 AI限制提醒**:
@@ -197,6 +253,30 @@ Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
 - **用户负责**: 测试执行、结果确认、决策选择、提供额外信息
 - **信息请求**: AI可能请求网络资源、环境信息、配置详情等
 - **协作要点**: 及时反馈测试结果，明确描述现象，配合信息收集
+
+#### 多层级测试策略
+
+- **原理**: 建立自动化测试金字塔，快速定位问题层级
+- **适用**: 复杂系统调试和修复验证
+- **步骤**: 单元测试 → 集成测试 → 端到端测试 → 问题定位
+
+#### 数据流验证法
+
+- **原理**: 验证工作流间参数传递的完整性和正确性
+- **适用**: 多模块协作和接口调用问题
+- **步骤**: 输入验证 → 处理监控 → 输出检查 → 异常捕获
+
+#### 前置条件检查
+
+- **原理**: 执行前确认环境和依赖满足运行条件
+- **适用**: 环境敏感和依赖复杂的系统
+- **步骤**: 环境检查 → 依赖验证 → 权限确认 → 资源评估
+
+#### 结构化日志记录
+
+- **原理**: 建立详细的执行轨迹和状态记录机制
+- **适用**: 问题复现困难和调试信息不足场景
+- **步骤**: 关键节点记录 → 异常详情捕获 → 性能指标监控 → 状态快照保存
 
 ### 📋 最佳实践
 
@@ -276,8 +356,11 @@ Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
 
 ---
 
-**模板更新**: 2025-06-24
+**模板更新**: 2025-07-06
 
-- 文件重命名为debug_workflow_template.md
-- 更新文档中所有相关引用
+- 优化Bug管理系统结构
+- 将bug_list.md移至templates目录作为bug-list-template.md
+- 更新工作流程以引用新的模板结构
+- 添加workflow_archive目录用于存档已完成任务的工作流文档
+- 完善步骤5和步骤7的文档存档流程
 - 统一命名规范为功能_workflow_template.md格式
