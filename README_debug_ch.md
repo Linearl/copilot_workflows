@@ -48,6 +48,9 @@
 mkdir debug
 cd debug
 
+# 创建工作流文档存档目录
+mkdir workflow_archive -ErrorAction SilentlyContinue
+
 # 设置轮次变量
 $round = 1
 
@@ -56,6 +59,10 @@ mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 
 # 复制README模板
 Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
+
+# 初始化Bug管理系统
+mkdir ..\buglist -ErrorAction SilentlyContinue
+Copy-Item "..\debug-system\templates\bug-list-template.md" "..\buglist\bug_list.md" -ErrorAction SilentlyContinue
 ```
 
 ### 步骤2: 复制工作流模板
@@ -138,16 +145,30 @@ code debug_workflow_[任务名称].md
 ### 目录结构说明
 
 ```
-debug/
-└── 1/                          # 第一轮调试
-    ├── src/         🐍         # 工作代码目录
-    ├── core/        🔴         # 核心解决方案 (5-10个关键文件)
-    ├── archive/     📚         # 重要里程碑文件
-    ├── deprecated/  🗑️         # 废弃文件
-    ├── docs/        📝         # 分析文档
-    ├── logs/        📋         # 测试日志
-    ├── files/       🗂️         # 其他支持文件
-    └── README.md               # 调试会话文档
+debug-system/
+├── debug_workflow_template.md          # 调试工作流模板
+├── templates/                         # 模板文件集合
+│   ├── README-template.md             # 调试会话文档模板
+│   ├── summary-template.md            # 项目总结模板
+│   ├── experience-template.md         # 经验总结模板
+│   ├── INDEX-template.md              # 调试索引模板
+│   ├── bug-list-template.md           # Bug清单模板
+│   └── bug-report-template.md         # Bug报告模板
+├── buglist/                           # Bug管理目录
+│   ├── bug_list.md                    # Bug简要记录和统计
+│   ├── to_fix/                        # 待修复Bug说明文档
+│   └── fixed/                         # 已修复Bug说明文档
+└── debug/                             # 调试工作目录
+    ├── workflow_archive/              # 工作流文档存档
+    └── 1/                             # 第一轮调试
+        ├── src/         🐍            # 工作代码目录
+        ├── core/        🔴            # 核心解决方案 (5-10个关键文件)
+        ├── archive/     📚            # 重要里程碑文件
+        ├── deprecated/  🗑️            # 废弃文件
+        ├── docs/        📝            # 分析文档
+        ├── logs/        📋            # 测试日志
+        ├── files/       🗂️            # 其他支持文件
+        └── README.md                  # 调试会话文档
 ```
 
 ### 符号系统

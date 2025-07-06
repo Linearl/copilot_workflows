@@ -48,6 +48,9 @@ The Debug Workflow is a systematic debugging solution based on GitHub Copilot, s
 mkdir debug
 cd debug
 
+# Create workflow archive directory
+mkdir workflow_archive -ErrorAction SilentlyContinue
+
 # Set round variable
 $round = 1
 
@@ -56,6 +59,10 @@ mkdir $round\{src,core,archive,deprecated,docs,logs,files}
 
 # Copy README template
 Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
+
+# Initialize Bug management system
+mkdir ..\buglist -ErrorAction SilentlyContinue
+Copy-Item "..\debug-system\templates\bug-list-template.md" "..\buglist\bug_list.md" -ErrorAction SilentlyContinue
 ```
 
 ### Step 2: Copy Workflow Template
@@ -138,16 +145,30 @@ Automatically suggest: "I notice you're working on debugging. Would you like me 
 ### Directory Structure Explanation
 
 ```
-debug/
-└── 1/                          # First debugging round
-    ├── src/         🐍         # Working code directory
-    ├── core/        🔴         # Core solutions (5-10 key files)
-    ├── archive/     📚         # Important milestone files
-    ├── deprecated/  🗑️         # Deprecated files
-    ├── docs/        📝         # Analysis documents
-    ├── logs/        📋         # Test logs
-    ├── files/       🗂️         # Other supporting files
-    └── README.md               # Debug session documentation
+debug-system/
+├── debug_workflow_template.md          # Debug workflow template
+├── templates/                         # Template collection
+│   ├── README-template.md             # Debug session documentation template
+│   ├── summary-template.md            # Project summary template
+│   ├── experience-template.md         # Experience summary template
+│   ├── INDEX-template.md              # Debug index template
+│   ├── bug-list-template.md           # Bug list template
+│   └── bug-report-template.md         # Bug report template
+├── buglist/                           # Bug management directory
+│   ├── bug_list.md                    # Bug record and statistics
+│   ├── to_fix/                        # Bug documentation to be fixed
+│   └── fixed/                         # Fixed bug documentation
+└── debug/                             # Debug working directory
+    ├── workflow_archive/              # Workflow document archive
+    └── 1/                             # First debugging round
+        ├── src/         🐍            # Working code directory
+        ├── core/        🔴            # Core solutions (5-10 key files)
+        ├── archive/     📚            # Important milestone files
+        ├── deprecated/  🗑️            # Deprecated files
+        ├── docs/        📝            # Analysis documents
+        ├── logs/        📋            # Test logs
+        ├── files/       🗂️            # Other supporting files
+        └── README.md                  # Debug session documentation
 ```
 
 ### Symbol System

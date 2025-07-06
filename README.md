@@ -68,7 +68,14 @@ copilot_debug_workflow/
 │   │   ├── README-template.md           # Debug session documentation | 调试会话文档模板
 │   │   ├── summary-template.md          # Project summary template | 项目总结模板
 │   │   ├── experience-template.md       # Experience summary template | 经验总结模板
-│   │   └── INDEX-template.md            # Debug index template | 调试索引模板
+│   │   ├── INDEX-template.md            # Debug index template | 调试索引模板
+│   │   ├── bug-list-template.md         # Bug list template | Bug清单模板
+│   │   └── bug-report-template.md       # Bug report template | Bug报告模板
+│   ├── buglist/                         # Bug management directory | Bug管理目录
+│   │   ├── to_fix/                      # Bugs to be fixed | 待修复Bug
+│   │   └── fixed/                       # Fixed bugs | 已修复Bug
+│   ├── debug/                           # Debug working directory | 调试工作目录
+│   │   └── workflow_archive/            # Archived workflow documents | 工作流文档存档
 │   └── docs/
 │       └── 常用符号.md                   # Symbol reference guide | 符号参考指南
 ├── file-organize-system/                # File organization workflow supporting files | 文件整理工作流支持文件
