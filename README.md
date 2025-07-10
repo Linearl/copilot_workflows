@@ -46,6 +46,7 @@ This system provides two main workflows designed for AI-assisted development:
 
 ### Debug Workflow Features | 调试工作流功能
 - **Systematic Debugging Process** | **系统化调试流程**: 6-step debugging cycle for consistent problem-solving | 6步调试循环，确保问题解决的一致性
+- **Official Documentation Verification** | **官方文档验证法**: New core methodology using fetch_webpage tool to verify API usage | 新增核心方法论，使用fetch_webpage工具验证API用法
 - **Human-AI Collaboration** | **人机协作**: Optimized workflow for AI-assisted debugging | 针对AI辅助调试优化的工作流
 - **Template Collection** | **模板集合**: Pre-built templates for documentation and workflow management | 预构建的文档和工作流管理模板
 
@@ -308,5 +309,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Created** | **创建时间**: June 21, 2025 | 2025年6月21日  
-**Version** | **版本**: v2.1  
+**Last Updated** | **最后更新**: July 10, 2025 | 2025年7月10日  
+**Version** | **版本**: v2.2  
 **Use Cases** | **适用场景**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup | 技术项目调试、问题排查、系统优化、文件整理、项目清理
+
+**v2.2 Updates** | **v2.2 更新内容**:
+- Added Official Documentation Verification Method to debug workflow | 调试工作流新增官方文档验证法
+- Enhanced API usage verification with fetch_webpage tool | 增强API使用验证功能，使用fetch_webpage工具
+- Updated all README documentation | 更新所有README文档

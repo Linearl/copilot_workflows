@@ -228,6 +228,7 @@ Used to record lessons learned during debugging:
 - **Expected Results**: Clearly state the expected correct behavior
 
 #### Verification Methods
+- **Prioritize Official Documentation Verification**: Use fetch_webpage tool to obtain official examples and verify correct API usage
 - **Small Step Verification**: Break complex problems into small verification steps
 - **Regression Testing**: Perform comprehensive testing after each modification
 - **Documentation**: Detailed record of each verification step and result
@@ -243,6 +244,32 @@ Used to record lessons learned during debugging:
 - **Real-time Updates**: Update README documentation in real-time during debugging
 - **Cross-references**: Add reference links to related files in documentation
 - **Summary**: Summarize at the end of each debugging round
+
+### 🧠 Core Debugging Methodologies
+
+#### Official Documentation Verification Method ⭐ (New)
+
+- **Core Principle**: Verify correct API usage through official documentation to avoid debugging based on incorrect assumptions
+- **Tool Support**: Use fetch_webpage tool to retrieve official documentation and example code
+- **Applicable Scenarios**: Third-party library usage errors, API call failures, version compatibility issues
+- **Implementation Steps**:
+  1. Identify relevant technology stack and library official documentation
+  2. Use tools to obtain official examples and best practices
+  3. Compare differences between current code and official examples
+  4. Correct code implementation based on official standards
+- **Core Value**: Ensure solutions comply with official standards, improving code quality and stability
+
+#### Environment Pre-check Method
+
+- **Principle**: Confirm environment and dependencies meet operational requirements before execution
+- **Applicable**: Environment-sensitive and dependency-complex systems
+- **Steps**: Environment check → Dependency verification → Permission confirmation → Resource assessment
+
+#### Structured Logging
+
+- **Principle**: Establish detailed execution traces and state recording mechanisms
+- **Applicable**: Scenarios with difficult problem reproduction and insufficient debugging information
+- **Steps**: Key point recording → Exception detail capture → Performance metric monitoring → State snapshot preservation
 
 ## FAQ
 
@@ -263,6 +290,11 @@ Used to record lessons learned during debugging:
 
 ---
 
-**Last Updated**: June 24, 2025  
-**Version**: v2.1  
+**Last Updated**: July 10, 2025  
+**Version**: v2.2  
 **Maintainer**: Copilot Workflow System Team
+
+**v2.2 Updates**:
+- Added core debugging methodology: Official Documentation Verification Method
+- Updated best practices to emphasize the importance of official documentation verification
+- Synchronized with debug_workflow_template.md
