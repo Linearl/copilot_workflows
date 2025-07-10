@@ -6,10 +6,7 @@
 
 - [📋 标准流程](#-标准流程) - 7步完整调试流程
 - [🔄 调试循环](#-调试循环) - 6步核心循环
-- [📁 目4. **📋 更新INDEX.md**: 记录该轮调试的时间、问题、进展、结论，并更新问题状态
-5. **📝 生成总结报告**: 完成调试轮次的总结文档
-
-**问题未彻底解决时的额外步骤**：
+- [📁 目录结构](#-目录结构) -**问题未彻底解决时的额外步骤**：
 
 1. **📝 更新任务专用文档**: 在`debug_workflow_任务名.md`文档结尾处添加本轮进展描述，包括：
    - 本轮解决的问题
@@ -24,8 +21,7 @@
 
 **问题彻底解决时的额外步骤**：
 
-1. **📁 存档任务专用文档**: 将 `debug_workflow_任务名.md`移动到 `debug/workflow_archive/`目录进行最终存档件组织
-- [💡 调试原则](#-调试原则) - 核心方法论
+1. **� 存档任务专用文档**: 将 `debug_workflow_任务名.md`移动到 `debug/workflow_archive/`目录进行最终存档调试原则](#-调试原则) - 核心方法论
 
 ### ⚡ 快速开始
 
@@ -129,13 +125,24 @@ Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
 # 初始化Bug管理系统
 mkdir ..\buglist -ErrorAction SilentlyContinue
 Copy-Item "..\debug-system\templates\bug-list-template.md" "..\buglist\bug_list.md" -ErrorAction SilentlyContinue
+mkdir ..\buglist\to_fix -ErrorAction SilentlyContinue
+mkdir ..\buglist\fixed -ErrorAction SilentlyContinue
+
+# 为当前任务创建Bug说明文档
+$bugId = "BUG-" + (Get-Date -Format "yyyyMMdd-HHmm")
+$bugFile = "..\buglist\to_fix\$bugId`_任务问题描述.md"
+Copy-Item "..\debug-system\templates\bug-report-template.md" $bugFile
+# TODO: 手动编辑Bug说明文档，填写任务专用文档中的问题描述
+# TODO: 更新 ..\buglist\bug_list.md，在待修复列表中添加此Bug记录
 ```
 
 - 创建标准化的调试环境目录结构
 - 创建workflow_archive文件夹用于存档已完成任务的工作流文档
 - 确定下一轮调试编号
 - 初始化各个功能目录
-- 创建Bug清单文件（如果不存在）
+- 创建Bug管理目录结构（如果不存在）
+- **创建当前任务的Bug说明文档**：基于任务专用文档中的问题描述
+- **需要手动操作**：编辑Bug说明文档并更新bug_list.md清单
 
 ### 步骤6：开始调试循环
 
