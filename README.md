@@ -26,6 +26,26 @@ This system embodies this philosophy by transforming debugging and file organiza
 
 > **💡 扩展与定制**: 您可以利用这些现有工作流作为模板，借助Copilot的帮助开发自己的专门工作流，然后在实践中逐步调优。
 
+## 🚀 Why Use Workflows | 使用工作流的优势
+
+### 🎯 Enhanced Focus and Context Management | 增强专注力与上下文管理
+
+Workflows have been extensively tested and optimized to help AI models maintain focus on objectives and automatically preserve context during complex task execution. This structured approach prevents AI from losing track of the original goals while navigating through multi-step processes.
+
+> 工作流经过充分的测试和调优，可以让AI模型在完成复杂工作的过程中，专注目标并自动维护上下文。这种结构化方法防止AI在多步骤过程中偏离原始目标。
+
+### 💰 Optimized Request Efficiency | 优化请求效率
+
+Using workflows can significantly reduce the number of interactions with Copilot, enabling single requests to accomplish more comprehensive work. This efficiency translates directly into cost savings by reducing the consumption of premium request quotas.
+
+> 使用工作流可以有效减少和Copilot的交互次数，让单次请求可以完成更多工作，进而节约高级请求次数，带来直接的成本效益。
+
+### 🔄 Systematic Reproducibility | 系统化可重现性
+
+Workflows ensure consistent results across different sessions and users, transforming ad-hoc problem-solving into reliable, repeatable processes that can be refined and improved over time.
+
+> 工作流确保在不同会话和用户间获得一致的结果，将临时性问题解决转化为可靠、可重复的流程，并能够随时间不断完善和改进。
+
 ## 🎯 Core Workflows | 核心工作流
 
 This system provides two main workflows designed for AI-assisted development:
