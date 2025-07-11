@@ -6,6 +6,26 @@ A comprehensive workflow system based on GitHub Copilot for systematic debugging
 
 > 基于GitHub Copilot的全面工作流系统，用于系统化调试和文件整理。
 
+## 🎯 Core Philosophy | 核心理念
+
+> **"Process as Tool, Tool as Leverage"** | **"流程即工具，工具即杠杆"**
+
+*"New tools are not extensions of old methods, but declarations of new possibilities."* — Kevin Kelly
+
+> *"新工具不是旧方法的延伸，而是新可能性的宣言。"* ——凯文·凯利
+
+The essence of tools is **"reusable leverage"**, while processes are **"industrialized packaging of tools"**. As Kevin Kelly observed, *"The greatest invention of the past 200 years was not any specific tool, but the scientific method itself—a process that reliably produces innovation."*
+
+> 工具的本质是「可复用的杠杆」**，而流程是**「工具的工业化封装」。正如凯文·凯利所言，*"过去200年来最伟大的发明并非具体的工具，而是科学方法本身——这种可靠地产生创新的流程"*。
+
+This system embodies this philosophy by transforming debugging and file organization from ad-hoc activities into **systematic, replicable processes** that serve as powerful leverage tools for AI-assisted development.
+
+> 本系统体现了这一理念，将调试和文件整理从临时性活动转化为**系统化、可复制的流程**，成为AI辅助开发的强大杠杆工具。
+
+**💡 Extend and Customize** | **💡 扩展与定制**: You can leverage these existing workflows as templates to develop your own specialized workflows with Copilot's assistance, then iteratively optimize them through practice.
+
+> **💡 扩展与定制**: 您可以利用这些现有工作流作为模板，借助Copilot的帮助开发自己的专门工作流，然后在实践中逐步调优。
+
 ## 🎯 Core Workflows | 核心工作流
 
 This system provides two main workflows designed for AI-assisted development:
@@ -13,26 +33,26 @@ This system provides two main workflows designed for AI-assisted development:
 > 本系统提供两个主要工作流，专为AI辅助开发设计：
 
 ### 1. Debug Workflow | 调试工作流
-**Template**: `debug-system/debug_workflow_template.md`  
-**Description**: Systematic debugging process with 6-step debugging cycle for consistent problem-solving.
 
-> **模板**: `debug-system/debug_workflow_template.md`  
+**Template**: `debug-system/debug_workflow_template.md`**Description**: Systematic debugging process with 6-step debugging cycle for consistent problem-solving.
+
+> **模板**: `debug-system/debug_workflow_template.md`
 > **说明**: 系统化调试流程，采用6步调试循环确保问题解决的一致性。
 
 **Documentation**: [Debug Workflow Guide (中文)](README_debug_ch.md) | [Debug Workflow Guide (English)](README_debug_en.md)
 
 ### 2. File Organization Workflow | 文件整理工作流
-**Template**: `file-organize-system/file_organize_workflow_template.md`  
-**Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup procedures.
 
-> **模板**: `file-organize-system/file_organize_workflow_template.md`  
+**Template**: `file-organize-system/file_organize_workflow_template.md`**Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup procedures.
+
+> **模板**: `file-organize-system/file_organize_workflow_template.md`
 > **说明**: 全面的文件整理系统，包含三大整理方式和系统化清理流程。
 
 **Documentation**: [File Organization Guide (中文)](README_file_organize_ch.md) | [File Organization Guide (English)](README_file_organize_en.md)
 
 ## 📋 Table of Contents | 目录
 
-- [Features](#-features--功能特点) 
+- [Features](#-features--功能特点)
 - [Quick Start](#-quick-start--快速开始)
 - [Project Structure](#-project-structure--项目结构)
 - [Agent Configuration](#-agent-configuration-recommendations--agent配置建议)
@@ -45,17 +65,20 @@ This system provides two main workflows designed for AI-assisted development:
 ## ✨ Features | 功能特点
 
 ### Debug Workflow Features | 调试工作流功能
+
 - **Systematic Debugging Process** | **系统化调试流程**: 6-step debugging cycle for consistent problem-solving | 6步调试循环，确保问题解决的一致性
 - **Official Documentation Verification** | **官方文档验证法**: New core methodology using fetch_webpage tool to verify API usage | 新增核心方法论，使用fetch_webpage工具验证API用法
 - **Human-AI Collaboration** | **人机协作**: Optimized workflow for AI-assisted debugging | 针对AI辅助调试优化的工作流
 - **Template Collection** | **模板集合**: Pre-built templates for documentation and workflow management | 预构建的文档和工作流管理模板
 
 ### File Organization Features | 文件整理工作流功能
+
 - **Three Organization Approaches** | **三大整理方式**: Priority-based, Type-based, and Timeline-based organization | 优先级导向、类型导向、时间线导向整理
 - **Systematic Cleanup Process** | **系统化清理流程**: Comprehensive file cleanup and archiving procedures | 全面的文件清理和归档流程
 - **Symbol-Based Classification** | **符号分类系统**: Comprehensive symbol guide for project organization | 全面的项目组织符号指南
 
 ### Shared Features | 共享功能
+
 - **Modular Structure** | **模块化结构**: Organized file system for efficient workflow sessions | 有序的文件系统，提高工作流会话效率
 - **Multi-language Support** | **多语言支持**: Comprehensive Chinese and English documentation | 全面的中英文文档支持
 
@@ -107,7 +130,7 @@ cd copilot_debug_workflow
 
 ### 2. Enable Copilot Agent Mode | 启用Copilot Agent模式
 
-1. **Enable Agent Mode** | **启用Agent模式**: Use `@workspace` or agent commands in VS Code | 在VS Code中使用`@workspace`或agent命令
+1. **Enable Agent Mode** | **启用Agent模式**: Use `@workspace` or agent commands in VS Code | 在VS Code中使用 `@workspace`或agent命令
 2. **Start Workflow Session** | **开始工作流会话**: Follow the guidance in the workflow document | 按照工作流文档中的指引进行
 
 ## 🔀 Choose Your Workflow Approach | 选择工作流方式
@@ -140,7 +163,7 @@ Simply describe your problem or organization task in natural language - the work
 
 ### 3B. Configure Auto-Trigger | 配置自动触发
 
-Create a `.copilot-instructions.md` file in your project root to enable automatic workflow triggering: | 在项目根目录创建`.copilot-instructions.md`文件来启用自动工作流触发：
+Create a `.copilot-instructions.md` file in your project root to enable automatic workflow triggering: | 在项目根目录创建 `.copilot-instructions.md`文件来启用自动工作流触发：
 
 ```markdown
 # Copilot Workflow Instructions
@@ -165,6 +188,7 @@ Automatically suggest: "I see you need file organization assistance. Would you l
 Once configured, simply mention your needs in conversation - AI will automatically suggest the appropriate workflow: | 配置完成后，只需在对话中提及您的需求 - AI会自动建议合适的工作流：
 
 **Example triggers** | **触发示例**:
+
 - "I need to debug this error..." → Debug workflow suggestion
 - "I want to organize these files..." → File organization workflow suggestion
 
@@ -177,7 +201,7 @@ Once configured, simply mention your needs in conversation - AI will automatical
 > **📄 Working Document** | **工作文档**: Created in `debug-system/debug_workflow_[task-name].md` | 在 `debug-system/debug_workflow_[任务名].md` 中创建
 
 1. **Problem Description** | **问题描述**: Describe your debugging issue naturally | 自然地描述你的调试问题
-2. **AI Analysis** | **AI分析**: Let the agent parse and understand your problem | 让agent解析并理解你的问题  
+2. **AI Analysis** | **AI分析**: Let the agent parse and understand your problem | 让agent解析并理解你的问题
 3. **User Confirmation** | **用户确认**: Review and confirm the agent's understanding | 检查并确认agent的理解
 4. **Document Creation** | **文档创建**: Agent creates task-specific workflow document | Agent创建任务专用工作流文档
 5. **Environment Setup** | **环境设置**: Initialize organized debug workspace | 初始化有组织的调试工作空间
@@ -221,26 +245,26 @@ Once configured, simply mention your needs in conversation - AI will automatical
 
 ### Debug Workflow Organization | 调试工作流组织
 
-| Symbol | Directory | File Type | Storage Rule | 目录说明 | 文件类型 | 存储规则 |
-|--------|-----------|-----------|--------------|----------|----------|----------|
-| 🔴 | core/ | Core solutions | 5-10 key files | 核心解决方案 | 核心方案 | 5-10个关键文件 |
-| 📚 | archive/ | Important milestones | Staged results | 重要里程碑 | 阶段性成果 | 重要调试历程 |
-| 🗑️ | deprecated/ | Obsolete/replaced | Discarded files | 废弃/替换 | 废弃文件 | 无效或被替代文件 |
-| 📝 | docs/ | Analysis documents | Documentation | 分析文档 | 说明文档 | 分析和说明文档 |
-| 📋 | logs/ | Test logs | Runtime records | 测试日志 | 运行记录 | 测试和运行日志 |
-| 🗂️ | files/ | Other files | Supporting files | 其他文件 | 支持文件 | 辅助和支持文件 |
-| 🐍 | src/ | Working directory | Code and scripts during debugging | 工作目录 | 调试代码 | 调试过程中的代码和脚本 |
+| Symbol | Directory   | File Type            | Storage Rule                      | 目录说明     | 文件类型   | 存储规则               |
+| ------ | ----------- | -------------------- | --------------------------------- | ------------ | ---------- | ---------------------- |
+| 🔴     | core/       | Core solutions       | 5-10 key files                    | 核心解决方案 | 核心方案   | 5-10个关键文件         |
+| 📚     | archive/    | Important milestones | Staged results                    | 重要里程碑   | 阶段性成果 | 重要调试历程           |
+| 🗑️   | deprecated/ | Obsolete/replaced    | Discarded files                   | 废弃/替换    | 废弃文件   | 无效或被替代文件       |
+| 📝     | docs/       | Analysis documents   | Documentation                     | 分析文档     | 说明文档   | 分析和说明文档         |
+| 📋     | logs/       | Test logs            | Runtime records                   | 测试日志     | 运行记录   | 测试和运行日志         |
+| 🗂️   | files/      | Other files          | Supporting files                  | 其他文件     | 支持文件   | 辅助和支持文件         |
+| 🐍     | src/        | Working directory    | Code and scripts during debugging | 工作目录     | 调试代码   | 调试过程中的代码和脚本 |
 
 ### File Organization Workflow System | 文件整理工作流系统
 
-| Symbol | Directory | Organization Type | Storage Rule | 目录说明 | 整理类型 | 存储规则 |
-|--------|-----------|-------------------|--------------|----------|----------|----------|
-| ⭐ | priority/ | Priority-based | High/Medium/Low priority files | 优先级导向 | 高/中/低优先级文件 | 按重要性分类 |
-| 📁 | type/ | Type-based | By file type and format | 类型导向 | 按文件类型和格式 | 按格式分类 |
-| 📅 | timeline/ | Timeline-based | By creation/modification time | 时间线导向 | 按创建/修改时间 | 按时间分类 |
-| 🔴 | core/ | Core files | Essential project files | 核心文件 | 项目核心文件 | 5-10个关键文件 |
-| 📚 | archive/ | Archive | Historical versions | 归档 | 历史版本 | 重要历史文件 |
-| 🗑️ | deprecated/ | Deprecated | Obsolete files | 废弃 | 过时文件 | 无效或被替代文件 |
+| Symbol | Directory   | Organization Type | Storage Rule                   | 目录说明   | 整理类型           | 存储规则         |
+| ------ | ----------- | ----------------- | ------------------------------ | ---------- | ------------------ | ---------------- |
+| ⭐     | priority/   | Priority-based    | High/Medium/Low priority files | 优先级导向 | 高/中/低优先级文件 | 按重要性分类     |
+| 📁     | type/       | Type-based        | By file type and format        | 类型导向   | 按文件类型和格式   | 按格式分类       |
+| 📅     | timeline/   | Timeline-based    | By creation/modification time  | 时间线导向 | 按创建/修改时间    | 按时间分类       |
+| 🔴     | core/       | Core files        | Essential project files        | 核心文件   | 项目核心文件       | 5-10个关键文件   |
+| 📚     | archive/    | Archive           | Historical versions            | 归档       | 历史版本           | 重要历史文件     |
+| 🗑️   | deprecated/ | Deprecated        | Obsolete files                 | 废弃       | 过时文件           | 无效或被替代文件 |
 
 ## 📚 Templates | 模板资源
 
@@ -267,10 +291,11 @@ The `file-organize-system/templates/` directory contains: | `file-organize-syste
 ### Main Documentation | 主要文档
 
 - **Debug Workflow Documentation** | **调试工作流文档**:
+
   - [中文说明](README_debug_ch.md): 详细的调试工作流中文说明
   - [English Guide](README_debug_en.md): Comprehensive debug workflow English guide
-  
 - **File Organization Documentation** | **文件整理工作流文档**:
+
   - [中文说明](README_file_organize_ch.md): 详细的文件整理工作流中文说明
   - [English Guide](README_file_organize_en.md): Comprehensive file organization English guide
 
@@ -308,12 +333,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Created** | **创建时间**: June 21, 2025 | 2025年6月21日  
-**Last Updated** | **最后更新**: July 10, 2025 | 2025年7月10日  
-**Version** | **版本**: v2.2  
+**Created** | **创建时间**: June 21, 2025 | 2025年6月21日
+**Last Updated** | **最后更新**: July 10, 2025 | 2025年7月10日
+**Version** | **版本**: v2.2
 **Use Cases** | **适用场景**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup | 技术项目调试、问题排查、系统优化、文件整理、项目清理
 
 **v2.2 Updates** | **v2.2 更新内容**:
+
 - Added Official Documentation Verification Method to debug workflow | 调试工作流新增官方文档验证法
 - Enhanced API usage verification with fetch_webpage tool | 增强API使用验证功能，使用fetch_webpage工具
 - Updated all README documentation | 更新所有README文档
