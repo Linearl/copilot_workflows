@@ -1,6 +1,6 @@
 # File Organization Workflow Detailed Guide | 文件整理工作流详细指南
 
-> 🌍 **Language Version | 语言版本**: [中文版本](README_file_organize_ch.md) | [Back to Main](README.md)
+> 🌍 **Language Version | 语言版本**: [中文版本](README.md) | [Back to Main](../README.md)
 
 ## 📋 Table of Contents
 

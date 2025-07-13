@@ -1,6 +1,6 @@
 # Debug Workflow Detailed Guide | 调试工作流详细指南
 
-> 🌍 **Language Version | 语言版本**: [中文版本](README_debug_ch.md) | [Back to Main](README.md)
+> 🌍 **Language Version | 语言版本**: [中文版本](README.md) | [Back to Main](../README.md)
 
 ## 📋 Table of Contents
 

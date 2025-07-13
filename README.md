@@ -8,7 +8,8 @@ A comprehensive workflow system based on GitHub Copilot for systematic debugging
 
 ## 🎯 Core Philosophy | 核心理念
 
-> **"Process as Tool, Tool as Leverage"** | **"流程即工具，工具即杠杆"**
+> **"Process as Tool, Tool as Leverage"** 
+**"流程即工具，工具即杠杆"**
 
 *"New tools are not extensions of old methods, but declarations of new possibilities."* — Kevin Kelly
 
@@ -48,13 +49,14 @@ Workflows ensure consistent results across different sessions and users, transfo
 
 ## 🎯 Core Workflows | 核心工作流
 
-This system provides two main workflows designed for AI-assisted development:
+This system provides three main workflows designed for AI-assisted development:
 
-> 本系统提供两个主要工作流，专为AI辅助开发设计：
+> 本系统提供三个主要工作流，专为AI辅助开发设计：
 
 ### 1. Debug Workflow | 调试工作流
 
-**Template**: `debug-system/debug_workflow_template.md`**Description**: Systematic debugging process with 6-step debugging cycle for consistent problem-solving.
+**Template**: `debug-system/debug_workflow_template.md`
+**Description**: Systematic debugging process with 6-step debugging cycle for consistent problem-solving.
 
 > **模板**: `debug-system/debug_workflow_template.md`
 > **说明**: 系统化调试流程，采用6步调试循环确保问题解决的一致性。
@@ -63,12 +65,23 @@ This system provides two main workflows designed for AI-assisted development:
 
 ### 2. File Organization Workflow | 文件整理工作流
 
-**Template**: `file-organize-system/file_organize_workflow_template.md`**Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup procedures.
+**Template**: `file-organize-system/file_organize_workflow_template.md`
+**Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup procedures.
 
 > **模板**: `file-organize-system/file_organize_workflow_template.md`
 > **说明**: 全面的文件整理系统，包含三大整理方式和系统化清理流程。
 
 **Documentation**: [File Organization Guide (中文)](README_file_organize_ch.md) | [File Organization Guide (English)](README_file_organize_en.md)
+
+### 3. Analysis Workflow | 分析工作流
+
+**Template**: `analysis_system/analysis_workflow_template.md`
+**Description**: Comprehensive code analysis and quality assessment system with multi-dimensional analysis approaches for technical debt identification, performance optimization, and refactoring guidance.
+
+> **模板**: `analysis_system/analysis_workflow_template.md`
+> **说明**: 全面的代码分析和质量评估系统，采用多维度分析方法进行技术债务识别、性能优化和重构指导。
+
+**Documentation**: [Analysis System Guide (中文)](analysis_system/README.md) | Analysis System Guide (English) (Coming Soon)
 
 ## 📋 Table of Contents | 目录
 
@@ -97,6 +110,13 @@ This system provides two main workflows designed for AI-assisted development:
 - **Systematic Cleanup Process** | **系统化清理流程**: Comprehensive file cleanup and archiving procedures | 全面的文件清理和归档流程
 - **Symbol-Based Classification** | **符号分类系统**: Comprehensive symbol guide for project organization | 全面的项目组织符号指南
 
+### Analysis Workflow Features | 分析工作流功能
+
+- **Multi-dimensional Analysis** | **多维度分析**: Code structure, quality, performance, security, and technical debt assessment | 代码结构、质量、性能、安全性和技术债务评估
+- **Automated Tools** | **自动化工具**: Code metrics collector, dependency analyzer, and report generator | 代码指标收集器、依赖关系分析器和报告生成器
+- **Systematic Reporting** | **系统化报告**: Structured analysis reports with quantitative metrics and actionable insights | 带有量化指标和可行见解的结构化分析报告
+- **Template-driven Process** | **模板驱动流程**: Standardized templates for consistent analysis across projects | 标准化模板确保项目间分析的一致性
+
 ### Shared Features | 共享功能
 
 - **Modular Structure** | **模块化结构**: Organized file system for efficient workflow sessions | 有序的文件系统，提高工作流会话效率
@@ -104,8 +124,8 @@ This system provides two main workflows designed for AI-assisted development:
 
 ## 📁 Project Structure | 项目结构
 
-```
-copilot_debug_workflow/
+```text
+copilot_workflows/
 ├── debug-system/                        # Debug workflow supporting files | 调试工作流支持文件
 │   ├── debug_workflow_template.md       # Debug workflow template | 调试工作流模板
 │   ├── templates/                       # Debug template collection | 调试模板集合
@@ -132,6 +152,25 @@ copilot_debug_workflow/
 │   ├── tools/                           # Organization tools and utilities | 整理工具和实用程序
 │   ├── organize/                        # Organization task working directory | 整理任务工作目录
 │   └── version.md                       # Version history | 版本历史
+├── analysis_system/                     # Code analysis workflow supporting files | 代码分析工作流支持文件
+│   ├── analysis_workflow_template.md    # Analysis workflow template | 分析工作流模板
+│   ├── README.md                        # Analysis system documentation | 分析系统文档
+│   ├── templates/                       # Analysis template collection | 分析模板集合
+│   │   ├── analysis-implementation-template.md # Implementation template | 实施模板
+│   │   ├── analysis-report-template.md  # Analysis report template | 分析报告模板
+│   │   ├── code-review-template.md      # Code review template | 代码评审模板
+│   │   ├── performance-analysis-template.md # Performance analysis template | 性能分析模板
+│   │   ├── refactor-plan-template.md    # Refactoring plan template | 重构计划模板
+│   │   └── summary-template.md          # Summary template | 总结模板
+│   ├── tools/                           # Analysis tools and utilities | 分析工具和实用程序
+│   │   ├── code-metrics-collector.py    # Code metrics collection tool | 代码指标收集工具
+│   │   ├── generate-analysis-report.ps1 # Report generation tool | 报告生成工具
+│   │   └── analysis-tools-README.md     # Tools usage documentation | 工具使用说明
+│   ├── tasks/                           # Analysis task archive directory | 分析任务归档目录
+│   │   └── README.md                    # Archive directory documentation | 归档目录说明
+│   ├── docs/                            # Analysis documentation | 分析文档资料
+│   └── case-studies/                    # Analysis case studies | 分析案例研究
+│       └── README.md                    # Case studies documentation | 案例研究说明
 ├── README_debug_ch.md                   # Debug workflow Chinese guide | 调试工作流中文指南
 ├── README_debug_en.md                   # Debug workflow English guide | 调试工作流英文指南
 ├── README_file_organize_ch.md           # File organization Chinese guide | 文件整理工作流中文指南
@@ -169,6 +208,9 @@ code debug-system/debug_workflow_template.md
 
 # For file organization tasks | 文件整理任务  
 code file-organize-system/file_organize_workflow_template.md
+
+# For code analysis tasks | 代码分析任务
+code analysis_system/analysis_workflow_template.md
 ```
 
 > **📝 Note** | **说明**: These are template files. The actual workflow documents will be automatically generated when you start the workflow process. | 这些是模板文件。实际的工作流文档会在开始工作流程时自动生成。
@@ -198,9 +240,14 @@ Automatically suggest: "I notice you're working on debugging. Would you like me 
 When user mentions: file organization, cleanup, directory restructure, file management, project organization
 Automatically suggest: "I see you need file organization assistance. Would you like me to start the file organization workflow? I can help you systematically organize files using priority-based, type-based, or timeline-based approaches."
 
+### For Analysis Workflow | 分析工作流触发
+When user mentions: code analysis, code quality, performance optimization, technical debt, refactoring, architecture review
+Automatically suggest: "I see you need code analysis assistance. Would you like me to start the analysis workflow? I can help you systematically analyze code quality, identify technical debt, and provide optimization recommendations."
+
 ## Workflow Templates | 工作流模板
 - Debug Template: `debug-system/debug_workflow_template.md`
 - File Organization Template: `file-organize-system/file_organize_workflow_template.md`
+- Analysis Template: `analysis_system/analysis_workflow_template.md`
 ```
 
 ### 4B. Natural Language Interaction | 自然语言交互
@@ -211,6 +258,7 @@ Once configured, simply mention your needs in conversation - AI will automatical
 
 - "I need to debug this error..." → Debug workflow suggestion
 - "I want to organize these files..." → File organization workflow suggestion
+- "I need to analyze this code quality..." → Analysis workflow suggestion
 
 ---
 
@@ -238,6 +286,17 @@ Once configured, simply mention your needs in conversation - AI will automatical
 4. **Systematic Organization** | **系统化整理**: Execute the chosen organization approach | 执行选定的整理方法
 5. **Cleanup and Archiving** | **清理和归档**: Remove redundant files and archive important ones | 清理多余文件并归档重要文件
 6. **Documentation** | **文档记录**: Document the organization process and results | 记录整理过程和结果
+
+### For Analysis Workflow | 分析工作流流程
+
+> **📄 Working Document** | **工作文档**: Created in `analysis_system/tasks/[task-id]/analysis_workflow_[task-name].md` | 在 `analysis_system/tasks/[任务ID]/analysis_workflow_[任务名].md` 中创建
+
+1. **Project Analysis** | **项目分析**: Understand project structure and analysis requirements | 理解项目结构和分析需求
+2. **Analysis Planning** | **分析规划**: Define analysis scope, dimensions, and success criteria | 定义分析范围、维度和成功标准
+3. **Environment Setup** | **环境设置**: Initialize analysis workspace and tools | 初始化分析工作空间和工具
+4. **Multi-dimensional Analysis** | **多维度分析**: Execute code structure, quality, performance, and security analysis | 执行代码结构、质量、性能和安全性分析
+5. **Report Generation** | **报告生成**: Generate comprehensive analysis reports with metrics and recommendations | 生成包含指标和建议的全面分析报告
+6. **Documentation and Archiving** | **文档记录和归档**: Document analysis process and archive results | 记录分析过程并归档结果
 
 ## 🤖 Agent Configuration Recommendations | Agent配置建议
 
@@ -286,6 +345,20 @@ Once configured, simply mention your needs in conversation - AI will automatical
 | 📚     | archive/    | Archive           | Historical versions            | 归档       | 历史版本           | 重要历史文件     |
 | 🗑️   | deprecated/ | Deprecated        | Obsolete files                 | 废弃       | 过时文件           | 无效或被替代文件 |
 
+### Analysis Workflow Organization | 分析工作流组织
+
+> **基于总-分-总结构**: 每个分析主题包含总体规划目录和多个循环分析轮次目录
+
+| Symbol | Directory Level      | Directory Name     | Purpose & Storage Rule              | 目录层级说明   | 目录名称       | 用途与存储规则                       |
+| ------ | -------------------- | ------------------ | ----------------------------------- | -------------- | -------------- | ------------------------------------ |
+| 🏗️     | Topic Level         | 项目名_分析主题/   | Individual analysis topic container | 主题级别       | 分析主题容器   | 独立分析主题的容器目录               |
+| 📋     | Topic/master_plan/  | master_plan/       | Overall planning and final reports  | 主题-总体规划  | 总体规划目录   | 总体分析计划和最终汇总报告           |
+| 🔄     | Topic/Round/        | N_具体任务名/      | Individual analysis round container | 主题-轮次级别  | 单轮分析容器   | 第N轮循环分析的容器目录              |
+| 📝     | Round/summary/      | summary/           | Core outputs and key documents      | 轮次-核心输出  | 核心文档归档   | 轮次核心输出文档（计划、报告、总结） |
+| 📊     | Round/reports/      | reports/           | Detailed analysis reports           | 轮次-详细报告  | 分析报告目录   | 代码审查、性能分析等详细报告         |
+| 📈     | Round/metrics/      | metrics/           | Quantitative data and measurements  | 轮次-量化数据  | 指标数据目录   | 代码复杂度、测试覆盖率等量化指标     |
+| 🔍     | Round/analysis/     | analysis/          | Analysis process and temp results   | 轮次-分析过程  | 分析过程目录   | 分析工作笔记、临时文件、验证脚本     |
+
 ## 📚 Templates | 模板资源
 
 ### Debug System Templates | 调试系统模板
@@ -306,18 +379,33 @@ The `file-organize-system/templates/` directory contains: | `file-organize-syste
 - **plan-template.md**: Planning template for organization tasks | 整理任务计划模板
 - **summary-report-template.md**: Comprehensive summary report template | 综合总结报告模板
 
+### Analysis System Templates | 分析系统模板
+
+The `analysis_system/templates/` directory contains: | `analysis_system/templates/` 目录包含：
+
+- **analysis-implementation-template.md**: Template for analysis implementation planning | 分析实施规划模板
+- **analysis-report-template.md**: Standardized analysis report template | 标准化分析报告模板
+- **code-review-template.md**: Code review and quality assessment template | 代码评审和质量评估模板
+- **performance-analysis-template.md**: Performance analysis and optimization template | 性能分析和优化模板
+- **refactor-plan-template.md**: Refactoring planning and strategy template | 重构规划和策略模板
+- **summary-template.md**: Comprehensive project analysis summary template | 综合项目分析总结模板
+
 ## 📖 Documentation | 文档说明
 
 ### Main Documentation | 主要文档
 
 - **Debug Workflow Documentation** | **调试工作流文档**:
 
-  - [中文说明](README_debug_ch.md): 详细的调试工作流中文说明
-  - [English Guide](README_debug_en.md): Comprehensive debug workflow English guide
+  - [中文说明](debug-system/README.md): 详细的调试工作流中文说明 (Coming Soon)
+  - [English Guide](debug-system/README_en.md): Comprehensive debug workflow English guide (Coming Soon)
 - **File Organization Documentation** | **文件整理工作流文档**:
 
-  - [中文说明](README_file_organize_ch.md): 详细的文件整理工作流中文说明
-  - [English Guide](README_file_organize_en.md): Comprehensive file organization English guide
+  - [中文说明](file-organize-system/README.md): 详细的文件整理工作流中文说明 (Coming Soon)
+  - [English Guide](file-organize-system/README_en.md): Comprehensive file organization English guide (Coming Soon)
+- **Analysis Workflow Documentation** | **分析工作流文档**:
+
+  - [中文说明](analysis_system/README.md): 详细的代码分析工作流中文说明
+  - [English Guide](analysis_system/README_en.md): Comprehensive analysis workflow English guide (Coming Soon)
 
 ### Symbol Reference | 符号参考
 
@@ -354,12 +442,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Created** | **创建时间**: June 21, 2025 | 2025年6月21日
-**Last Updated** | **最后更新**: July 10, 2025 | 2025年7月10日
-**Version** | **版本**: v2.2
-**Use Cases** | **适用场景**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup | 技术项目调试、问题排查、系统优化、文件整理、项目清理
+**Last Updated** | **最后更新**: December 29, 2025 | 2025年12月29日
+**Version** | **版本**: v2.3
+**Use Cases** | **适用场景**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment | 技术项目调试、问题排查、系统优化、文件整理、项目清理、代码分析、质量评估
 
-**v2.2 Updates** | **v2.2 更新内容**:
+**v2.3 Updates** | **v2.3 更新内容**:
 
-- Added Official Documentation Verification Method to debug workflow | 调试工作流新增官方文档验证法
-- Enhanced API usage verification with fetch_webpage tool | 增强API使用验证功能，使用fetch_webpage工具
-- Updated all README documentation | 更新所有README文档
+- Added Analysis Workflow System for comprehensive code analysis | 新增代码分析工作流系统，用于全面的代码分析
+- Enhanced multi-dimensional analysis capabilities with automated tools | 增强多维度分析能力，提供自动化工具支持
+- Added systematic reporting and quantitative metrics for code quality assessment | 新增系统化报告和量化指标，用于代码质量评估
+- Updated project structure and documentation to include analysis workflow | 更新项目结构和文档，包含分析工作流说明
