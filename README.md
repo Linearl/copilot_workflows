@@ -8,8 +8,8 @@ A comprehensive workflow system based on GitHub Copilot for systematic debugging
 
 ## 🎯 Core Philosophy | 核心理念
 
-> **"Process as Tool, Tool as Leverage"** 
-**"流程即工具，工具即杠杆"**
+> **"Process as Tool, Tool as Leverage"**
+> **"流程即工具，工具即杠杆"**
 
 *"New tools are not extensions of old methods, but declarations of new possibilities."* — Kevin Kelly
 
@@ -183,8 +183,8 @@ copilot_workflows/
 ### 1. Clone the Repository | 克隆仓库
 
 ```bash
-git clone https://github.com/Linearl/copilot_debug_workflow.git
-cd copilot_debug_workflow
+git clone https://github.com/Linearl/copilot_workflows.git
+cd copilot_workflows
 ```
 
 ### 2. Enable Copilot Agent Mode | 启用Copilot Agent模式
@@ -225,7 +225,23 @@ Simply describe your problem or organization task in natural language - the work
 
 ### 3B. Configure Auto-Trigger | 配置自动触发
 
-Create a `.copilot-instructions.md` file in your project root to enable automatic workflow triggering: | 在项目根目录创建 `.copilot-instructions.md`文件来启用自动工作流触发：
+#### Step 1: Create Instructions File | 步骤1：创建指令文件
+
+Create a `.github/copilot-instructions.md` file in your project to enable automatic workflow triggering: | 在项目中创建 `.github/copilot-instructions.md` 文件来启用自动工作流触发：
+
+#### Step 2: Configure VS Code Settings | 步骤2：配置VS Code设置
+
+Add the following configuration to your VS Code `settings.json`: | 在VS Code的 `settings.json` 中添加以下配置：
+
+```json
+{
+  "github.copilot.chat.codeGeneration.instructions": [
+    {"file": ".github/copilot-instructions.md"}
+  ]
+}
+```
+
+#### Step 3: Instructions File Content | 步骤3：指令文件内容
 
 ```markdown
 # Copilot Workflow Instructions
@@ -349,15 +365,15 @@ Once configured, simply mention your needs in conversation - AI will automatical
 
 > **基于总-分-总结构**: 每个分析主题包含总体规划目录和多个循环分析轮次目录
 
-| Symbol | Directory Level      | Directory Name     | Purpose & Storage Rule              | 目录层级说明   | 目录名称       | 用途与存储规则                       |
-| ------ | -------------------- | ------------------ | ----------------------------------- | -------------- | -------------- | ------------------------------------ |
-| 🏗️     | Topic Level         | 项目名_分析主题/   | Individual analysis topic container | 主题级别       | 分析主题容器   | 独立分析主题的容器目录               |
-| 📋     | Topic/master_plan/  | master_plan/       | Overall planning and final reports  | 主题-总体规划  | 总体规划目录   | 总体分析计划和最终汇总报告           |
-| 🔄     | Topic/Round/        | N_具体任务名/      | Individual analysis round container | 主题-轮次级别  | 单轮分析容器   | 第N轮循环分析的容器目录              |
-| 📝     | Round/summary/      | summary/           | Core outputs and key documents      | 轮次-核心输出  | 核心文档归档   | 轮次核心输出文档（计划、报告、总结） |
-| 📊     | Round/reports/      | reports/           | Detailed analysis reports           | 轮次-详细报告  | 分析报告目录   | 代码审查、性能分析等详细报告         |
-| 📈     | Round/metrics/      | metrics/           | Quantitative data and measurements  | 轮次-量化数据  | 指标数据目录   | 代码复杂度、测试覆盖率等量化指标     |
-| 🔍     | Round/analysis/     | analysis/          | Analysis process and temp results   | 轮次-分析过程  | 分析过程目录   | 分析工作笔记、临时文件、验证脚本     |
+| Symbol | Directory Level    | Directory Name   | Purpose & Storage Rule              | 目录层级说明  | 目录名称     | 用途与存储规则                       |
+| ------ | ------------------ | ---------------- | ----------------------------------- | ------------- | ------------ | ------------------------------------ |
+| 🏗️   | Topic Level        | 项目名_分析主题/ | Individual analysis topic container | 主题级别      | 分析主题容器 | 独立分析主题的容器目录               |
+| 📋     | Topic/master_plan/ | master_plan/     | Overall planning and final reports  | 主题-总体规划 | 总体规划目录 | 总体分析计划和最终汇总报告           |
+| 🔄     | Topic/Round/       | N_具体任务名/    | Individual analysis round container | 主题-轮次级别 | 单轮分析容器 | 第N轮循环分析的容器目录              |
+| 📝     | Round/summary/     | summary/         | Core outputs and key documents      | 轮次-核心输出 | 核心文档归档 | 轮次核心输出文档（计划、报告、总结） |
+| 📊     | Round/reports/     | reports/         | Detailed analysis reports           | 轮次-详细报告 | 分析报告目录 | 代码审查、性能分析等详细报告         |
+| 📈     | Round/metrics/     | metrics/         | Quantitative data and measurements  | 轮次-量化数据 | 指标数据目录 | 代码复杂度、测试覆盖率等量化指标     |
+| 🔍     | Round/analysis/    | analysis/        | Analysis process and temp results   | 轮次-分析过程 | 分析过程目录 | 分析工作笔记、临时文件、验证脚本     |
 
 ## 📚 Templates | 模板资源
 
