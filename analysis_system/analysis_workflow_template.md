@@ -336,7 +336,8 @@ tasks/
 if ($round -eq $null) {
     $round = "1_初始质量评估"  # 第一轮必须是初始质量评估
 }
-mkdir $round\{summary,reports,metrics,analysis}
+mkdir $round -ErrorAction SilentlyContinue
+mkdir $round\summary, $round\reports, $round\metrics, $round\analysis -ErrorAction SilentlyContinue
 Write-Host "已创建第 $round 轮分析目录结构" -ForegroundColor Green
 ```
 
