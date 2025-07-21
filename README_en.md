@@ -320,13 +320,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: December 29, 2025
-**Version**: v2.3
+**Last Updated**: July 21, 2025
+**Version**: v2.3.2
 **Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment
 
-**v2.3 Updates**:
+**v2.3.2 Updates**:
 
-- Added Analysis Workflow System for comprehensive code analysis
-- Enhanced multi-dimensional analysis capabilities with automated tools
-- Added systematic reporting and quantitative metrics for code quality assessment
-- Updated project structure and documentation to include analysis workflow
+- Restructured project documentation into bilingual versions for better internationalization
+- Optimized configuration file structure, migrated to .github/prompts/ standard directory
+- Enhanced debug-system template system with new task index templates
+- Unified documentation format and cross-references for all three workflows
+- Cleaned up obsolete files and optimized overall project structure

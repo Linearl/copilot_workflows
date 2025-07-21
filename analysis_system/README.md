@@ -283,3 +283,9 @@ A: 分析报告是决策支持工具：
 **开始使用**: 查看 `analysis_workflow_template.md` 开始您的第一次项目分析。
 
 **获取支持**: 如有问题，请参考 `tools/analysis-tools-README.md` 或查看 `case-studies/` 中的实际案例。
+
+---
+
+**最后更新**: 2025年7月21日  
+**版本**: v2.3.2  
+**维护者**: Copilot Workflow System Team
