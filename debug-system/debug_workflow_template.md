@@ -4,12 +4,10 @@
 
 ## 📑 快速导航
 
-> 快速定位调试工作流的核心章节和关键信息
-
-- [📋 标准流程](#-标准流程) - 7步完整调试流程，从问题描述到最终归档的标准化操作步骤
-- [🔄 调试循环](#-调试循环) - 6步核心循环，计划→分析→修正→执行→检查→记录的迭代过程
-- [📁 目录结构](#-目录结构) - 标准化文件组织，调试过程中的文件管理和归档规范
-- [💡 调试原则](#-调试原则) - 核心方法论，包含小工作集调试法等8种实用调试策略
+- [📋 标准流程](#-标准流程) - 7步完整调试流程
+- [🔄 调试循环](#-调试循环) - 6步核心循环
+- [📁 目录结构](#-目录结构) - 标准化文件组织
+- [💡 调试原则](#-调试原则) - 核心方法论
 
 ## 🤖 自动生成区域
 
@@ -32,22 +30,28 @@ debug-system/
 ├── debug_workflow_任务名.md         # 任务专用文档
 ├── templates/                     # 模板文件
 │   ├── bug-list-template.md      # Bug清单模板
-│   └── bug-report-template.md    # Bug说明文档模板
+│   ├── bug-report-template.md    # Bug说明文档模板
+│   ├── task-INDEX-template.md    # 任务索引模板
+│   └── README-template.md        # 轮次记录模板
 ├── buglist/                       # Bug管理目录
 │   ├── bug_list.md               # Bug简要记录和统计 (从模板创建)
 │   ├── to_fix/                   # 待修复Bug说明文档
 │   └── fixed/                    # 已解决Bug说明文档
 └── debug/
     ├── workflow_archive/          # 已完成任务的工作流文档存档
-    └── 1/                        # 调试轮次
-        ├── README.md             # 调试记录
-        ├── src/                  # 工作文件
-        ├── core/                 # 核心解决方案
-        ├── archive/              # 重要历程
-        ├── deprecated/           # 废弃文件
-        ├── docs/                 # 分析文档
-        ├── logs/                 # 测试日志
-        └── files/                # 其他文件
+    └── 1_任务描述/                # 任务专用文件夹
+        ├── INDEX.md              # 任务调试索引
+        ├── debug_workflow_任务名.md # 工作流文档副本
+        └── 1/                    # 调试轮次
+            ├── README.md         # 调试记录
+            ├── src/              # 工作文件
+            ├── core/             # 核心解决方案
+            ├── archive/          # 重要历程和文件备份
+            │   └── backup_sources.md # 备份文件来源说明
+            ├── deprecated/       # 废弃文件
+            ├── docs/             # 分析文档
+            ├── logs/             # 测试日志
+            └── files/            # 其他文件
 ```
 
 ---
@@ -56,7 +60,7 @@ debug-system/
 
 ### 步骤1：用户描述问题
 
-**推荐格式**: "我的[项目类型]项目使用[技术栈]，在[操作]时出现[错误现象]。希望[解决目标]。"
+**格式**: "我的[项目类型]项目使用[技术栈]，在[操作]时出现[错误现象]。希望[解决目标]。"
 
 ### 步骤2：AI解析并格式化
 
@@ -86,34 +90,29 @@ Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 **AI必须执行以下操作**：
 
 ```powershell
+# 首先初始化Bug管理系统（如果不存在）
+mkdir buglist -ErrorAction SilentlyContinue
+Copy-Item "templates\bug-list-template.md" "buglist\bug_list.md" -ErrorAction SilentlyContinue
+# 创建debug目录并进入
 mkdir debug; cd debug
-# 创建工作流文档存档目录
-mkdir workflow_archive -ErrorAction SilentlyContinue
-$round = (Get-ChildItem -Directory -Name | Where-Object { $_ -match '^\d+$' } | Measure-Object -Maximum).Maximum + 1
-if ($null -eq $round) { $round = 1 }
-mkdir $round\{src,core,archive,deprecated,docs,logs,files}
-Copy-Item "..\debug-system\templates\README-template.md" "$round\README.md"
-
-# 初始化Bug管理（仅创建必要文件）
-mkdir ..\buglist\to_fix -ErrorAction SilentlyContinue
-mkdir ..\buglist\fixed -ErrorAction SilentlyContinue
-if (-not (Test-Path "..\buglist\bug_list.md")) {
-    Copy-Item "..\debug-system\templates\bug-list-template.md" "..\buglist\bug_list.md"
-}
-
-# 为当前任务创建Bug说明文档
-$bugId = "BUG-" + (Get-Date -Format "yyyyMMdd-HHmm")
-$bugFile = "..\buglist\to_fix\$bugId`_任务问题描述.md"
-Copy-Item "..\debug-system\templates\bug-report-template.md" $bugFile
-# TODO: 手动编辑Bug说明文档，填写任务专用文档中的问题描述
-# TODO: 更新 ..\buglist\bug_list.md，在待修复列表中添加此Bug记录
+# 确定任务编号和创建任务专用文件夹
+$taskId = (Get-ChildItem -Directory -Name | Where-Object { $_ -match '^\d+_' } | Measure-Object).Count + 1
+$taskFolder = "${taskId}_任务描述"  # 用实际任务描述替换
+mkdir $taskFolder; cd $taskFolder
+# 创建任务索引文件
+Copy-Item "..\..\templates\task-INDEX-template.md" "INDEX.md"
+# 创建第一轮调试环境
+mkdir 1\{src,core,archive,deprecated,docs,logs,files}
+Copy-Item "..\..\templates\README-template.md" "1\README.md"
+# 创建备份来源说明文件
+"# 备份文件来源说明`n`n本文件记录archive目录下各备份文件的来源和备份时间。`n`n## 备份记录`n" | Out-File "1\archive\backup_sources.md" -Encoding UTF8
 ```
 
-**重要提醒**：
-
-- 脚本会自动确定下一轮调试编号，避免覆盖现有轮次
-- Bug管理系统只在bug_list.md不存在时创建，保护现有记录
-- **需要手动操作**：编辑生成的Bug说明文档，填写具体问题描述，并更新bug_list.md清单
+- 首先初始化Bug管理系统（不依赖于debug文件夹）
+- 创建任务专用文件夹，命名格式：`数字_任务描述`
+- 创建任务级INDEX.md，用于记录该专题的调试历程
+- 初始化第一轮调试环境和标准目录结构
+- 创建备份来源说明文件，用于记录文件备份信息
 
 ### 步骤6：开始调试循环
 
@@ -123,42 +122,27 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" $bugFile
 
 评估问题解决状态，决定生成报告或开展下一轮调试。
 
-**统一归档步骤**：
+**满足条件时的归档步骤**：
 
-1. **🗂️ 执行最终归档**: 将src中的文件按重要性分类到core/archive/deprecated目录
+1. **🗂️ 执行最终归档**: 将各轮次src中的文件按重要性分类到core/archive/deprecated目录
 2. **📋 检查并处理Bug列表**:
-   - **检查bug_list.md**: 仔细查看 `..\buglist\bug_list.md`中的待修复Bug列表，确认本次调试是否解决了其中的问题
-   - **移动已解决Bug文档**: 如果本次解决了bug_list.md中记录的Bug，将对应的Bug说明文档从 `..\buglist\to_fix\`移动到 `..\buglist\fixed\`
+   - **检查bug_list.md**: 仔细查看`buglist/bug_list.md`中的待修复Bug列表，确认本次调试是否解决了其中的问题
+   - **移动已解决Bug文档**: 如果本次解决了bug_list.md中记录的Bug，将对应的Bug说明文档从`buglist/to_fix/`移动到`buglist/fixed/`
    - **更新Bug说明文档**: 在移动后的Bug说明文档中添加解决信息（解决日期、解决方案、相关文件等）
    - **更新bug_list.md**: 将已解决的Bug从待修复列表移至已解决列表，更新Bug统计信息
-   - **创建新Bug文档**: 为新发现的问题编写详细的Bug说明文档，使用 `templates/bug-report-template.md`模板，保存到 `..\buglist\to_fix\`目录，并在bug_list.md中添加记录
-3. **📄 复制工作流文档**: 将 `debug_workflow_任务名.md`复制到对应的数字文件夹 `debug/{轮次}/`中
-4. **📋 更新INDEX.md**: 记录该轮调试的时间、问题、进展、结论，并更新问题状态
-5. **📝 生成总结报告**: 完成调试轮次的总结文档
+   - **创建新Bug文档**: 为新发现的问题编写详细的Bug说明文档，使用`templates/bug-report-template.md`模板，保存到`buglist/to_fix/`目录，并在bug_list.md中添加记录
+3. **📄 复制工作流文档**: 将 `debug_workflow_任务名.md`复制到任务文件夹根目录
+4. **📋 更新任务INDEX.md**: 记录该专题调试的完整历程、问题、进展、结论，并更新任务状态
+5. **🏷️ 存档工作流文档**: 将 `debug_workflow_任务名.md`移动到 `debug/workflow_archive/`目录进行存档
+6. **📝 生成总结报告**: 完成任务的总结文档
 
-**问题未彻底解决时的额外步骤**：
-
-6. **📝 更新任务专用文档**: 在 `debug_workflow_任务名.md`文档结尾处添加本轮进展描述，包括：
-   - 本轮解决的问题
-   - 当前遗留的问题
-   - 下一步调试计划
-   - 重要发现和经验
-7. **� 保留任务专用文档**: 保持 `debug_workflow_任务名.md`在原位置，供下轮调试复用
-8. **🀽� 提示下轮调试**: 开始下轮调试前，需查看：
-   - 上一轮的总结报告文档
-   - `debug/INDEX.md`中的调试历史记录
-   - 任务专用文档中的进展描述
-
-**问题彻底解决时的额外步骤**：
-
-6. **📁 存档任务专用文档**: 将 `debug_workflow_任务名.md`移动到 `debug/workflow_archive/`目录进行最终存档
-
-**复制工作流文档示例**：
+**任务完成归档示例**：
 
 ```powershell
-# 复制到调试轮次目录
-Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\18\"
-# 移动到存档目录
+# 复制工作流文档到任务文件夹
+Copy-Item "debug_workflow_仿真图像保存错误.md" "debug\3_仿真图像保存错误\"
+# 更新任务INDEX.md（手动编辑完成调试记录）
+# 移动工作流文档到存档目录
 Move-Item "debug_workflow_仿真图像保存错误.md" "debug\workflow_archive\"
 ```
 
@@ -166,11 +150,11 @@ Move-Item "debug_workflow_仿真图像保存错误.md" "debug\workflow_archive\"
 
 ```powershell
 # 步骤1：检查bug_list.md，确认本次调试解决的Bug
-Get-Content "..\buglist\bug_list.md" | Select-String "BUG-\d+" | ForEach-Object { Write-Host $_.Line }
+Get-Content "buglist\bug_list.md" | Select-String "BUG-\d+" | ForEach-Object { Write-Host $_.Line }
 
 # 步骤2：如果解决了现有Bug（如BUG-001），执行以下操作：
 # 移动Bug说明文档到已解决目录
-Move-Item "..\buglist\to_fix\BUG-001_高DPI缩放问题.md" "..\buglist\fixed\"
+Move-Item "buglist\to_fix\BUG-001_高DPI缩放问题.md" "buglist\fixed\"
 
 # 步骤3：更新被移动的Bug说明文档，添加解决信息
 # 在文档中添加：
@@ -185,7 +169,7 @@ Move-Item "..\buglist\to_fix\BUG-001_高DPI缩放问题.md" "..\buglist\fixed\"
 # 更新统计信息（待修复数量-1，已解决数量+1）
 
 # 步骤5：如果发现新Bug，创建新的Bug说明文档
-Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\BUG-XXX_新问题描述.md"
+Copy-Item "templates\bug-report-template.md" "buglist\to_fix\BUG-XXX_新问题描述.md"
 # 在bug_list.md中添加新Bug的记录
 ```
 
@@ -217,8 +201,18 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\
 
 ### 6.4 ⚙️ 执行
 
+- **文件备份**: 修改任何文件前，先备份到当前轮次的archive目录
 - 实施代码修改（务必生成代码文件作为过程资产，不要使用-c在终端执行python代码）
 - 执行测试验证
+
+**文件备份规范**：
+
+```powershell
+# 备份文件到archive目录，文件名加_bak后缀
+Copy-Item "原文件路径" "当前轮次\archive\原文件名_bak.扩展名"
+# 在backup_sources.md中记录备份信息
+"- 原文件名_bak.扩展名: 来源 `"原文件路径`" (备份时间: $(Get-Date))" | Add-Content "当前轮次\archive\backup_sources.md"
+```
 
 > **🤖 AI限制提醒**:
 >
@@ -239,7 +233,18 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\
 
 - 更新调试文档
 - **🗂️ 执行本轮归档**: 将src中的文件按重要性分类到core/archive/deprecated目录
+- **📋 更新任务INDEX.md**: 记录本轮调试的进展和发现
 - 规划下轮目标
+
+**轮次归档规范**：
+
+```powershell
+# 创建下一轮环境（如果需要继续）
+$nextRound = $currentRound + 1
+mkdir $nextRound\{src,core,archive,deprecated,docs,logs,files}
+Copy-Item "..\..\templates\README-template.md" "$nextRound\README.md"
+"# 备份文件来源说明`n`n本文件记录archive目录下各备份文件的来源和备份时间。`n`n## 备份记录`n" | Out-File "$nextRound\archive\backup_sources.md" -Encoding UTF8
+```
 
 ---
 
@@ -345,17 +350,24 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\
 
 ### 决策流程
 
-**问题彻底解决** → **执行最终归档** → **复制工作流文档** → **存档工作流文档** → **更新debug/INDEX.md** → **生成总结报告**
-
-**问题未彻底解决** → **执行本轮归档** → **更新INDEX.md** → **更新任务专用文档** → **创建下轮调试环境**
+**满足条件** → **执行最终归档** → **复制工作流文档** → **更新任务INDEX.md** → **存档工作流文档** → **生成总结报告**  
+**不满足** → 创建下轮调试环境
 
 > **📁 最终归档要求**: 生成报告前必须完成所有调试轮次的最终归档，确保core目录包含完整解决方案
 >
-> **📄 工作流文档复制**: 将任务专用工作流文档复制到对应数字文件夹，便于后续查阅和归档管理
+> **📄 工作流文档管理**: 将任务专用工作流文档复制到任务文件夹根目录，然后移动原文档到workflow_archive进行存档
 >
-> **📋 INDEX.md更新要求**: 问题完全解决后必须更新 `debug/INDEX.md`，记录该轮调试的时间、问题、进展、结论，并更新问题状态
+> **📋 任务INDEX.md更新要求**: 问题完全解决后必须更新任务文件夹内的 `INDEX.md`，记录该专题调试的完整历程、问题、进展、结论，并更新任务状态
 >
-> **📄 INDEX.md模板**: 如果 `debug/INDEX.md`不存在，使用 `templates/INDEX-template.md`创建
+> **📄 任务INDEX.md模板**: 使用 `templates/task-INDEX-template.md`创建任务级索引文件
+
+### 文件命名规范
+
+- 任务文件夹：`数字_任务描述` (如：1_高DPI缩放问题, 2_仿真图像保存错误)
+- 调试轮次：数字编号 (1/, 2/, ...)
+- 备份文件：原文件名_bak.扩展名
+- 工作流文档：debug_workflow_任务名.md
+- 归档文件：按重要性分类存放
 
 ---
 
@@ -374,13 +386,14 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\
 - 本轮总结
 - 下轮目标
 
-### 文件命名规范
-
-- 调试轮次：数字编号 (1/, 2/, ...)
-- 工作流文档：debug_workflow_任务名.md
-- 归档文件：按重要性分类存放
-
 ---
+
+**模板更新**: 2025-07-21
+
+- **新增任务专用文件夹结构**: 使用`数字_任务描述`格式组织调试任务
+- **强化文件备份机制**: 修改文件前强制备份到archive目录，统一_bak命名
+- **优化归档流程**: 任务级INDEX.md管理，整个任务文件夹统一存档
+- **完善目录结构**: 增加backup_sources.md记录备份来源，规范化文件管理
 
 **模板更新**: 2025-07-10
 
@@ -392,7 +405,6 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\
 - 更新最佳实践，优先使用官方文档验证API用法
 
 **历史更新**: 2025-07-6
-
 - 优化Bug管理系统结构
 - 将bug_list.md移至templates目录作为bug-list-template.md
 - 更新工作流程以引用新的模板结构
@@ -400,7 +412,6 @@ Copy-Item "..\debug-system\templates\bug-report-template.md" "..\buglist\to_fix\
 - 完善步骤5和步骤7的文档存档流程
 
 **历史更新**: 2025-06-24
-
 - 文件重命名为debug_workflow_template.md
 - 更新文档中所有相关引用
 - 统一命名规范为功能_workflow_template.md格式
