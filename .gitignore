@@ -4,7 +4,7 @@
 .copilot-instructions.md
 
 # git提交规范流程
-git-commit-workflow.md
+# git-commit-workflow.md
 
 # 工作流生成的临时文件
 debug-system/debug_workflow_*.md

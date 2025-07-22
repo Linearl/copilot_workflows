@@ -317,17 +317,13 @@ We welcome contributions! Please feel free to submit a Pull Request. For major c
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 📋 Update Log
+
+For detailed version history and change information, please refer to: [Update Log](update_log.md)
+
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: July 21, 2025
-**Version**: v2.3.2
+**Last Updated**: July 22, 2025
+**Current Version**: v2.3.3
 **Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment
-
-**v2.3.2 Updates**:
-
-- Restructured project documentation into bilingual versions for better internationalization
-- Optimized configuration file structure, migrated to .github/prompts/ standard directory
-- Enhanced debug-system template system with new task index templates
-- Unified documentation format and cross-references for all three workflows
-- Cleaned up obsolete files and optimized overall project structure

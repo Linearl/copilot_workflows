@@ -28,6 +28,8 @@
 - **目标**: [用户描述的具体分析需求]
 - **关注重点**: [分析重点和成功标准]
 - **技术环境**: [技术栈和依赖关系]
+- **项目背景**: [可选：记录用户给出的额外信息，如参考源、现有模式/实现方案的描述等]
+- 设计意图：[可选，仅当用户目标是重构时需要：用户的设计意图，希望用什么样的设计方案]
 
 ---
 
@@ -45,6 +47,8 @@ analysis_system/
 │   ├── code-review-template.md       # 代码评审模板
 │   ├── performance-analysis-template.md # 性能分析模板
 │   ├── refactor-plan-template.md     # 重构计划模板
+│   ├── overall_refactoring_plan_template.md # 总体重构计划模板
+│   ├── detailed_stage_plan_template.md # 详细阶段计划模板
 │   └── summary-template.md           # 项目总结模板
 ├── case-studies/                     # 案例研究目录
 │   ├── 项目名-analysis/              # 项目分析案例
@@ -195,6 +199,9 @@ Copy-Item "analysis_workflow_template.md" "analysis_workflow_项目名.md"
 
 ```powershell
 cd tasks
+# 创建workflow_archive目录（如果不存在）
+mkdir workflow_archive -ErrorAction SilentlyContinue
+
 # 创建分析主题目录（格式：项目名_分析主题）
 $analysisTheme = "项目名_主题名"  # 例如：anc_host_质量分析
 mkdir $analysisTheme -ErrorAction SilentlyContinue
@@ -203,6 +210,7 @@ cd $analysisTheme
 # 创建总体规划目录
 mkdir master_plan -ErrorAction SilentlyContinue
 Write-Host "已创建分析主题 '$analysisTheme' 和总体规划目录" -ForegroundColor Green
+Write-Host "已确保workflow_archive存档目录存在" -ForegroundColor Green
 ```
 
 **配置分析工具**：
@@ -273,6 +281,43 @@ python ..\tools\code-metrics-collector.py --help
 - 📈 `quality_metrics_summary.md` - 质量指标汇总
 - 💡 `analysis_methodology.md` - 分析方法论和经验总结汇总（使用模板：`templates/methodology-template.md`）
 
+#### 步骤3.2.1：重构分析特殊处理（条件触发）
+
+**触发条件**: 当分析目的是重构规划时，额外执行此步骤
+
+**目标**: 为重构项目生成详细的重构实施计划
+
+**判断标准**:
+
+- 分析目标明确提到"重构"、"架构优化"、"模块化改造"等关键词
+- 分析结果显示需要进行大规模代码重组
+- 用户明确表示需要重构计划
+
+**操作清单**:
+
+- [ ] **评估重构规模**: 基于分析结果评估重构的规模和复杂度
+- [ ] **制定重构策略**: 确定渐进式重构还是大规模重构
+- [ ] **规划重构阶段**: 将重构工作分解为多个可管理的阶段
+- [ ] **评估重构风险**: 识别重构过程中的风险点和应对策略
+- [ ] **生成总体重构计划**: 使用 `templates/overall_refactoring_plan_template.md`
+- [ ] **生成第一阶段详细计划**: 使用 `templates/detailed_stage_plan_template.md`
+
+**重构计划输出文档**:
+
+- 📋 `overall_refactoring_plan.md` - 总体重构计划（基于 `templates/overall_refactoring_plan_template.md`）
+- 🎯 `phase1_detailed_plan.md` - 第一阶段详细实施计划（基于 `templates/detailed_stage_plan_template.md`）
+- 📊 `refactoring_risk_assessment.md` - 重构风险评估报告
+- 🧪 `refactoring_testing_strategy.md` - 重构测试策略
+
+**重构计划要点**:
+
+- **阶段门控制**: 每个阶段结束后必须通过完整测试验证才能进入下一阶段
+- **渐进式实施**: 确保任何时候都不影响系统的核心功能
+- **可回滚性**: 每个阶段都要有明确的回滚机制
+- **测试优先**: 建立完善的测试体系确保重构安全性
+
+**暂停点**: 重构计划生成后暂停，需要用户审查和确认重构策略
+
 #### 步骤3.3：最终归档和记录
 
 **📁 最终归档要求**:
@@ -280,7 +325,31 @@ python ..\tools\code-metrics-collector.py --help
 - 生成汇总报告后完成所有分析轮次的最终归档
 - 确保master_plan目录包含总体规划和汇总报告
 - 将任务专用工作流文档复制到master_plan目录
+- 将任务专用工作流文档移动到workflow_archive目录进行集中存档
 - 创建完整的分析档案索引
+
+**📋 归档操作步骤**：
+
+1. **📄 复制工作流文档到master_plan**: 将任务专用工作流文档复制到master_plan目录作为分析档案的一部分
+2. **🗂️ 创建workflow_archive目录**: 如果不存在则在tasks目录下创建workflow_archive文件夹
+3. **📥 存档工作流文档**: 将任务专用工作流文档移动到tasks/workflow_archive目录进行集中存档
+4. **📋 更新INDEX.md**: 更新全局分析任务索引，记录分析完成状态
+
+**归档操作示例**：
+
+```powershell
+# 步骤1：复制工作流文档到master_plan目录
+Copy-Item "analysis_workflow_项目名.md" "tasks\项目名_分析主题\master_plan\"
+
+# 步骤2：创建workflow_archive目录（如果不存在）
+mkdir "tasks\workflow_archive" -ErrorAction SilentlyContinue
+
+# 步骤3：移动工作流文档到存档目录
+Move-Item "analysis_workflow_项目名.md" "tasks\workflow_archive\"
+
+# 步骤4：验证归档完成
+Write-Host "工作流文档已成功归档到workflow_archive目录" -ForegroundColor Green
+```
 
 **📋 INDEX.md更新要求**:
 
@@ -294,13 +363,16 @@ python ..\tools\code-metrics-collector.py --help
 tasks/
 ├── INDEX.md                           # 全局分析任务索引
 ├── workflow_archive/                  # 已完成任务的工作流文档存档
+│   ├── analysis_workflow_项目名1.md    # 已完成任务1的工作流文档
+│   ├── analysis_workflow_项目名2.md    # 已完成任务2的工作流文档
+│   └── ...                           # 其他已完成任务的工作流文档
 ├── 项目名_分析主题1/                    # 单个分析主题目录
 │   ├── master_plan/                   # 【总】总体规划和汇总报告
 │   │   ├── master_analysis_plan.md
 │   │   ├── final_analysis_report.md
 │   │   ├── executive_summary.md
 │   │   ├── improvement_roadmap.md
-│   │   └── analysis_workflow_项目名.md
+│   │   └── analysis_workflow_项目名.md  # 工作流文档归档副本
 │   ├── 1_初始质量评估/                 # 【分】第1轮循环分析
 │   ├── 2_性能优化分析/                 # 【分】第2轮循环分析
 │   └── N_具体任务名/                   # 【分】第N轮循环分析
