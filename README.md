@@ -194,6 +194,13 @@ code analysis_system/analysis_workflow_template.md
 - "我想要整理这些文件..." → 文件整理工作流建议
 - "我需要分析这个代码质量..." → 分析工作流建议
 
+> **⚠️ 重要提醒**: 执行复杂任务时可能需要多次点击"继续"或与AI进行深入交互。为确保AI始终遵循工作流要求，建议在长时间运行的任务中：
+>
+> - 将任务专用工作流文档保持在前台编辑器中
+> - 或手动将工作流文档添加到对话上下文
+>
+> 这样可以避免因对话上下文过长导致AI偏离工作流规范的问题。
+
 ## 📋 工作流执行详情
 
 ### 调试工作流流程
@@ -264,15 +271,20 @@ code analysis_system/analysis_workflow_template.md
 
 `debug-system/templates/` 目录包含：
 
+- **bug-list-template.md**: Bug清单管理模板
 - **bug-report-template.md**: 标准化Bug报告模板
-- **summary-template.md**: 调试会话总结模板
 - **experience-template.md**: 经验和教训总结模板
+- **INDEX-template.md**: 调试索引文档模板
+- **README-template.md**: 调试项目说明文档模板
+- **summary-template.md**: 调试会话总结模板
+- **task-INDEX-template.md**: 任务索引管理模板
 
 ### 文件整理系统模板
 
 `file-organize-system/templates/` 目录包含：
 
 - **analysis-template.md**: 文件分析和分类模板
+- **directory-templates.md**: 目录结构设计模板
 - **plan-template.md**: 整理任务计划模板
 - **summary-report-template.md**: 综合总结报告模板
 
@@ -280,12 +292,39 @@ code analysis_system/analysis_workflow_template.md
 
 `analysis_system/templates/` 目录包含：
 
-- **analysis-implementation-template.md**: 分析实施规划模板
-- **analysis-report-template.md**: 标准化分析报告模板
-- **code-review-template.md**: 代码评审和质量评估模板
-- **performance-analysis-template.md**: 性能分析和优化模板
-- **refactor-plan-template.md**: 重构规划和策略模板
-- **summary-template.md**: 综合项目分析总结模板
+**指南类模板**:
+
+- **guide-analysis-implementation.md**: 分析实施指南模板
+- **guide-refactoring-readme.md**: 重构说明指南模板
+
+**管理类模板**:
+
+- **mgmt-index.md**: 项目管理索引模板
+- **mgmt-lessons-learned.md**: 经验教训管理模板
+- **mgmt-user-decision.md**: 用户决策记录模板
+
+**规划类模板**:
+
+- **planning-master-analysis-plan.md**: 主分析计划模板
+- **planning-round-plan.md**: 轮次分析计划模板
+
+**重构类模板**:
+
+- **refactor-design-plan.md**: 重构设计计划模板
+- **refactor-overall-plan.md**: 整体重构计划模板
+- **refactor-stage-detail.md**: 重构阶段详情模板
+
+**报告类模板**:
+
+- **report-analysis-final.md**: 最终分析报告模板
+- **report-round-analysis.md**: 轮次分析报告模板
+- **report-summary.md**: 分析总结报告模板
+
+**专业类模板**:
+
+- **specialist-code-review.md**: 专业代码评审模板
+- **specialist-methodology.md**: 方法论专业分析模板
+- **specialist-performance.md**: 性能专业分析模板
 
 ## 📖 文档说明
 
@@ -306,6 +345,7 @@ code analysis_system/analysis_workflow_template.md
 ### 符号参考
 
 详细的符号使用和文件分类指南，请参见：
+
 - [调试符号指南](debug-system/docs/常用符号.md)
 - [文件整理最佳实践](file-organize-system/docs/最佳实践.md)
 
