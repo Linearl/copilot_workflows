@@ -29,10 +29,15 @@ debug-system/
 ├── debug_workflow_template.md      # 调试工作流模板
 ├── debug_workflow_任务名.md         # 任务专用文档
 ├── templates/                     # 模板文件
-│   ├── bug-list-template.md      # Bug清单模板
-│   ├── bug-report-template.md    # Bug说明文档模板
-│   ├── task-INDEX-template.md    # 任务索引模板
-│   └── README-template.md        # 轮次记录模板
+│   ├── mgmt-bug-list.md          # Bug清单模板
+│   ├── report-bug-detail.md      # Bug详细报告模板
+│   ├── mgmt-task-index.md        # 任务索引模板
+│   ├── mgmt-debug-index.md       # 调试索引模板
+│   ├── debug-round-record.md     # 轮次记录模板
+│   ├── report-debug-summary.md   # 调试总结报告模板
+│   ├── report-lessons-learned.md # 经验教训模板
+│   ├── report-final-analysis.md  # 最终分析报告模板
+│   └── debug-environment-setup.md # 环境配置模板
 ├── buglist/                       # Bug管理目录
 │   ├── bug_list.md               # Bug简要记录和统计 (从模板创建)
 │   ├── to_fix/                   # 待修复Bug说明文档
@@ -92,7 +97,7 @@ Copy-Item "debug_workflow_template.md" "debug_workflow_任务名.md"
 ```powershell
 # 首先初始化Bug管理系统（如果不存在）
 mkdir buglist -ErrorAction SilentlyContinue
-Copy-Item "templates\bug-list-template.md" "buglist\bug_list.md" -ErrorAction SilentlyContinue
+Copy-Item "templates\mgmt-bug-list.md" "buglist\bug_list.md" -ErrorAction SilentlyContinue
 # 创建debug目录并进入
 mkdir debug; cd debug
 # 确定任务编号和创建任务专用文件夹
@@ -100,10 +105,10 @@ $taskId = (Get-ChildItem -Directory -Name | Where-Object { $_ -match '^\d+_' } |
 $taskFolder = "${taskId}_任务描述"  # 用实际任务描述替换
 mkdir $taskFolder; cd $taskFolder
 # 创建任务索引文件
-Copy-Item "..\..\templates\task-INDEX-template.md" "INDEX.md"
+Copy-Item "..\..\templates\mgmt-task-index.md" "INDEX.md"
 # 创建第一轮调试环境
 mkdir 1\{src,core,archive,deprecated,docs,logs,files}
-Copy-Item "..\..\templates\README-template.md" "1\README.md"
+Copy-Item "..\..\templates\debug-round-record.md" "1\README.md"
 # 创建备份来源说明文件
 "# 备份文件来源说明`n`n本文件记录archive目录下各备份文件的来源和备份时间。`n`n## 备份记录`n" | Out-File "1\archive\backup_sources.md" -Encoding UTF8
 ```
@@ -143,7 +148,7 @@ Copy-Item "..\..\templates\README-template.md" "1\README.md"
    - **移动已解决Bug文档**: 如果本次解决了bug_list.md中记录的Bug，将对应的Bug说明文档从 `buglist/to_fix/`移动到 `buglist/fixed/`
    - **更新Bug说明文档**: 在移动后的Bug说明文档中添加解决信息（解决日期、解决方案、相关文件等）
    - **更新bug_list.md**: 将已解决的Bug从待修复列表移至已解决列表，更新Bug统计信息
-   - **创建新Bug文档**: 为新发现的问题编写详细的Bug说明文档，使用 `templates/bug-report-template.md`模板，保存到 `buglist/to_fix/`目录，并在bug_list.md中添加记录
+   - **创建新Bug文档**: 为新发现的问题编写详细的Bug说明文档，使用 `templates/report-bug-detail.md`模板，保存到 `buglist/to_fix/`目录，并在bug_list.md中添加记录
 3. **📄 复制工作流文档**: 将 `debug_workflow_任务名.md`复制到任务文件夹根目录
 4. **📋 更新任务INDEX.md**: 记录该专题调试的完整历程、问题、进展、结论，并更新任务状态
 5. **🏷️ 存档工作流文档**: 将 `debug_workflow_任务名.md`移动到 `debug/workflow_archive/`目录进行存档
@@ -155,7 +160,7 @@ Copy-Item "..\..\templates\README-template.md" "1\README.md"
 >
 > **📋 任务INDEX.md更新要求**: 问题完全解决后必须更新任务文件夹内的 `INDEX.md`，记录该专题调试的完整历程、问题、进展、结论，并更新任务状态
 >
-> **📄 任务INDEX.md模板**: 使用 `templates/task-INDEX-template.md`创建任务级索引文件
+> **📄 任务INDEX.md模板**: 使用 `templates/mgmt-task-index.md`创建任务级索引文件
 
 **文件命名规范**：
 
@@ -198,7 +203,7 @@ Move-Item "buglist\to_fix\BUG-001_高DPI缩放问题.md" "buglist\fixed\"
 # 更新统计信息（待修复数量-1，已解决数量+1）
 
 # 步骤5：如果发现新Bug，创建新的Bug说明文档
-Copy-Item "templates\bug-report-template.md" "buglist\to_fix\BUG-XXX_新问题描述.md"
+Copy-Item "templates\report-bug-detail.md" "buglist\to_fix\BUG-XXX_新问题描述.md"
 # 在bug_list.md中添加新Bug的记录
 ```
 
@@ -271,7 +276,7 @@ Copy-Item "原文件路径" "当前轮次\archive\原文件名_bak.扩展名"
 # 创建下一轮环境（如果需要继续）
 $nextRound = $currentRound + 1
 mkdir $nextRound\{src,core,archive,deprecated,docs,logs,files}
-Copy-Item "..\..\templates\README-template.md" "$nextRound\README.md"
+Copy-Item "..\..\templates\debug-round-record.md" "$nextRound\README.md"
 "# 备份文件来源说明`n`n本文件记录archive目录下各备份文件的来源和备份时间。`n`n## 备份记录`n" | Out-File "$nextRound\archive\backup_sources.md" -Encoding UTF8
 ```
 
@@ -372,7 +377,7 @@ Copy-Item "..\..\templates\README-template.md" "$nextRound\README.md"
 
 ### 调试记录结构
 
-调试记录应使用标准化模板确保信息完整性和一致性。系统已在步骤5中自动使用 `templates/README-template.md` 创建每轮调试的记录文档。
+调试记录应使用标准化模板确保信息完整性和一致性。系统已在步骤5中自动使用 `templates/debug-round-record.md` 创建每轮调试的记录文档。
 
 **模板包含的完整结构**：
 
@@ -384,4 +389,128 @@ Copy-Item "..\..\templates\README-template.md" "$nextRound\README.md"
 - 📊 结果评估（成功项目、遗留问题、意外发现）
 - 🎯 下一轮计划（待解决问题、建议方向、测试目标）
 
-> **💡 使用建议**: 直接使用模板文件，无需手动创建调试记录结构。模板文件位置：`templates/README-template.md`
+> **💡 使用建议**: 直接使用模板文件，无需手动创建调试记录结构。模板文件位置：`templates/debug-round-record.md`
+
+---
+
+## 📚 附录
+
+### 附录A：环境配置
+
+#### 必需工具
+
+- **PowerShell 5.1+**: 执行调试脚本和文件操作
+- **Git**: 版本控制和代码管理
+- **VS Code**: 代码编辑和调试环境
+
+#### 常用调试工具
+
+- **Python调试器**: pdb、ipdb
+- **日志分析**: tail、grep、findstr
+- **性能分析**: time、Measure-Command
+- **网络调试**: curl、wget、Invoke-WebRequest
+- **系统监控**: Get-Process、Task Manager
+
+#### 环境准备
+
+```powershell
+# 验证PowerShell版本
+$PSVersionTable.PSVersion
+
+# 创建调试工作空间
+cd debug-system
+mkdir debug -ErrorAction SilentlyContinue
+
+# 初始化Bug管理系统
+mkdir buglist -ErrorAction SilentlyContinue
+Copy-Item "templates\mgmt-bug-list.md" "buglist\bug_list.md" -ErrorAction SilentlyContinue
+
+# 验证模板文件
+Get-ChildItem templates\*.md | Select-Object Name
+```
+
+### 附录B：调试检查清单
+
+#### 调试前检查
+
+- [ ] 确认问题描述清晰完整
+- [ ] 备份重要文件和配置
+- [ ] 准备测试环境和数据
+- [ ] 明确调试目标和成功标准
+- [ ] 检查依赖和环境要求
+
+#### 调试过程检查
+
+- [ ] 问题复现步骤准确
+- [ ] 文件修改前已备份
+- [ ] 测试结果记录完整
+- [ ] 方案评估客观公正
+- [ ] 轮次文档及时更新
+
+#### 调试后检查
+
+- [ ] 解决方案验证通过
+- [ ] 相关文件正确归档
+- [ ] Bug列表状态更新
+- [ ] 经验教训总结记录
+- [ ] 工作流文档存档
+
+### 附录C：可用模板文件列表
+
+#### 核心模板 (Core Templates)
+
+| 模板文件 | 作用描述 | 使用场景 |
+|---------|----------|----------|
+| `report-bug-detail.md` | Bug详细报告模板 | 详细记录发现的问题和解决方案 |
+| `debug-round-record.md` | 调试记录模板 | 每轮调试的完整过程记录 |
+| `report-debug-summary.md` | 调试总结报告模板 | 调试任务完成后的总结文档 |
+
+#### 管理模板 (Management Templates)
+
+| 模板文件 | 作用描述 | 使用场景 |
+|---------|----------|----------|
+| `mgmt-bug-list.md` | Bug清单管理模板 | 管理项目中的所有Bug记录 |
+| `mgmt-task-index.md` | 任务索引模板 | 记录调试任务的完整历程 |
+| `mgmt-debug-index.md` | 调试索引模板 | 创建调试文档的导航索引 |
+
+#### 分析和文档模板 (Analysis & Documentation Templates)
+
+| 模板文件 | 作用描述 | 使用场景 |
+|---------|----------|----------|
+| `report-lessons-learned.md` | 经验总结模板 | 记录调试过程中的经验教训 |
+| `report-final-analysis.md` | 最终分析报告模板 | 调试完成后的深度分析总结 |
+| `debug-environment-setup.md` | 环境配置模板 | 记录调试环境的配置和准备工作 |
+
+#### 模板使用说明
+
+1. **自动创建**: 工作流会在步骤5中自动使用相应模板创建文档
+2. **文件命名**: 模板复制后应使用具体的任务名称重命名
+3. **内容填充**: 按照模板结构填充具体的调试信息
+4. **保持一致**: 使用统一模板确保文档结构和质量一致性
+5. **适当调整**: 根据具体调试任务对模板进行必要调整
+
+#### 模板选择指南
+
+**新建调试任务时**:
+
+- 使用 `debug_workflow_template.md` 创建任务专用工作流文档
+- 系统自动使用 `debug-round-record.md` 创建轮次记录
+
+**Bug管理时**:
+
+- 使用 `report-bug-detail.md` 创建详细的Bug说明文档
+- 使用 `mgmt-bug-list.md` 管理Bug的整体状态
+
+**任务完成时**:
+
+- 使用 `report-debug-summary.md` 创建调试总结报告
+- 使用 `report-lessons-learned.md` 记录经验教训
+- 使用 `report-final-analysis.md` 进行深度分析总结
+
+---
+
+**开始调试**: 遵循7步标准流程，从用户问题描述开始您的系统化调试之旅。
+
+**获取支持**: 查看 `templates/` 目录获取标准模板，参考 `docs/` 了解符号使用规范。
+
+**版本信息**: 调试工作流模板 v2.3.4 | 更新历史详见 `docs/update_log.md`
