@@ -403,6 +403,6 @@ Provides 4 standardized directory structure templates:
 
 ---
 
-**Last Updated**: June 24, 2025  
-**Version**: v2.2  
+**Last Updated**: July 29, 2025  
+**Version**: v2.4.0  
 **Maintainer**: Copilot Workflow System Team

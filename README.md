@@ -32,7 +32,7 @@
 
 ## 🎯 核心工作流
 
-本系统提供三个主要工作流，专为AI辅助开发设计：
+本系统提供四个主要工作流，专为AI辅助开发设计：
 
 ### 1. 调试工作流
 
@@ -68,6 +68,19 @@
 - 系统化报告生成
 - 模板驱动流程
 
+### 4. 重构工作流
+
+**模板**: `refactor_system/refactor_workflow_template.md`
+**说明**: 基于代码分析结果的系统化重构工作流，采用三层级计划管理和双层循环执行机制。
+
+**功能特点**:
+
+- 三层级计划体系（总体→阶段→实施）
+- P0-P3优先级驱动的阶段管理
+- 双层循环控制（阶段级+修改点级）
+- 可视化流程图指导
+- 风险控制和回滚机制
+
 ## 📁 项目结构
 
 ```text
@@ -92,6 +105,13 @@ copilot_workflows/
 │   ├── tasks/                          # 分析任务归档目录
 │   ├── docs/                           # 分析文档资料
 │   └── case-studies/                   # 分析案例研究
+├── refactor_system/                    # 重构工作流支持文件
+│   ├── refactor_workflow_template.md   # 重构工作流模板
+│   ├── README.md                       # 重构系统文档（中文）
+│   ├── README_en.md                    # 重构系统文档（英文）
+│   ├── templates/                      # 重构模板集合
+│   ├── tools/                          # 重构工具和实用程序
+│   └── tasks/                          # 重构任务归档目录
 ├── .copilot-instructions.md            # Copilot AI协作指令
 ├── git-commit-workflow.md              # Git提交工作流规范
 ├── README.md                           # 主要文档（中文）
@@ -131,6 +151,9 @@ code file-organize-system/file_organize_workflow_template.md
 
 # 代码分析任务
 code analysis_system/analysis_workflow_template.md
+
+# 重构任务
+code refactor_system/refactor_workflow_template.md
 ```
 
 > **📝 说明**: 这些是模板文件。实际的工作流文档会在开始工作流程时自动生成。
@@ -178,10 +201,15 @@ code analysis_system/analysis_workflow_template.md
 当用户提到: code analysis, code quality, performance optimization, technical debt, refactoring, architecture review
 自动建议: "我看到您需要代码分析协助。是否需要我启动分析工作流？我可以帮助您系统地分析代码质量，识别技术债务，并提供优化建议。"
 
+### 重构工作流触发
+当用户提到: code refactoring, system refactoring, architecture improvement, code restructuring, refactor plan
+自动建议: "我看到您需要代码重构协助。是否需要我启动重构工作流？我可以帮助您基于分析结果制定系统化的重构计划并安全地执行重构任务。"
+
 ## 工作流模板
 - 调试模板: `debug-system/debug_workflow_template.md`
 - 文件整理模板: `file-organize-system/file_organize_workflow_template.md`
 - 分析模板: `analysis_system/analysis_workflow_template.md`
+- 重构模板: `refactor_system/refactor_workflow_template.md`
 ```
 
 ### 4B. 自然语言交互
@@ -193,6 +221,7 @@ code analysis_system/analysis_workflow_template.md
 - "我需要调试这个错误..." → 调试工作流建议
 - "我想要整理这些文件..." → 文件整理工作流建议
 - "我需要分析这个代码质量..." → 分析工作流建议
+- "我需要重构这个项目..." → 重构工作流建议
 
 > **⚠️ 重要提醒**: 执行复杂任务时可能需要多次点击"继续"或与AI进行深入交互。为确保AI始终遵循工作流要求，建议在长时间运行的任务中：
 >
@@ -238,6 +267,17 @@ code analysis_system/analysis_workflow_template.md
 5. **报告生成**: 生成包含指标和建议的全面分析报告
 6. **文档记录和归档**: 记录分析过程并归档结果
 
+### 重构工作流流程
+
+> **📄 工作文档**: 在 `refactor_system/tasks/[任务编号]/refactor_workflow_[任务名].md` 中创建
+
+1. **输入收集**: 提供分析结果和重构要求
+2. **总体规划**: 制定Level1整体计划，设定P0-P3优先级
+3. **用户确认**: 确认重构计划和实施优先级
+4. **环境初始化**: 创建专题目录和三层级计划文档
+5. **双层循环执行**: 按阶段进行重构实施（外层：阶段级，内层：修改点级）
+6. **验证总结**: 完成验证和文档归档
+
 ## 🎯 功能特点
 
 ### 调试工作流功能
@@ -259,6 +299,14 @@ code analysis_system/analysis_workflow_template.md
 - **自动化工具**: 代码指标收集器、依赖关系分析器和报告生成器
 - **系统化报告**: 带有量化指标和可行见解的结构化分析报告
 - **模板驱动流程**: 标准化模板确保项目间分析的一致性
+
+### 重构工作流功能
+
+- **三层级计划体系**: Level1总体计划 → Level2阶段计划 → Level3实施计划
+- **优先级驱动**: P0-P3优先级管理和阶段化执行
+- **双层循环控制**: 阶段级外循环和修改点级内循环
+- **可视化指导**: Mermaid流程图提供可视化执行指导
+- **风险控制**: 渐进式实施、回滚机制和质量保证
 
 ### 共享功能
 
@@ -326,6 +374,23 @@ code analysis_system/analysis_workflow_template.md
 - **specialist-methodology.md**: 方法论专业分析模板
 - **specialist-performance.md**: 性能专业分析模板
 
+### 重构系统模板
+
+`refactor_system/templates/` 目录包含：
+
+**计划类模板**:
+
+- **level1-overall-plan-template.md**: Level1 总体重构计划模板
+- **level2-phase-detailed-plan-template.md**: Level2 阶段详细计划模板
+- **level3-implementation-plan-template.md**: Level3 具体实施计划模板
+
+**文档类模板**:
+
+- **delivery-template.md**: 交付文档模板
+- **INDEX-template.md**: 重构索引模板
+- **module-comparison-analysis-template.md**: 模块对比分析模板
+- **refactor-lessons-learned-template.md**: 重构经验总结模板
+
 ## 📖 文档说明
 
 ### 主要文档
@@ -341,6 +406,10 @@ code analysis_system/analysis_workflow_template.md
 - **分析工作流文档**:
   - [中文说明](analysis_system/README.md): 详细的代码分析工作流中文说明
   - [English Guide](analysis_system/README_en.md): 综合分析工作流英文指南 (即将推出)
+
+- **重构工作流文档**:
+  - [中文说明](refactor_system/README.md): 详细的重构工作流中文说明
+  - [English Guide](refactor_system/README_en.md): 综合重构工作流英文指南
 
 ### 符号参考
 
@@ -364,6 +433,6 @@ code analysis_system/analysis_workflow_template.md
 ---
 
 **创建时间**: 2025年6月21日
-**最后更新**: 2025年7月22日  
-**当前版本**: v2.3.4
-**适用场景**: 技术项目调试、问题排查、系统优化、文件整理、项目清理、代码分析、质量评估
+**最后更新**: 2025年7月29日  
+**当前版本**: v2.4.0
+**适用场景**: 技术项目调试、问题排查、系统优化、文件整理、项目清理、代码分析、质量评估、代码重构、架构改进

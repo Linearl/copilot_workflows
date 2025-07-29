@@ -408,6 +408,6 @@ python file-organize-system\tools\integrity_validator.py --original "原目录" 
 
 ---
 
-**最后更新**: 2025年7月22日  
-**版本**: v2.3.4  
+**最后更新**: 2025年7月29日  
+**版本**: v2.4.0  
 **维护者**: Copilot Workflow System Team

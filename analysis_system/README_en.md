@@ -313,3 +313,9 @@ A: Analysis reports are decision support tools:
 **Get Started**: Check out `analysis_workflow_template.md` to begin your first project analysis.
 
 **Get Support**: For questions, refer to `tools/analysis-tools-README.md` or check actual cases in `case-studies/`.
+
+---
+
+**Last Updated**: July 29, 2025  
+**Version**: v2.4.0  
+**Maintainer**: Copilot Workflow System Team

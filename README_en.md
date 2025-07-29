@@ -2,7 +2,7 @@
 
 > 🌍 **Language Versions**: [English](README_en.md) | [中文](README.md)
 
-A comprehensive workflow system based on GitHub Copilot for systematic debugging, file organization, and code analysis.
+A comprehensive workflow system based on GitHub Copilot for systematic debugging, file organization, code analysis, and refactoring.
 
 ## 🎯 Core Philosophy
 
@@ -12,7 +12,7 @@ A comprehensive workflow system based on GitHub Copilot for systematic debugging
 
 The essence of tools is **"reusable leverage"**, while processes are **"industrialized packaging of tools"**. As Kevin Kelly observed, *"The greatest invention of the past 200 years was not any specific tool, but the scientific method itself—a process that reliably produces innovation."*
 
-This system embodies this philosophy by transforming debugging, file organization, and code analysis from ad-hoc activities into **systematic, replicable processes** that serve as powerful leverage tools for AI-assisted development.
+This system embodies this philosophy by transforming debugging, file organization, code analysis, and refactoring from ad-hoc activities into **systematic, replicable processes** that serve as powerful leverage tools for AI-assisted development.
 
 **💡 Extend and Customize**: You can leverage these existing workflows as templates to develop your own specialized workflows with Copilot's assistance, then iteratively optimize them through practice.
 
@@ -32,7 +32,7 @@ Workflows ensure consistent results across different sessions and users, transfo
 
 ## 🎯 Core Workflows
 
-This system provides three main workflows designed for AI-assisted development:
+This system provides four main workflows designed for AI-assisted development:
 
 ### 1. Debug Workflow
 
@@ -40,6 +40,7 @@ This system provides three main workflows designed for AI-assisted development:
 **Description**: Systematic debugging process with 6-step debugging cycle for consistent problem-solving.
 
 **Features**:
+
 - Structured problem-solving approach
 - Reproducible debugging methods
 - Comprehensive documentation system
@@ -51,6 +52,7 @@ This system provides three main workflows designed for AI-assisted development:
 **Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup procedures.
 
 **Features**:
+
 - Priority-based organization
 - Type-based classification
 - Timeline-based sorting
@@ -63,10 +65,24 @@ This system provides three main workflows designed for AI-assisted development:
 **Description**: Comprehensive code analysis and quality assessment system with multi-dimensional analysis approaches for technical debt identification, performance optimization, and refactoring guidance.
 
 **Features**:
+
 - Multi-dimensional code analysis
 - Automated tools and metrics collection
 - Systematic reporting
 - Template-driven process
+
+### 4. Refactor Workflow
+
+**Template**: `refactor_system/refactor_workflow_template.md`
+**Description**: Systematic refactoring workflow based on code analysis results, featuring three-tier planning management and dual-loop execution mechanism.
+
+**Features**:
+
+- Three-tier planning system (Overall → Stage → Implementation)
+- P0-P3 priority-driven stage management
+- Dual-loop control (stage-level + modification-point-level)
+- Visual flowchart guidance with Mermaid diagrams
+- Risk control and rollback mechanisms
 
 ## 📁 Project Structure
 
@@ -74,29 +90,43 @@ This system provides three main workflows designed for AI-assisted development:
 copilot_workflows/
 ├── debug-system/                        # Debug workflow supporting files
 │   ├── debug_workflow_template.md       # Debug workflow template
+│   ├── README.md                        # Debug system documentation (Chinese)
+│   ├── README_en.md                     # Debug system documentation (English)
 │   ├── templates/                       # Debug template collection
 │   ├── docs/                           # Symbol reference guides
 │   └── buglist/                        # Bug tracking and resolution archive
 ├── file-organize-system/                # File organization workflow supporting files
 │   ├── file_organize_workflow_template.md # File organization workflow template
+│   ├── README.md                        # File organization documentation (Chinese)
+│   ├── README_en.md                     # File organization documentation (English)
 │   ├── templates/                       # Organization template collection
 │   ├── docs/                           # Operation guides and best practices
 │   ├── tools/                          # Organization tools and utilities
 │   ├── organize/                       # Organization task working directory
 │   └── version.md                      # Version history
-├── analysis_system/                    # Code analysis workflow supporting files
-│   ├── analysis_workflow_template.md   # Analysis workflow template
-│   ├── README.md                       # Analysis system documentation
-│   ├── templates/                      # Analysis template collection
+├── analysis_system/                     # Code analysis workflow supporting files
+│   ├── analysis_workflow_template.md    # Analysis workflow template
+│   ├── README.md                        # Analysis system documentation (Chinese)
+│   ├── README_en.md                     # Analysis system documentation (English)
+│   ├── templates/                       # Analysis template collection
 │   ├── tools/                          # Analysis tools and utilities
 │   ├── tasks/                          # Analysis task archive directory
 │   ├── docs/                           # Analysis documentation
 │   └── case-studies/                   # Analysis case studies
-├── .copilot-instructions.md            # Copilot AI collaboration instructions
-├── git-commit-workflow.md              # Git commit workflow specification
-├── README.md                           # Main documentation (Chinese)
-├── README_en.md                        # English documentation
-└── LICENSE                             # MIT License
+├── refactor_system/                     # Refactor workflow supporting files
+│   ├── refactor_workflow_template.md    # Refactor workflow template
+│   ├── README.md                        # Refactor system documentation (Chinese)
+│   ├── README_en.md                     # Refactor system documentation (English)
+│   ├── templates/                       # Refactor template collection
+│   ├── tools/                          # Refactor tools and utilities
+│   ├── docs/                           # Refactor documentation
+│   └── case-studies/                   # Refactor case studies
+├── .copilot-instructions.md             # Copilot AI collaboration instructions
+├── git-commit-workflow.md               # Git commit workflow specification
+├── README.md                            # Main documentation (Chinese)
+├── README_en.md                         # English documentation
+├── update_log.md                        # Version update log
+└── LICENSE                              # MIT License
 ```
 
 ## 🚀 Quick Start
@@ -131,13 +161,16 @@ code file-organize-system/file_organize_workflow_template.md
 
 # For code analysis tasks
 code analysis_system/analysis_workflow_template.md
+
+# For refactor tasks
+code refactor_system/refactor_workflow_template.md
 ```
 
 > **📝 Note**: These are template files. The actual workflow documents will be automatically generated when you start the workflow process.
 
 ### 4A. Natural Language Interaction
 
-Simply describe your problem or organization task in natural language - the workflow will handle the parsing and formatting automatically:
+Simply describe your problem or task in natural language - the workflow will handle the parsing and formatting automatically.
 
 ## ⚡ Option B: Auto-Trigger Workflow
 
@@ -178,10 +211,15 @@ Automatically suggest: "I see you need file organization assistance. Would you l
 When user mentions: code analysis, code quality, performance optimization, technical debt, refactoring, architecture review
 Automatically suggest: "I see you need code analysis assistance. Would you like me to start the analysis workflow? I can help you systematically analyze code quality, identify technical debt, and provide optimization recommendations."
 
+### For Refactor Workflow
+When user mentions: code refactoring, system refactoring, architecture improvement, code restructuring, refactor plan
+Automatically suggest: "I see you need code refactoring assistance. Would you like me to start the refactor workflow? I can help you develop systematic refactoring plans based on analysis results and safely execute refactoring tasks."
+
 ## Workflow Templates
 - Debug Template: `debug-system/debug_workflow_template.md`
 - File Organization Template: `file-organize-system/file_organize_workflow_template.md`
 - Analysis Template: `analysis_system/analysis_workflow_template.md`
+- Refactor Template: `refactor_system/refactor_workflow_template.md`
 ```
 
 ### 4B. Natural Language Interaction
@@ -193,6 +231,7 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - "I need to debug this error..." → Debug workflow suggestion
 - "I want to organize these files..." → File organization workflow suggestion
 - "I need to analyze this code quality..." → Analysis workflow suggestion
+- "I need to refactor this project..." → Refactor workflow suggestion
 
 ## 📋 Workflow Execution Details
 
@@ -231,6 +270,16 @@ Once configured, simply mention your needs in conversation - AI will automatical
 5. **Report Generation**: Generate comprehensive analysis reports with metrics and recommendations
 6. **Documentation and Archiving**: Document analysis process and archive results
 
+### For Refactor Workflow
+
+> **📄 Working Document**: Created in `refactor_system/refactor_workflow_[task-name].md`
+
+1. **Requirement Analysis**: Determine refactoring scope and objectives
+2. **Three-tier Planning**: Create Level1 (Overall) → Level2 (Stage) → Level3 (Implementation) plans
+3. **Phased Execution**: Execute by priority stages (P0 → P1 → P2 → P3)
+4. **Quality Assurance**: Validate and test each modification point
+5. **Documentation Maintenance**: Synchronously update related documentation
+
 ## 🎯 Features
 
 ### Debug Workflow Features
@@ -252,6 +301,14 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - **Automated Tools**: Code metrics collector, dependency analyzer, and report generator
 - **Systematic Reporting**: Structured analysis reports with quantitative metrics and actionable insights
 - **Template-driven Process**: Standardized templates for consistent analysis across projects
+
+### Refactor Workflow Features
+
+- **Three-tier Planning System**: Strategic Level1 → Tactical Level2 → Operational Level3
+- **Dual-loop Execution**: Stage-level outer loop + modification-point-level inner loop
+- **Visual Workflow Support**: First workflow with Mermaid diagram integration
+- **Priority-driven Management**: P0-P3 priority-based stage execution
+- **Risk Control**: Comprehensive rollback mechanisms and quality checkpoints
 
 ### Shared Features
 
@@ -287,25 +344,41 @@ The `analysis_system/templates/` directory contains:
 - **refactor-plan-template.md**: Refactoring planning and strategy template
 - **summary-template.md**: Comprehensive project analysis summary template
 
+### Refactor System Templates
+
+The `refactor_system/templates/` directory contains:
+
+- **level1-overall.md**: Level 1 overall planning template
+- **level2-phase.md**: Level 2 stage planning template
+- **level3-implementation.md**: Level 3 implementation planning template
+- **progress-tracking.md**: Progress tracking template
+- **quality-checklist.md**: Quality assurance checklist
+- **mermaid-diagrams.md**: Mermaid diagram templates
+
 ## 📖 Documentation
 
 ### Main Documentation
 
-- **Debug Workflow Documentation**: 
+- **Debug Workflow Documentation**:
   - [中文说明](debug-system/README.md): Detailed debug workflow Chinese guide
   - [English Guide](debug-system/README_en.md): Comprehensive debug workflow English guide
 
-- **File Organization Documentation**: 
-  - [中文说明](file-organize-system/README.md): Detailed file organization workflow Chinese guide (Coming Soon)
-  - [English Guide](file-organize-system/README_en.md): Comprehensive file organization English guide (Coming Soon)
+- **File Organization Documentation**:
+  - [中文说明](file-organize-system/README.md): Detailed file organization workflow Chinese guide
+  - [English Guide](file-organize-system/README_en.md): Comprehensive file organization English guide
 
-- **Analysis Workflow Documentation**: 
+- **Analysis Workflow Documentation**:
   - [中文说明](analysis_system/README.md): Detailed code analysis workflow Chinese guide
-  - [English Guide](analysis_system/README_en.md): Comprehensive analysis workflow English guide (Coming Soon)
+  - [English Guide](analysis_system/README_en.md): Comprehensive analysis workflow English guide
+
+- **Refactor Workflow Documentation**:
+  - [中文说明](refactor_system/README.md): Detailed refactor workflow Chinese guide
+  - [English Guide](refactor_system/README_en.md): Comprehensive refactor workflow English guide
 
 ### Symbol Reference
 
 For detailed symbol usage and file classification guidelines, see:
+
 - [Debug Symbol Guide](debug-system/docs/常用符号.md)
 - [File Organization Best Practices](file-organize-system/docs/最佳实践.md)
 
@@ -324,6 +397,6 @@ For detailed version history and change information, please refer to: [Update Lo
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: July 22, 2025
-**Current Version**: v2.3.4
-**Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment
+**Last Updated**: July 29, 2025
+**Current Version**: v2.4.0
+**Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement

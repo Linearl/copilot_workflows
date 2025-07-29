@@ -290,11 +290,13 @@ Used to record lessons learned during debugging:
 
 ---
 
-**Last Updated**: July 10, 2025  
-**Version**: v2.2  
+**Last Updated**: July 29, 2025  
+**Version**: v2.4.0  
 **Maintainer**: Copilot Workflow System Team
 
-**v2.2 Updates**:
-- Added core debugging methodology: Official Documentation Verification Method
-- Updated best practices to emphasize the importance of official documentation verification
-- Synchronized with debug_workflow_template.md
+**v2.4.0 Updates**:
+
+- Added refactor workflow system (refactor_system)
+- Support for Mermaid diagram visualization
+- Three-tier planning management system
+- Dual-loop execution mechanism
