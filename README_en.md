@@ -315,46 +315,6 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - **Modular Structure**: Organized file system for efficient workflow sessions
 - **Template System**: Standardized templates for consistent documentation and processes
 
-## 📚 Templates
-
-### Debug System Templates
-
-The `debug-system/templates/` directory contains:
-
-- **bug-report-template.md**: Standardized bug reporting template
-- **summary-template.md**: Debug session summary template
-- **experience-template.md**: Experience and lessons learned template
-
-### File Organization Templates
-
-The `file-organize-system/templates/` directory contains:
-
-- **analysis-template.md**: File analysis and categorization template
-- **plan-template.md**: Planning template for organization tasks
-- **summary-report-template.md**: Comprehensive summary report template
-
-### Analysis System Templates
-
-The `analysis_system/templates/` directory contains:
-
-- **analysis-implementation-template.md**: Template for analysis implementation planning
-- **analysis-report-template.md**: Standardized analysis report template
-- **code-review-template.md**: Code review and quality assessment template
-- **performance-analysis-template.md**: Performance analysis and optimization template
-- **refactor-plan-template.md**: Refactoring planning and strategy template
-- **summary-template.md**: Comprehensive project analysis summary template
-
-### Refactor System Templates
-
-The `refactor_system/templates/` directory contains:
-
-- **level1-overall.md**: Level 1 overall planning template
-- **level2-phase.md**: Level 2 stage planning template
-- **level3-implementation.md**: Level 3 implementation planning template
-- **progress-tracking.md**: Progress tracking template
-- **quality-checklist.md**: Quality assurance checklist
-- **mermaid-diagrams.md**: Mermaid diagram templates
-
 ## 📖 Documentation
 
 ### Main Documentation

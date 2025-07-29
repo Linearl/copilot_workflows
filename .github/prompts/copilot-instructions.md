@@ -1,6 +1,6 @@
 # Copilot 工作流系统 - AI 协作指令
 
-> **项目**: 基于GitHub Copilot的全面工作流系统，专为系统化调试、文件整理和代码分析设计
+> **项目**: 基于GitHub Copilot的全面工作流系统，专为系统化调试、文件整理、代码分析和代码重构设计
 
 ## 📋 核心工作流
 
@@ -24,6 +24,12 @@
 - **模板**: `analysis_workflow_template.md`
 - **特点**: 总-分-总结构，可量化分析，支持多轮深入
 
+#### 🔧 重构工作流 - `refactor_system/`
+
+- **用途**: 系统化代码重构和架构改进
+- **模板**: `refactor_workflow_template.md`
+- **特点**: 三层级计划体系，双循环执行，P0-P3优先级管理
+
 ## 🔄 自动触发条件
 
 ### 调试工作流触发
@@ -44,11 +50,18 @@
 
 **自动建议**: "我看到您需要代码分析协助。是否需要我启动分析工作流？我可以帮助您系统地分析代码质量，识别技术债务，并提供优化建议。"
 
+### 重构工作流触发
+
+**关键词**: code refactoring, system refactoring, architecture improvement, code restructuring, refactor plan, 代码重构, 系统重构, 架构改进
+
+**自动建议**: "我看到您需要代码重构协助。是否需要我启动重构工作流？我可以帮助您基于分析结果制定系统化的重构计划并安全地执行重构任务。"
+
 ## 📁 工作流模板路径
 
 - **调试模板**: `debug-system/debug_workflow_template.md`
 - **整理模板**: `file-organize-system/file_organize_workflow_template.md`
 - **分析模板**: `analysis_system/analysis_workflow_template.md`
+- **重构模板**: `refactor_system/refactor_workflow_template.md`
 
 ## 🚨 强制性要求
 
@@ -71,6 +84,7 @@
 **复杂问题诊断** → 使用 `debug-system/`
 **代码质量分析** → 使用 `analysis_system/`
 **文件整理清理** → 使用 `file-organize-system/`
+**代码重构改进** → 使用 `refactor_system/`
 
 ### 终端环境
 
