@@ -357,6 +357,6 @@ For detailed version history and change information, please refer to: [Update Lo
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: July 29, 2025
-**Current Version**: v2.4.0
+**Last Updated**: July 30, 2025
+**Current Version**: v2.4.1
 **Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement
