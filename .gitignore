@@ -79,5 +79,8 @@ file-organize-system/tools/temp/
 # 参考文档 - 包含第三方系统提示，不需要版本控制
 reference/
 
+# 忽略本地工作区草稿与分析过程文件
+workspace/
+
 # 未发布的工作流
 # refactor_system/
