@@ -137,6 +137,10 @@ copilot_workflows/
 └── LICENSE                             # MIT许可证
 ```
 
+## 🧾 作者的话 / Author's Note
+
+查看工作流体系的设计动机、边界与实践经验总结： [作者的话 (AUTHOR_NOTE.md)](AUTHOR_NOTE.md)
+
 ## 🚀 快速开始
 
 ### 1. 克隆仓库

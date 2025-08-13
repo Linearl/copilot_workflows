@@ -407,3 +407,7 @@ For detailed version history and change information, please refer to: [Update Lo
 **Last Updated**: August 13, 2025  
 **Current Version**: v2.5.0  
 **Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement, version diff analysis
+
+## 🧾 Author's Note
+
+See workflow design intent, boundaries and practical lessons: [作者的话 (中文)](AUTHOR_NOTE.md) | [Author's Note (EN)](AUTHOR_NOTE_en.md)
