@@ -2,7 +2,7 @@
 
 > 🌍 **Language Versions**: [English](README_en.md) | [中文](README.md)
 
-A comprehensive workflow system based on GitHub Copilot for systematic debugging, file organization, code analysis, and refactoring.
+A comprehensive workflow system based on GitHub Copilot for systematic debugging, file organization, code analysis, refactoring, and version comparison.
 
 ## 🎯 Core Philosophy
 
@@ -32,7 +32,7 @@ Workflows ensure consistent results across different sessions and users, transfo
 
 ## 🎯 Core Workflows
 
-This system provides four main workflows designed for AI-assisted development:
+The system provides five primary workflows designed for AI-assisted development:
 
 ### 1. Debug Workflow
 
@@ -84,6 +84,19 @@ This system provides four main workflows designed for AI-assisted development:
 - Visual flowchart guidance with Mermaid diagrams
 - Risk control and rollback mechanisms
 
+### 5. Version Comparison Workflow
+
+**Template**: `version-comparison-system/version-comparison-workflow-template.md`
+**Description**: Structured workflow for multi-version difference analysis with Git worktree isolation, staged modular analysis, and automated reporting.
+
+**Features**:
+
+- Three-stage layered analysis (overview → modules → docs)
+- Bottom-up module order (tools → logic → algorithm)
+- Git diff statistics & commit classification
+- Template-driven tracking & reporting
+- Update log supplementation & upgrade guidance
+
 ## 📁 Project Structure
 
 ```text
@@ -121,6 +134,11 @@ copilot_workflows/
 │   ├── tools/                          # Refactor tools and utilities
 │   ├── docs/                           # Refactor documentation
 │   └── case-studies/                   # Refactor case studies
+├── version-comparison-system/           # Version comparison workflow supporting files
+│   ├── version-comparison-workflow-template.md
+│   ├── README.md
+│   ├── README_en.md
+│   └── templates/
 ├── .copilot-instructions.md             # Copilot AI collaboration instructions
 ├── git-commit-workflow.md               # Git commit workflow specification
 ├── README.md                            # Main documentation (Chinese)
@@ -215,11 +233,16 @@ Automatically suggest: "I see you need code analysis assistance. Would you like 
 When user mentions: code refactoring, system refactoring, architecture improvement, code restructuring, refactor plan
 Automatically suggest: "I see you need code refactoring assistance. Would you like me to start the refactor workflow? I can help you develop systematic refactoring plans based on analysis results and safely execute refactoring tasks."
 
+### For Version Comparison Workflow
+When user mentions: version comparison, diff analysis, change tracking, version control, git diff
+Automatically suggest: "I see you need version comparison assistance. Would you like me to start the version comparison workflow? I can help you systematically analyze differences between code versions, track changes, and generate comprehensive reports."
+
 ## Workflow Templates
 - Debug Template: `debug-system/debug_workflow_template.md`
 - File Organization Template: `file-organize-system/file_organize_workflow_template.md`
 - Analysis Template: `analysis_system/analysis_workflow_template.md`
 - Refactor Template: `refactor_system/refactor_workflow_template.md`
+- Version Comparison Template: `version-comparison-system/version-comparison-workflow-template.md`
 ```
 
 ### 4B. Natural Language Interaction
@@ -232,6 +255,7 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - "I want to organize these files..." → File organization workflow suggestion
 - "I need to analyze this code quality..." → Analysis workflow suggestion
 - "I need to refactor this project..." → Refactor workflow suggestion
+- "I want to compare these versions..." → Version comparison workflow suggestion
 
 ## 📋 Workflow Execution Details
 
@@ -280,6 +304,17 @@ Once configured, simply mention your needs in conversation - AI will automatical
 4. **Quality Assurance**: Validate and test each modification point
 5. **Documentation Maintenance**: Synchronously update related documentation
 
+### For Version Comparison Workflow
+
+> **📄 Working Document**: Created in `version-comparison-system/version-comparison-workflow_[task-name].md`
+
+1. **Version Selection**: Choose the versions or commits to compare
+2. **Git Worktree Setup**: Create isolated worktree for each version
+3. **Modular Analysis**: Analyze differences in a staged, modular fashion
+4. **Documentation Generation**: Generate comprehensive documentation of changes
+5. **Update Log Supplementation**: Automatically update the version history log
+6. **Reporting**: Create a structured report of the version comparison findings
+
 ## 🎯 Features
 
 ### Debug Workflow Features
@@ -310,6 +345,14 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - **Priority-driven Management**: P0-P3 priority-based stage execution
 - **Risk Control**: Comprehensive rollback mechanisms and quality checkpoints
 
+### Version Comparison Workflow Features
+
+- **Three-stage Layered Analysis**: Overview, module-level, and documentation-level analysis
+- **Bottom-up Module Order**: Analyze from tools and logic to algorithms
+- **Git Diff Statistics**: Comprehensive statistics and commit classification
+- **Template-driven Tracking**: Standardized templates for consistent tracking and reporting
+- **Update Log Supplementation**: Automatic updates to version history and upgrade guidance
+
 ### Shared Features
 
 - **Modular Structure**: Organized file system for efficient workflow sessions
@@ -335,6 +378,10 @@ Once configured, simply mention your needs in conversation - AI will automatical
   - [中文说明](refactor_system/README.md): Detailed refactor workflow Chinese guide
   - [English Guide](refactor_system/README_en.md): Comprehensive refactor workflow English guide
 
+- **Version Comparison Workflow Documentation**:
+  - [中文说明](version-comparison-system/README.md): Detailed version comparison workflow Chinese guide
+  - [English Guide](version-comparison-system/README_en.md): Comprehensive version comparison workflow English guide
+
 ### Symbol Reference
 
 For detailed symbol usage and file classification guidelines, see:
@@ -357,6 +404,6 @@ For detailed version history and change information, please refer to: [Update Lo
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: July 30, 2025
-**Current Version**: v2.4.1
-**Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement
+**Last Updated**: August 13, 2025  
+**Current Version**: v2.5.0  
+**Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement, version diff analysis

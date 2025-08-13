@@ -2,7 +2,7 @@
 
 > 🌍 **语言版本**: [English](README_en.md) | [中文](README.md)
 
-基于GitHub Copilot的全面工作流系统，用于系统化调试、文件整理和代码分析。
+基于GitHub Copilot的全面工作流系统，用于系统化调试、文件整理、代码分析、重构与版本差异分析。
 
 ## 🎯 核心理念
 
@@ -32,7 +32,7 @@
 
 ## 🎯 核心工作流
 
-本系统提供四个主要工作流，专为AI辅助开发设计：
+本系统提供五个主要工作流，专为AI辅助开发设计：
 
 ### 1. 调试工作流
 
@@ -81,6 +81,19 @@
 - 可视化流程图指导
 - 风险控制和回滚机制
 
+### 5. 版本对比工作流
+
+**模板**: `version-comparison-system/version-comparison-workflow-template.md`
+**说明**: 面向多版本差异分析的结构化工作流，支持Git worktree隔离、模块化阶段分析与版本报告生成。
+
+**功能特点**:
+
+- 三阶段（概览→模块→文档）分层分析
+- 底层到高层的模块顺序（tools→logic→algorithm）
+- Git差异统计与提交分类
+- 工作流模板驱动的记录与报告
+- 更新日志补充与升级指导输出
+
 ## 📁 项目结构
 
 ```text
@@ -112,6 +125,11 @@ copilot_workflows/
 │   ├── templates/                      # 重构模板集合
 │   ├── tools/                          # 重构工具和实用程序
 │   └── tasks/                          # 重构任务归档目录
+├── version-comparison-system/          # 版本对比工作流支持文件
+│   ├── version-comparison-workflow-template.md
+│   ├── README.md
+│   ├── README_en.md
+│   └── templates/
 ├── .copilot-instructions.md            # Copilot AI协作指令
 ├── git-commit-workflow.md              # Git提交工作流规范
 ├── README.md                           # 主要文档（中文）
@@ -278,6 +296,17 @@ code refactor_system/refactor_workflow_template.md
 5. **双层循环执行**: 按阶段进行重构实施（外层：阶段级，内层：修改点级）
 6. **验证总结**: 完成验证和文档归档
 
+### 版本对比工作流流程
+
+> **📄 工作文档**: 在 `version-comparison-system/[任务名]/version-comparison-workflow_[任务名].md` 中创建
+
+1. **版本选择**: 选择需要对比的版本
+2. **概览分析**: 执行快速的版本差异概览分析
+3. **模块分析**: 针对关键模块执行深入分析
+4. **文档生成**: 自动生成分析文档和更新日志
+5. **结果确认**: 人工确认分析结果和修复建议
+6. **归档与清理**: 归档分析文档，清理临时文件
+
 ## 🎯 功能特点
 
 ### 调试工作流功能
@@ -308,6 +337,14 @@ code refactor_system/refactor_workflow_template.md
 - **可视化指导**: Mermaid流程图提供可视化执行指导
 - **风险控制**: 渐进式实施、回滚机制和质量保证
 
+### 版本对比工作流功能
+
+- **三阶段分层分析**: 概览→模块→文档
+- **模块化顺序分析**: 从底层到高层（tools→logic→algorithm）
+- **Git差异统计**: 自动统计差异文件和提交
+- **模板驱动报告**: 基于模板生成结构化报告
+- **更新日志生成**: 自动生成更新日志和升级建议
+
 ### 共享功能
 
 - **模块化结构**: 有序的文件系统，提高工作流会话效率
@@ -333,6 +370,10 @@ code refactor_system/refactor_workflow_template.md
   - [中文说明](refactor_system/README.md): 详细的重构工作流中文说明
   - [English Guide](refactor_system/README_en.md): 综合重构工作流英文指南
 
+- **版本对比工作流文档**:
+  - [中文说明](version-comparison-system/README.md): 详细的版本对比工作流中文说明
+  - [English Guide](version-comparison-system/README_en.md): 综合版本对比工作流英文指南 (即将推出)
+
 ### 符号参考
 
 详细的符号使用和文件分类指南，请参见：
@@ -355,6 +396,6 @@ code refactor_system/refactor_workflow_template.md
 ---
 
 **创建时间**: 2025年6月21日
-**最后更新**: 2025年7月30日  
-**当前版本**: v2.4.1
-**适用场景**: 技术项目调试、问题排查、系统优化、文件整理、项目清理、代码分析、质量评估、代码重构、架构改进
+**最后更新**: 2025年8月13日  
+**当前版本**: v2.5.0  
+**适用场景**: 技术项目调试、问题排查、系统优化、文件整理、项目清理、代码分析、质量评估、代码重构、架构改进、版本差异分析
