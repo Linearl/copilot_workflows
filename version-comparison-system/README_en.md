@@ -258,8 +258,8 @@ Generates final comparison deliverable:
 
 ---
 
-**Last Updated**: 2025-08-13  
-**System Integration Version**: v2.5.0  
+**Last Updated**: 2025-08-14  
+**System Integration Version**: v2.5.1  
 **Design Foundation**: debug-system ≥ v2.3.4
 
 **v1.0.0 Core Features**:

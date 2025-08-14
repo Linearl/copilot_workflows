@@ -404,8 +404,8 @@ For detailed version history and change information, please refer to: [Update Lo
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: August 13, 2025  
-**Current Version**: v2.5.0  
+**Last Updated**: August 14, 2025  
+**Current Version**: v2.5.1  
 **Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement, version diff analysis
 
 ## 🧾 Author's Note
