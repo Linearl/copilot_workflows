@@ -2,6 +2,36 @@
 
 > **版本特点**: 分阶段分析 + 模块化对比 + 上下文管理 + 安全工作区
 
+## 📑 目录结构
+
+- [📖 工作流简介](#-工作流简介)
+- [📑 快速导航](#-快速导航)
+- [🤖 自动生成区域](#-自动生成区域)
+  - [📝 任务信息](#-任务信息)
+- [📁 目录结构](#-目录结构)
+- [📋 标准流程](#-标准流程)
+  - [步骤1：用户描述对比需求](#步骤1用户描述对比需求)
+  - [步骤2：AI解析并格式化](#步骤2ai解析并格式化)
+  - [步骤3：用户确认信息](#步骤3用户确认信息)
+  - [步骤4：创建专用文档](#步骤4创建专用文档)
+  - [步骤5：初始化分析环境](#步骤5初始化分析环境)
+  - [步骤6：创建版本工作区](#步骤6创建版本工作区)
+  - [步骤7：总体变更分析](#步骤7总体变更分析)
+  - [步骤8：核心模块深度对比（循环）](#步骤8核心模块深度对比循环)
+  - [步骤9：文档变更分析](#步骤9文档变更分析)
+  - [步骤10：最终汇总流程](#步骤10最终汇总流程)
+- [💡 对比原则](#-对比原则)
+  - [🎯 核心方法论](#-核心方法论)
+  - [📋 最佳实践](#-最佳实践)
+- [📚 附录](#-附录)
+  - [附录A：模板文件说明](#附录a模板文件说明)
+  - [附录B：脚本工具说明](#附录b脚本工具说明)
+  - [附录C：常见模块分析重点](#附录c常见模块分析重点)
+
+## 📖 工作流简介
+
+本工作流专为多版本差异分析和变更管理设计，采用三阶段分析模式和Git worktree隔离技术确保分析的全面性和准确性。适用于版本升级影响评估、变更日志补充、代码演进分析等场景，当前主要支持Python、C/C++项目的深度代码分析。
+
 ## 📑 快速导航
 
 - [📋 标准流程](#-标准流程) - 10步完整对比流程
@@ -26,38 +56,45 @@
 
 ```text
 version-comparison-system/
-├── version-comparison-workflow-template.md    # 版本对比工作流模板
-├── version-comparison-任务名.md               # 任务专用文档
-├── templates/                                # 模板文件
-│   ├── mgmt-analysis-index.md               # 分析索引模板
-│   ├── report-module-analysis.md            # 模块分析报告模板
-│   ├── report-version-summary.md            # 版本对比总结模板
-│   ├── analysis-stage-record.md             # 阶段分析记录模板
-│   └── worktree-setup.md                   # 工作区设置模板
+├── version-comparison-workflow-template.md    # 工作流模板
+├── scripts/                                   # 脚本目录
+│   ├── setup_worktree.ps1                     # 创建 worktree + 差异基础数据
+│   ├── cleanup_worktree.ps1                   # 清理 worktree 与输出
+│   ├── generate-summary-metrics.ps1           # 生成 summary_metrics.json 汇总指标
+│   ├── generate-commits-summary.ps1           # 生成 commits_summary.txt 提交分组摘要
+│   ├── compare-code-metrics.ps1               # 比较行数 & 方法数 metrics_files.csv
+│   ├── extract-breaking-api.ps1               # 提取潜在破坏性 API 变更候选
+│   ├── generate-module-impact.ps1             # 聚合模块变更并生成 module_impact.*
+│   ├── risk-status-report.ps1                 # 汇总风险 ID 状态 (RSK-*
+│   └── validate-ids.ps1                       # 校验 ID 唯一性与引用完整性
+├── templates/
+│   ├── mgmt-analysis-index.md                 # 分析索引模板
+│   ├── report-module-analysis.md              # 模块分析报告模板
+│   ├── report-version-summary.md              # 版本对比总结模板 (v2: ID 引用 + JSON 指标)
+│   ├── analysis-stage-record.md               # 阶段分析记录模板
+│   ├── update-log-template.md                 # 更新日志模板 (v2: 五段结构)
+│   └── worktree-setup.md                      # 工作区设置模板
 └── analysis/
-    ├── workflow_archive/                    # 已完成任务的工作流文档存档
-    └── 1_版本对比描述/                      # 任务专用文件夹
-        ├── INDEX.md                        # 分析索引
-        ├── version-comparison-任务名.md     # 工作流文档副本
-        ├── worktree_old_version/           # 旧版本工作区
-        ├── stage_1_overview/               # 步骤7：总体分析
-        │   ├── README.md                   # 阶段记录
-        │   ├── commits_overview.txt        # 提交记录
-        │   ├── files_stat.txt              # 文件变更统计
-        │   ├── changed_files.txt           # 变更文件列表
-        │   └── module_impact.md            # 模块影响分析
-        ├── stage_2_modules/                # 步骤8：模块对比（循环）
-        │   ├── README.md                   # 阶段记录
-        │   ├── tools_analysis.md           # 工具模块分析
-        │   ├── logic_analysis.md           # 业务逻辑分析
-        │   ├── algorithm_analysis.md       # 算法模块分析
-        │   └── config_analysis.md          # 配置管理分析
-        ├── stage_3_documentation/          # 步骤9：文档分析
-        │   ├── README.md                   # 阶段记录
-        │   └── documentation_changes.md    # 文档变更记录
-        └── summary/                        # 最终汇总
-            ├── version_comparison_report.md # 版本对比报告 (使用templates/report-version-summary.md)
-            └── update_log_draft.md         # 更新日志草稿 (使用templates/update-log-template.md)
+    └── <任务目录>/                             
+        ├── INDEX.md
+        ├── worktree_outputs/                  # 建议：脚本输出归档目录
+        │   ├── commits_overview.txt
+        │   ├── files_stat.txt
+        │   ├── changed_files.txt
+        │   ├── module_stats.json
+        │   ├── worktree_setup_snapshot.json
+        │   ├── summary_metrics.json
+        │   ├── commits_summary.txt
+        │   ├── metrics_summary.json
+        │   ├── metrics_files.csv
+        │   ├── breaking_api_candidates.txt
+        │   ├── breaking_api_candidates.json
+        │   ├── risk_status.json
+        │   └── risk_status.md
+        ├── stage_1_overview/
+        ├── stage_2_modules/
+        ├── stage_3_documentation/
+        └── summary/
 ```
 
 ---
@@ -115,6 +152,8 @@ mkdir stage_1_overview, stage_2_modules, stage_3_documentation, summary
 Copy-Item "..\..\templates\analysis-stage-record.md" "stage_1_overview\README.md"
 Copy-Item "..\..\templates\analysis-stage-record.md" "stage_2_modules\README.md"
 Copy-Item "..\..\templates\analysis-stage-record.md" "stage_3_documentation\README.md"
+# 为记录工作区配置复制模板 (使用模板: templates/worktree-setup.md)
+Copy-Item "..\..\templates\worktree-setup.md" "worktree_setup.md"
 ```
 
 - 创建任务专用文件夹，命名格式：`数字_版本对比描述`
@@ -123,6 +162,76 @@ Copy-Item "..\..\templates\analysis-stage-record.md" "stage_3_documentation\READ
 - 创建最终汇总目录
 
 ### 步骤6：创建版本工作区
+
+> 现在推荐使用脚本：`./scripts/setup_worktree.ps1 -Old <旧版本> -New <新版本> -Path <analysis/任务目录/worktree_outputs>`
+
+**⚠️ 编码问题提示**: 如果在Git提交信息中遇到中文乱码显示问题，请使用编码检测脚本：
+
+```powershell
+# 智能编码检测和修复Git提交信息乱码
+./scripts/git-encoding-detector.ps1 -OldVersion <旧版本> -NewVersion <新版本> -OutputDir "stage_1_overview"
+
+# 测试模式（仅预览，不生成文件）
+./scripts/git-encoding-detector.ps1 -OldVersion <旧版本> -NewVersion <新版本> -OutputDir "stage_1_overview" -TestMode
+```
+
+该脚本将：
+- 自动检测Git存储编码和终端编码不匹配问题
+- 设置PowerShell UTF-8输出编码解决显示乱码
+- 生成正确编码的提交信息文件
+- 支持UTF-8、GBK、GB2312、Big5、ISO-8859-1等多种编码
+
+**创建后立即执行基础指标与提交摘要生成（可选自动化）**：
+
+```powershell
+# 生成汇总指标 JSON (含提交/文件/行数/模块/风险等)
+./scripts/generate-summary-metrics.ps1 -Old <旧版本> -New <新版本> -Output worktree_outputs/summary_metrics.json
+# 生成提交分类摘要 (commits_summary.txt)
+./scripts/generate-commits-summary.ps1 -Old <旧版本> -New <新版本> -Output worktree_outputs/commits_summary.txt
+# 生成行数 & 方法数差异 (目录模式需传入已创建的两个 worktree 路径)
+./scripts/compare-code-metrics.ps1 -OldPath worktree_outputs/worktree_<旧版本> -NewPath worktree_outputs/worktree_<新版本> -OutputDir worktree_outputs
+```
+
+新增：代码指标分为两类：
+- 全量聚合(多语言+函数计数可信度)：run-code-metrics.ps1 → metrics_code_enriched.json（供 summary 富集）
+- 差异视角(Python/C/C++ 行 & 函数差异 + 可选函数长度估算)：compare-code-metrics.ps1 → metrics_summary.json / metrics_files.csv
+
+执行顺序建议：
+1. 创建 worktree (setup_worktree.ps1 或手动 git worktree)
+2. （可选）运行 run-code-metrics.ps1 针对新版本工作区（或两个版本分别）获取基线多语言代码规模
+3. 运行 compare-code-metrics.ps1 获取差异数据
+4. 运行 extract-breaking-api / generate-module-impact / risk-status-report
+5. 汇总 generate-summary-metrics.ps1 带上 -CodeMetricsJson 进行富集
+
+示例：
+```powershell
+./scripts/setup_worktree.ps1 -Old <旧> -New <新> -Path worktree_outputs
+# 多语言聚合（新版本）
+./scripts/run-code-metrics.ps1 -Root worktree_outputs/worktree_<新> -OutputDir worktree_outputs
+# 代码差异 (目录模式)
+./scripts/compare-code-metrics.ps1 -OldPath worktree_outputs/worktree_<旧> -NewPath worktree_outputs/worktree_<新> -OutputDir worktree_outputs -ApproximateLength
+# 破坏性 API 候选
+./scripts/extract-breaking-api.ps1 -Old <旧> -New <新> -OutputDir worktree_outputs
+# 模块影响
+./scripts/generate-module-impact.ps1 -Old <旧> -New <新> -StageDir stage_1_overview -EmitAuto -IncludeJSON
+# 风险状态
+./scripts/risk-status-report.ps1 -Root . -OutputDir worktree_outputs
+# 汇总（富集所有来源）
+./scripts/generate-summary-metrics.ps1 -Old <旧> -New <新> -Output worktree_outputs/summary_metrics.json `
+  -RiskStatusJson worktree_outputs/risk_status.json `
+  -BreakingApiJson worktree_outputs/breaking_api_candidates.json `
+  -ModuleImpactJson stage_1_overview/module_impact.json `
+  -CodeMetricsJson worktree_outputs/metrics_code_enriched.json
+```
+
+生成的文件在后续步骤将被引用：
+
+- summary_metrics.json → 版本汇总(report-version-summary.md)
+- metrics_code_enriched.json → summary 富集中的 code_metrics_* 字段
+- metrics_summary.json / metrics_files.csv → 差异统计与热点文件分析
+- module_impact.* → 模块分析计划与优先级排序
+- breaking_api_candidates.* → 兼容性评估引用
+- risk_status.* → 风险与可信度引用
 
 **AI必须执行以下操作**：
 
@@ -166,6 +275,8 @@ foreach ($module in $projectModules) {
 
 #### 7.1 📊 提交记录分析
 
+> 如已运行 `generate-commits-summary.ps1`，可直接引用 worktree_outputs/commits_summary.txt 中的分类统计与示例提交；否则手动分析 commits_overview.txt。
+
 - 分析commits_overview.txt，按功能类型分类：
   - `feat`: 新功能特性
   - `fix`: 问题修复
@@ -176,6 +287,15 @@ foreach ($module in $projectModules) {
 
 #### 7.2 📈 文件变更统计
 
+> 若已生成 summary_metrics.json，可直接获取 files_changed / lines_added / lines_deleted；compare-code-metrics.ps1 的 metrics_files.csv 可辅助识别热点文件。
+
+可选：提取潜在破坏性 API 变更候选（供兼容性评估 / report-version-summary 与更新日志使用）:
+
+```powershell
+./scripts/extract-breaking-api.ps1 -Old $oldVersion -New $newVersion -OutputDir worktree_outputs
+# 输出: breaking_api_candidates.txt / .json
+```
+
 - 分析files_stat.txt，识别变更热点：
   - 变更行数最多的文件
   - 新增/删除的文件
@@ -183,20 +303,37 @@ foreach ($module in $projectModules) {
 
 #### 7.3 🗂️ 模块影响分析
 
-根据changed_files.txt，**自动识别**变更涉及的模块：
+执行目标：识别受影响模块、聚合模块变更规模并生成结构化 `module_impact.md` 支撑 7.4 计划确认。
+
+推荐使用脚本：`./scripts/generate-module-impact.ps1`
+
+示例：
 
 ```powershell
-# 自动分析变更模块分布
-git diff --name-only $oldVersion..$newVersion | Group-Object {($_ -split '/')[0]} | Sort-Object Count -Descending
+# 基于旧/新版本直接生成 (自动创建 changed_files.txt)
+./scripts/generate-module-impact.ps1 -Old $oldVersion -New $newVersion -StageDir stage_1_overview -EmitAuto -IncludeJSON
 
-# 生成模块影响分析
-git diff --name-only $oldVersion..$newVersion | ForEach-Object {
-    $module = ($_ -split '/')[0]
-    if ($module -in @('algorithm', 'logic', 'tools', 'ui', 'persistence', 'file')) {
-        Write-Output "$module`: $_"
-    }
-} | Group-Object {($_ -split ':')[0]} > stage_1_overview/module_impact_auto.txt
+# 若已存在 changed_files.txt
+./scripts/generate-module-impact.ps1 -ChangedFilesPath stage_1_overview/changed_files.txt -StageDir stage_1_overview -Depth 1 -EmitAuto
 ```
+
+脚本要点：
+
+- 动态抽取路径前 Depth 层（默认1）作为模块键；根目录文件归类 `_root`
+- 输出: module_impact.md (+ 可选 module_impact_auto.txt / module_impact.json)
+- 表格含：模块 | 变更文件数 | 示例文件 (前N=5)
+- 供人工补充优先级、行为影响、风险 (RSK-)、破坏性 API、依赖影响
+
+> 若项目源代码集中在 `src/` 等单一路径，可使用 `-Depth 2` 获得 `src/子目录` 级聚合；后续可扩展脚本支持忽略前缀目录参数。
+
+可选：生成风险状态汇总，便于后续在版本总结 / 更新日志的风险与可信度部分引用：
+
+```powershell
+./scripts/risk-status-report.ps1 -Root . -OutputDir worktree_outputs
+# 输出: risk_status.json / risk_status.md
+```
+
+生成后：快速人工检查 `module_impact.md` 模块划分是否合理，然后进入 7.4 计划确认。
 
 #### 7.4 🎯 模块分析计划确认
 
@@ -285,6 +422,8 @@ git diff $oldVersion..$newVersion -- "*.md"
 
 #### 10.1 版本对比报告 (version_comparison_report.md)
 
+> 可直接嵌入或引用 worktree_outputs/summary_metrics.json 与 metrics_summary.json（如已生成），避免重复人工统计。
+
 **使用模板**: `templates/report-version-summary.md`
 
 将各阶段的分析结果整合到summary/version_comparison_report.md中：
@@ -303,6 +442,8 @@ Copy-Item "..\..\templates\report-version-summary.md" "summary\version_compariso
 - 兼容性影响评估：破坏性变更、配置变更、依赖变更
 
 #### 10.2 更新日志草稿生成
+
+> 使用 worktree_outputs/commits_summary.txt 提供“提交摘要”；必要时引用 metrics_summary.json 支撑“技术成果”数据。
 
 **使用模板**: `templates/update-log-template.md`
 
@@ -413,6 +554,20 @@ git worktree list
 
 #### 10.5 归档任务专用文档
 
+**(新增) 首先执行 ID 校验脚本，确保所有引用一致性**：
+
+```powershell
+# 在任务根目录 (analysis/<任务目录>) 调用，输出至 worktree_outputs
+./scripts/validate-ids.ps1 -Root . -OutputDir worktree_outputs -FailOnDuplicate:$false
+```
+
+脚本校验：
+
+- ID 前缀: RSK-/DISC-/MOD-/API-/CMP-
+- 唯一性：检测重复 ID 并列出出现位置
+- 引用完整性：统计各 ID 出现次数，供人工确认是否缺少定义或说明
+- 输出: id_validation.json / id_validation.md
+
 **目标**: 将任务专用工作流文档归档到分析文件夹，便于完整记录
 
 ```powershell
@@ -440,6 +595,21 @@ Rename-Item "version-comparison-任务名.md" "workflow_document_archive.md"
 - **可复现**: 后续分析时可以参考执行细节
 - **经验积累**: 为改进工作流程提供依据
 - **团队学习**: 团队成员可以学习分析方法
+
+#### 10.6 一致性对齐校验（新增）
+
+在清理前运行对齐校验脚本，确保所有关键产出内部一致：
+```powershell
+./scripts/alignment-checker.ps1 -AnalysisDir analysis/<任务目录> -FailOnMismatch
+```
+校验内容：
+- summary_metrics.json 核心数值 vs 实际 git 统计
+- enrichment 中 *_source 文件是否存在
+- metrics_summary.json 一致性提示（若存在）
+- id_validation.json 中 ID 在报告/更新日志引用覆盖
+- 缺失/未引用/数值差异列出于 alignment_report.*
+
+若失败（pass=false），需整改后重跑；仅在通过后再考虑 cleanup。
 
 ---
 
@@ -497,82 +667,33 @@ Rename-Item "version-comparison-任务名.md" "workflow_document_archive.md"
 
 ### 附录A：模板文件说明
 
-#### 核心模板使用指导
+| 模板 | 版本 | 功能 | 关键特性 | 主要变化 |
+|------|------|------|----------|----------|
+| mgmt-analysis-index.md | v1 | 任务导航/阶段总览 | 阶段进度 + 发现指针 | ID 指针最小化描述 |
+| analysis-stage-record.md | v1 | 单阶段执行记录 | Checkpoints + 风险表 | 多 checkpoint 支持 |
+| report-module-analysis.md | v1 | 模块级深度对比 | 模块/文件/函数多级表 | 内联破坏性 API & 风险表 |
+| report-version-summary.md | v2 | 全局聚合总结 | ID 引用 + JSON 指标 | 去重 + 可信度块 |
+| update-log-template.md | v2 | 面向发布说明 | 五段结构 + 指标 JSON | 兼容性与已知问题分离 |
+| worktree-setup.md | v1 | 工作区建立记录 | 脚本化创建/验证/清理 | 去除 snippet 机制 |
 
-| 模板文件                      | 使用时机     | 复制命令                                                                      | 作用描述                 |
-| ----------------------------- | ------------ | ----------------------------------------------------------------------------- | ------------------------ |
-| `mgmt-analysis-index.md`    | 任务初始化   | `Copy-Item "templates/mgmt-analysis-index.md" "INDEX.md"`                   | 创建分析任务的导航索引   |
-| `analysis-stage-record.md`  | 各阶段开始   | `Copy-Item "templates/analysis-stage-record.md" "stage_X/README.md"`        | 记录阶段分析过程和发现   |
-| `report-module-analysis.md` | 模块分析     | `Copy-Item "templates/report-module-analysis.md" "module_name_analysis.md"` | 深度分析单个模块变更     |
-| `report-version-summary.md` | 最终汇总     | `Copy-Item "templates/report-version-summary.md" "version_summary.md"`      | 生成版本对比总结报告     |
-| `worktree-setup.md`         | 工作区创建   | `Copy-Item "templates/worktree-setup.md" "worktree_setup.md"`               | 记录Git工作区配置过程    |
-| `update-log-template.md`    | 更新日志生成 | `Copy-Item "templates/update-log-template.md" "update_log_draft.md"`        | 根据版本对比生成更新日志 |
+### 附录B：脚本工具说明
 
-#### 模板功能特点
+| 脚本 | 作用 | 主要输出 | 典型使用阶段 |
+|------|------|----------|--------------|
+| setup_worktree.ps1 | 创建双版本 worktree & 初始差异文件 | commits_overview.txt 等 | 步骤6 |
+| cleanup_worktree.ps1 | 清理 worktree 与输出 | (清理动作) | 10.4 |
+| git-encoding-detector.ps1 | **智能编码检测和Git数据提取** ⭐ | UTF-8编码的commits文件，编码分析报告 | 步骤6 (编码问题修复) |
+| run-code-metrics.ps1 | 多语言代码规模/函数聚合 | metrics_code_enriched.json | 6 (可选) |
+| compare-code-metrics.ps1 | Python/C/C++ 差异行/函数统计 | metrics_summary.json / metrics_files.csv | 6 后 / 7.2 |
+| generate-summary-metrics.ps1 | 汇总核心 & 富集指标 | summary_metrics.json | 6/7 结束后 |
+| generate-commits-summary.ps1 | 提交分组摘要 | commits_summary.txt | 6 后 / 7.1 |
+| extract-breaking-api.ps1 | 破坏性 API 候选 | breaking_api_candidates.* | 7.2 / 7.3 |
+| generate-module-impact.ps1 | 模块变更聚合 | module_impact.* | 7.3 |
+| risk-status-report.ps1 | 风险状态汇总 | risk_status.* | 7.3 / 10 |
+| validate-ids.ps1 | ID 唯一 & 引用统计 | id_validation.* | 10.5 前 |
+| alignment-checker.ps1 | 产出一致性校验 | alignment_report.* | 10.6 |
 
-**mgmt-analysis-index.md**
-
-- **功能**: 任务导航和进度跟踪
-- **包含**: 任务基本信息、进度状态、关键发现摘要、文件导航链接
-- **更新频率**: 每个阶段完成后更新
-
-**analysis-stage-record.md**
-
-- **功能**: 详细的阶段分析记录
-- **包含**: 阶段任务清单、分析发现、执行过程、定期总结
-- **使用方式**: 为每个分析阶段（1/2/3）创建独立的README.md
-
-**report-module-analysis.md** (增强版)
-
-- **功能**: 模块级变更对比分析
-- **新增特性**:
-  - 模块级变更对比表（新增/删除/重命名模块）
-  - 语义匹配分析方法（识别重构和重命名）
-  - 文件/函数/配置三层对比表格
-- **适用场景**: 深度分析单个模块的所有变更
-
-**report-version-summary.md**
-
-- **功能**: 最终版本对比报告
-- **包含**: 重大变更概览、模块统计、风险评估、升级指导
-- **输出**: 标准化的版本对比分析报告
-
-**worktree-setup.md**
-
-- **功能**: Git工作区配置和管理
-- **包含**: 创建命令、验证步骤、清理流程、故障排除
-- **作用**: 确保版本工作区的正确配置和安全管理
-
-### 附录B：Git命令参考
-
-#### 基础对比命令
-
-```bash
-# 获取提交记录
-git log --oneline V1.86..V1.87
-
-# 获取文件统计
-git diff --stat V1.86..V1.87
-
-# 获取变更文件列表
-git diff --name-only V1.86..V1.87
-
-# 模块级统计
-git diff --stat V1.86..V1.87 -- tools/
-```
-
-#### 工作区管理
-
-```bash
-# 创建工作区
-git worktree add path/to/worktree V1.86
-
-# 列出工作区
-git worktree list
-
-# 删除工作区
-git worktree remove path/to/worktree
-```
+> 说明：compare-code-metrics 与 run-code-metrics 互补：前者针对版本差异，后者提供新版本(或各版本)整体规模与外部工具置信度；summary_metrics 只直接读取 run-code-metrics 产物。encoding-aware-git-extractor-fixed.ps1 专门用于解决混合编码环境下的Git信息提取问题，支持UTF-8、GBK、GB2312、Big5、ISO-8859-1等编码。
 
 ### 附录C：常见模块分析重点
 

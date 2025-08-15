@@ -17,6 +17,8 @@
 
 The Version Comparison Workflow is a structured version analysis system powered by GitHub Copilot, designed specifically for large-scale version diff analysis with AI assistance. It provides a disciplined methodology that ensures completeness and accuracy while effectively managing AI context limitations.
 
+> **⚠️ Technology Stack Limitation**: The current version's script tools primarily support **Python, C/C++** projects for code analysis. Other language projects can use the overall workflow framework and templates, but code metrics collection functionality may be limited.
+
 ### Core Templates
 
 - Primary Template: `version-comparison-system/version-comparison-workflow-template.md`

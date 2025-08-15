@@ -57,6 +57,8 @@ SETUP_VERSION: [唯一快照ID]
 | 4 | 验证核心文件存在 | 关键模块路径探测 |
 | 5 | 输出 JSON 快照 | worktree_setup_snapshot.json |
 
+<!-- NOTE: 已移除 snippet 机制，所有引用表格需在各模板内联维护。 -->
+
 ---
 
 ## 🔍 工作区验证
