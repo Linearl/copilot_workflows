@@ -50,9 +50,9 @@ scoring_strategy:
 
 # 扩展评分维度（覆盖原有维度）
 dimension_overrides:
-  # 如果启用，将替换原有的maintainability评分
+  # 禁用maintainability维度覆盖，让质量评估插件系统处理
   maintainability:
-    enabled: true
+    enabled: false
     plugins: ["security", "test_coverage"]  # 使用这些插件的分数
     weights: [0.6, 0.4]                     # 对应权重
   
