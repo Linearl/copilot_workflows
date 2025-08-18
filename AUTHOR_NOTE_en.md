@@ -1,6 +1,34 @@
 # Author's Note: Evolution & Practice of the Copilot Workflow System
 
-> This document introduces the design intent, usage positioning, real evolution experience, and boundary principles of the 5 core workflows. It also shares how to iteratively build your own AI collaboration workflows.
+> This document aims to quickly introduce the design intent, usage positioning, and real evolution experience of the core workflows to first-time users of this repository, and share how to develop and iterate your own AI collaboration workflows.
+
+---
+
+## 🧾 To Readers
+
+From the initial debug workflow to today's workflow builder, this system has undergone 3 months of real-world refinement. The birth of the **Workflow Builder** marks our transition from "**artisanal**" workflow design to "**industrial production**".
+
+**Our Vision**:
+- **Lower barriers**: Enable everyone to design professional-grade workflows
+- **Improve efficiency**: Shorten design cycles from manual work to rapid generation
+- **Ensure quality**: Guarantee output quality through systematic methodology
+- **Promote sharing**: Make good workflow design patterns reusable and shareable
+
+**If you are considering**:
+- Standardizing repetitive workflow processes for your team
+- Solidifying temporary solutions into reusable systems
+- Learning how to systematically design AI collaboration processes
+- Deep customization based on existing workflows
+
+**Recommended action path**:
+1. **Experience the workflow builder first**: Use it to generate a simple workflow and feel the AI-guided design
+2. **Study design patterns deeply**: Read detailed descriptions of 24 design patterns to understand the underlying principles
+3. **Participate in improvement**: Feedback and suggestions during use are valuable improvement inputs
+4. **Contribute to the ecosystem**: Share your usage experience and contribute new design patterns
+
+**Special thanks** to every user who provided feedback, suggestions, and contributions. Your real-world usage scenarios and problem feedback are the core driving force for the continuous evolution of this system.
+
+> **New workflow design guiding principle**: Before starting to design a new workflow, please first clarify "1-sentence purpose + 3 core mechanisms + 1 exit criterion", then prioritize using the workflow builder for AI-guided design.
 
 ---
 
@@ -9,10 +37,11 @@
 | Order | Workflow | Role Positioning | Primary Purpose | Maturity* |
 | ----- | -------- | ---------------- | --------------- | --------- |
 | 1 | Debug Workflow (debug-system) | Fault Resolution Hub | Institutionalize debugging → improve interaction efficiency | ⭐⭐⭐⭐☆ |
-| 2 | File Organize Workflow (file-organize-system) | Structural Hygiene Assistant | Structure cleanup / classification normalization | ⭐⭐☆☆☆ |
-| 3 | Analysis Workflow (analysis_system) | Cognitive Foundation Engine | System / module understanding & assessment | ⭐⭐⭐⭐☆ |
-| 4 | Refactor Workflow (refactor_system) | Progressive Change Executor | Safe, staged modular refactoring | ⭐⭐⭐☆☆ |
+| 2 | Analysis Workflow (analysis_system) | Cognitive Foundation Engine | System / module understanding & assessment | ⭐⭐⭐⭐☆ |
+| 3 | Refactor Workflow (refactor_system) | Progressive Change Executor | Safe, staged modular refactoring | ⭐⭐⭐☆☆ |
+| 4 | File Organize Workflow (file-organize-system) | Structural Hygiene Assistant | Structure cleanup / classification normalization | ⭐⭐☆☆☆ |
 | 5 | Version Comparison Workflow (version-comparison-system) | Release Delta Lens | Complete & calibrate version change understanding | ⭐⭐⭐⭐☆ |
+| 6 | Workflow Builder (workflow-builder-system) | Meta-Workflow Engine | AI-guided systematic workflow design and construction | ⭐⭐⭐⭐⭐ |
 
 *Maturity is a subjective synthesis of: specification completeness / template robustness / field usage feedback.
 
@@ -76,6 +105,17 @@ Each workflow is summarized with the uniform dimensions: Pain Points / Structure
 | Key Outputs | Commit / file stats, module impact overview, module analysis reports, documentation change log, version comparison report, update log draft, archival index |
 | Boundaries | Does not auto-prioritize modules; does not alter business code; no guarantee of commit semantic quality; worktree cleanup requires permission |
 | Quality Controls & Constraints | Module list & order confirmation; templated module analysis; periodic stage summaries (time/file thresholds); report & log via templates; explicit cleanup confirmation; intermediate stats preserved until synthesis |
+
+### Workflow Builder (workflow-builder-system)
+
+| Dimension | Content |
+| --------- | ------- |
+| Pain Points | Manual workflow design requires deep expertise; inconsistent quality across custom workflows; high learning curve for IPD methodology; no systematic pattern reuse; quality validation relies on manual review |
+| Structure & Characteristics | IPD 6-stage gate control (Concept → Analysis → Conceptual Design → Detailed Design → Development & Build → Quality Verification); AI-guided 3-5 round requirement clarification; 24 design pattern library extracted from existing workflows; plugin-based verification system with 5 quality dimensions; three complexity tiers (Lightweight/Standard/Professional) |
+| Value | Democratizes professional workflow design; accelerates development from weeks to hours; ensures systematic quality through methodology; enables pattern sharing and reuse; scales team workflow standardization |
+| Key Outputs | Complete workflow template, supporting documentation, quality assessment report, pattern application guide, deployment package, usage instructions |
+| Boundaries | Cannot replace domain expertise for specialized workflows; requires clear initial requirements; generated workflows need real-world testing; plugin system limited to configured assessment dimensions |
+| Quality Controls & Constraints | IPD gate approval required for each stage; requirement completeness validation; pattern application verification; multi-dimensional quality assessment; user acceptance testing before deployment; version control for generated workflows |
 
 > Note: Tables are concise summaries. For operational detail, always refer to each workflow's template inside its directory.
 
