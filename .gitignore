@@ -1,78 +1,139 @@
 # Copilot Workflow System .gitignore
 
+# ===========================================
+# 核心配置文件
+# ===========================================
 # AI协作配置文件 - 包含敏感信息，不应上传到公共仓库
 .copilot-instructions.md
-
-# git提交规范流程
-# git-commit-workflow.md
-
-# 工作流生成的临时文件
-debug-system/debug_workflow_*.md
-!debug-system/debug_workflow_template.md
-
-file-organize-system/organize/*/
-!file-organize-system/organize/.gitkeep
-
-# 操作系统生成的文件
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Windows
-Desktop.ini
-$RECYCLE.BIN/
-
-# IDE和编辑器文件
-.vscode/settings.json
-.vscode/launch.json
-.vscode/tasks.json
-.idea/
-*.swp
-*.swo
-*~
-
-# 临时文件
-*.tmp
-*.temp
-*.log
-*.bak
-*.backup
-
-# 缓存目录
-.cache/
-.temp/
 
 # 用户特定配置
 .env
 .env.local
 config.local.*
 
-# 备份文件
+# ===========================================
+# 工作流生成的临时文件
+# ===========================================
+# 调试工作流运行时文件
+debug-system/debug_workflow_*.md
+!debug-system/debug_workflow_template.md
+
+# 文件整理工作流运行时文件
+file-organize-system/organize/*/
+!file-organize-system/organize/.gitkeep
+file-organize-system/tools/output/
+file-organize-system/tools/temp/
+
+# 分析工作流运行时文件
+analysis_system/tasks/*/
+!analysis_system/tasks/README.md
+
+# 重构工作流运行时文件
+refactor_system/tasks/*/
+!refactor_system/tasks/README.md
+
+# 版本对比工作流运行时文件
+version-comparison-system/analysis/*/
+!version-comparison-system/analysis/.gitkeep
+
+# 工作流构建器运行时文件
+workflow-builder-system/builds/*/
+!workflow-builder-system/builds/.gitkeep
+
+# ===========================================
+# Python 相关
+# ===========================================
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# ===========================================
+# 操作系统生成的文件
+# ===========================================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+Thumbs.db
+ehthumbs.db
+
+# ===========================================
+# IDE和编辑器文件
+# ===========================================
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+
+# JetBrains
+.idea/
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ===========================================
+# 临时和备份文件
+# ===========================================
+*.tmp
+*.temp
+*.bak
+*.backup
 *.orig
 *.rej
 
+# ===========================================
+# 缓存和输出目录
+# ===========================================
+.cache/
+.temp/
+logs/
+*.log
+
+# ===========================================
 # 压缩文件
+# ===========================================
 *.zip
 *.rar
 *.7z
 *.tar.gz
 
-# 工具生成的文件
-file-organize-system/tools/output/
-file-organize-system/tools/temp/
-
+# ===========================================
+# 项目特定目录
+# ===========================================
 # 参考文档 - 包含第三方系统提示，不需要版本控制
 reference/
 
-# 忽略本地工作区草稿与分析过程文件
+# 工作区草稿与分析过程文件
 workspace/
-
-# 开发过程文件 - 包含开发迭代过程记录，不需要版本控制
-workflow-builder-system/develop/
-
-# 未发布的工作流
-# refactor_system/

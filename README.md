@@ -8,9 +8,7 @@
 
 > **"流程即工具，工具即杠杆"**
 
-*"新工具不是旧方法的延伸，而是新可能性的宣言。"* ——凯文·凯利
-
-工具的本质是「可复用的杠杆」，而流程是「工具的工业化封装」。正如凯文·凯利所言，*"过去200年来最伟大的发明并非具体的工具，而是科学方法本身——这种可靠地产生创新的流程"*。
+工具的本质是「可复用的杠杆」，而流程是「工具的工业化封装」。本系统将临时性的问题解决转化为系统化、可重复的工作流程。
 
 本系统体现了这一理念，将调试、文件整理和代码分析从临时性活动转化为**系统化、可复制的流程**，成为AI辅助开发的强大杠杆工具。
 
@@ -201,6 +199,12 @@ code analysis_system/analysis_workflow_template.md
 
 # 重构任务
 code refactor_system/refactor_workflow_template.md
+
+# 版本对比任务
+code version-comparison-system/version-comparison-workflow-template.md
+
+# 工作流构建任务
+code workflow-builder-system/workflow_builder_template.md
 ```
 
 > **📝 说明**: 这些是模板文件。实际的工作流文档会在开始工作流程时自动生成。
@@ -252,11 +256,21 @@ code refactor_system/refactor_workflow_template.md
 当用户提到: code refactoring, system refactoring, architecture improvement, code restructuring, refactor plan
 自动建议: "我看到您需要代码重构协助。是否需要我启动重构工作流？我可以帮助您基于分析结果制定系统化的重构计划并安全地执行重构任务。"
 
+### 版本对比工作流触发
+当用户提到: version comparison, diff analysis, change tracking, version control, git diff
+自动建议: "我看到您需要版本对比协助。是否需要我启动版本对比工作流？我可以帮助您系统地分析版本差异，跟踪变更，并生成全面的报告。"
+
+### 工作流构建器触发
+当用户提到: workflow design, workflow building, custom workflow, workflow development, workflow creation
+自动建议: "我看到您需要工作流构建协助。是否需要我启动工作流构建器？我可以帮助您使用IPD方法论和我们的24个设计模式库设计并创建自定义工作流。"
+
 ## 工作流模板
 - 调试模板: `debug-system/debug_workflow_template.md`
 - 文件整理模板: `file-organize-system/file_organize_workflow_template.md`
 - 分析模板: `analysis_system/analysis_workflow_template.md`
 - 重构模板: `refactor_system/refactor_workflow_template.md`
+- 版本对比模板: `version-comparison-system/version-comparison-workflow-template.md`
+- 工作流构建器模板: `workflow-builder-system/workflow_builder_template.md`
 ```
 
 ### 4B. 自然语言交互
@@ -269,6 +283,8 @@ code refactor_system/refactor_workflow_template.md
 - "我想要整理这些文件..." → 文件整理工作流建议
 - "我需要分析这个代码质量..." → 分析工作流建议
 - "我需要重构这个项目..." → 重构工作流建议
+- "我想要对比这些版本..." → 版本对比工作流建议
+- "我想要创建自定义工作流..." → 工作流构建器建议
 
 > **⚠️ 重要提醒**: 执行复杂任务时可能需要多次点击"继续"或与AI进行深入交互。为确保AI始终遵循工作流要求，建议在长时间运行的任务中：
 >
@@ -336,6 +352,17 @@ code refactor_system/refactor_workflow_template.md
 5. **结果确认**: 人工确认分析结果和修复建议
 6. **归档与清理**: 归档分析文档，清理临时文件
 
+### 工作流构建器流程
+
+> **📄 工作文档**: 在 `workflow-builder-system/builds/[构建会话]/workflow_build_[任务名].md` 中创建
+
+1. **需求澄清**: AI引导的3-5轮对话，收集完整需求
+2. **IPD门控**: 6阶段门控过程，从概念到质量验证
+3. **设计模式选择**: 从24个验证过的设计模式中选择
+4. **工作流构建**: 使用选定模式和IPD方法论构建工作流
+5. **插件验证**: 评估完整性、易用性、可维护性、文档质量和扩展性
+6. **部署**: 生成最终工作流模板和文档
+
 ## 🎯 功能特点
 
 ### 调试工作流功能
@@ -373,6 +400,14 @@ code refactor_system/refactor_workflow_template.md
 - **Git差异统计**: 自动统计差异文件和提交
 - **模板驱动报告**: 基于模板生成结构化报告
 - **更新日志生成**: 自动生成更新日志和升级建议
+
+### 工作流构建器功能
+
+- **AI引导式需求收集**: 3-5轮对话完成完整需求收集
+- **IPD 6阶段门控制**: 概念→分析→概念设计→详细设计→开发构建→质量验证
+- **24个设计模式库**: 从现有工作流提取的可复用设计模式
+- **插件化验证**: 完整性、易用性、可维护性、文档质量、扩展性评估
+- **三种复杂度选项**: 轻量级/标准/专业级，支持不同技能水平用户
 
 ### 共享功能
 
