@@ -12,7 +12,7 @@ A comprehensive workflow system based on GitHub Copilot for systematic debugging
 
 The essence of tools is **"reusable leverage"**, while processes are **"industrialized packaging of tools"**. As Kevin Kelly observed, *"The greatest invention of the past 200 years was not any specific tool, but the scientific method itself—a process that reliably produces innovation."*
 
-This system embodies this philosophy by transforming debugging, file organization, code analysis, and refactoring from ad-hoc activities into **systematic, replicable processes** that serve as powerful leverage tools for AI-assisted development.
+This system embodies this philosophy by transforming debugging, file organization, and code analysis from ad-hoc activities into **systematic, replicable processes** that serve as powerful leverage tools for AI-assisted development.
 
 **💡 Extend and Customize**: You can leverage these existing workflows as templates to develop your own specialized workflows with Copilot's assistance, then iteratively optimize them through practice.
 
@@ -461,7 +461,7 @@ For detailed version history and change information, please refer to: [Update Lo
 ---
 
 **Created**: June 21, 2025
-**Last Updated**: August 14, 2025  
+**Last Updated**: August 18, 2025  
 **Current Version**: v3.0.0  
 **Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement, version diff analysis, workflow design
 
