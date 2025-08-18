@@ -98,6 +98,11 @@ The system provides six primary workflows designed for AI-assisted development:
 **Description**: Intelligent workflow construction system based on IPD Integrated Product Development methodology, guiding new workflow design through AI.
 
 **Features**:
+- **AI-guided requirement clarification**: Complete requirement collection in 3-5 rounds of dialogue
+- **IPD 6-stage gate control**: Concept → Analysis → Conceptual Design → Detailed Design → Development & Build → Quality Verification
+- **24 design pattern library**: Reusable design patterns extracted from existing workflows
+- **Plugin-based verification system**: Assessment of completeness, usability, maintainability, documentation quality, and extensibility
+- **Three complexity options**: Lightweight/Standard/Professional levels for different skill levels
 
 - **AI-guided requirement clarification**: Complete requirement collection in 3-5 rounds of dialogue
 - **IPD 6-stage gate control**: Concept → Analysis → Conceptual Design → Detailed Design → Development & Build → Quality Verification
@@ -110,6 +115,64 @@ The system provides six primary workflows designed for AI-assisted development:
 
 ```text
 copilot_workflows/
+├── workflow-builder-system/            # Workflow builder system
+│   ├── workflow_builder_template.md    # Main workflow template
+│   ├── README.md                       # System documentation
+│   ├── README_en.md                    # English documentation
+│   ├── templates/                      # Template component library
+│   ├── tools/                          # Automated building tools
+│   │   ├── validator.py                # Workflow validator (plugin-based refactored version)
+│   │   ├── plugin_template.py          # Plugin development template
+│   │   └── plugins/                    # Quality assessment plugin system
+│   ├── builds/                         # Build output directory
+│   ├── docs/                           # Documentation directory
+│   │   └── appendix-design-patterns.md # 24 design pattern library
+│   └── logs/                           # Runtime log directory
+├── debug-system/                       # Debug workflow supporting files
+│   ├── debug_workflow_template.md      # Debug workflow template
+│   ├── templates/                      # Debug template collection
+│   ├── docs/                           # Symbol reference guides
+│   └── buglist/                        # Bug tracking and resolution archive
+├── file-organize-system/               # File organization workflow supporting files
+│   ├── file_organize_workflow_template.md # File organization workflow template
+│   ├── templates/                      # Organization template collection
+│   ├── docs/                           # Operation guides and best practices
+│   ├── tools/                          # Organization tools and utilities
+│   ├── organize/                       # Organization task working directory
+│   └── version.md                      # Version history
+├── analysis_system/                    # Code analysis workflow supporting files
+│   ├── analysis_workflow_template.md   # Analysis workflow template
+│   ├── README.md                       # Analysis system documentation
+│   ├── templates/                      # Analysis template collection
+│   ├── tools/                          # Analysis tools and utilities
+│   ├── tasks/                          # Analysis task archive directory
+│   ├── docs/                           # Analysis documentation
+│   └── case-studies/                   # Analysis case studies
+├── refactor_system/                    # Refactor workflow supporting files
+│   ├── refactor_workflow_template.md   # Refactor workflow template
+│   ├── README.md                       # Refactor system documentation (Chinese)
+│   ├── README_en.md                    # Refactor system documentation (English)
+│   ├── templates/                      # Refactor template collection
+│   ├── tools/                          # Refactor tools and utilities
+│   └── tasks/                          # Refactor task archive directory
+├── version-comparison-system/          # Version comparison workflow supporting files
+│   ├── version-comparison-workflow-template.md
+│   ├── README.md
+│   ├── README_en.md
+│   └── templates/
+├── .copilot-instructions.md            # Copilot AI collaboration instructions
+├── git-commit-workflow.md              # Git commit workflow specification
+├── README.md                           # Main documentation (Chinese)
+├── README_en.md                        # English documentation
+└── LICENSE                             # MIT License
+```
+│   │   ├── plugin_template.py          # Plugin development template
+│   │   └── plugins/                    # Quality assessment plugin system
+│   ├── builds/                         # Generated workflow output directory
+│   ├── docs/                           # Builder documentation and design patterns
+│   │   └── appendix-design-patterns.md # 24 design pattern library
+│   ├── develop/                        # Development workspace
+│   └── logs/                           # Build logs and history
 ├── debug-system/                        # Debug workflow supporting files
 │   ├── debug_workflow_template.md       # Debug workflow template
 │   ├── README.md                        # Debug system documentation (Chinese)
@@ -141,8 +204,24 @@ copilot_workflows/
 │   ├── README_en.md                     # Refactor system documentation (English)
 │   ├── templates/                       # Refactor template collection
 │   ├── tools/                          # Refactor tools and utilities
-│   ├── docs/                           # Refactor documentation
-│   └── case-studies/                   # Refactor case studies
+│   └── tasks/                          # Refactor task archive directory
+├── version-comparison-system/           # Version comparison workflow supporting files
+│   ├── version-comparison-workflow-template.md
+│   ├── README.md                        # Version comparison documentation (Chinese)
+│   ├── README_en.md                     # Version comparison documentation (English)
+│   ├── templates/                       # Version comparison template collection
+│   ├── analysis/                        # Version analysis working directory
+│   └── scripts/                        # Version comparison tools
+├── .copilot-instructions.md             # Copilot AI collaboration instructions
+├── git-commit-workflow.md               # Git commit workflow specification
+├── README.md                            # Main documentation (Chinese)
+├── README_en.md                         # English documentation
+└── update_log.md                        # Version update log
+```
+
+## 🧾 Author's Note
+
+See workflow design intent, boundaries and practical lessons: [作者的话 (AUTHOR_NOTE.md)](AUTHOR_NOTE.md)
 ├── version-comparison-system/           # Version comparison workflow supporting files
 │   ├── version-comparison-workflow-template.md
 │   ├── README.md                        # Version comparison documentation (Chinese)
@@ -330,6 +409,48 @@ Once configured, simply mention your needs in conversation - AI will automatical
 
 ### For Refactor Workflow
 
+> **📄 Working Document**: Created in `refactor_system/tasks/[task-number]/refactor_workflow_[task-name].md`
+
+1. **Input Collection**: Provide analysis results and refactoring requirements
+2. **Overall Planning**: Develop Level1 overall plan, set P0-P3 priorities
+3. **User Confirmation**: Confirm refactoring plan and implementation priorities
+4. **Environment Initialization**: Create dedicated directory and three-tier planning documents
+5. **Dual-loop Execution**: Perform refactoring implementation by phase (outer: phase-level, inner: modification-point-level)
+6. **Verification Summary**: Complete validation and document archiving
+
+### For Version Comparison Workflow
+
+> **📄 Working Document**: Created in `version-comparison-system/[task-name]/version-comparison-workflow_[task-name].md`
+
+1. **Version Selection**: Choose the versions to compare
+2. **Overview Analysis**: Execute rapid version difference overview analysis
+3. **Module Analysis**: Perform in-depth analysis of key modules
+4. **Documentation Generation**: Automatically generate analysis documents and update logs
+5. **Result Confirmation**: Manual confirmation of analysis results and fix recommendations
+6. **Archiving and Cleanup**: Archive analysis documents, clean temporary files
+
+### For Workflow Builder
+
+> **📄 Working Document**: Created in `workflow-builder-system/builds/[build-session]/workflow_build_[task-name].md`
+
+1. **Requirement Clarification**: AI-guided 3-5 round dialogue to collect complete requirements
+2. **IPD Gate Control**: 6-stage gate process from concept to quality verification
+3. **Design Pattern Selection**: Choose from 24 validated design patterns
+4. **Workflow Construction**: Build workflow using selected patterns and IPD methodology
+5. **Plugin Verification**: Assess completeness, usability, maintainability, documentation quality, and extensibility
+6. **Deployment**: Generate final workflow template and documentation
+
+> **📄 Working Document**: Created in `analysis_system/tasks/[task-id]/analysis_workflow_[task-name].md`
+
+1. **Project Analysis**: Understand project structure and analysis requirements
+2. **Analysis Planning**: Define analysis scope, dimensions, and success criteria
+3. **Environment Setup**: Initialize analysis workspace and tools
+4. **Multi-dimensional Analysis**: Execute code structure, quality, performance, and security analysis
+5. **Report Generation**: Generate comprehensive analysis reports with metrics and recommendations
+6. **Documentation and Archiving**: Document analysis process and archive results
+
+### For Refactor Workflow
+
 > **📄 Working Document**: Created in `refactor_system/refactor_workflow_[task-name].md`
 
 1. **Requirement Analysis**: Determine refactoring scope and objectives
@@ -384,9 +505,27 @@ Once configured, simply mention your needs in conversation - AI will automatical
 
 ### Refactor Workflow Features
 
-- **Three-tier Planning System**: Strategic Level1 → Tactical Level2 → Operational Level3
-- **Dual-loop Execution**: Stage-level outer loop + modification-point-level inner loop
-- **Visual Workflow Support**: First workflow with Mermaid diagram integration
+- **Three-tier Planning System**: Level1 Overall Plan → Level2 Phase Plan → Level3 Implementation Plan
+- **Priority-driven Management**: P0-P3 priority management and phased execution
+- **Dual-loop Control**: Phase-level outer loop and modification-point-level inner loop
+- **Visual Guidance**: Mermaid flowcharts provide visual execution guidance
+- **Risk Control**: Progressive implementation, rollback mechanisms, and quality assurance
+
+### Version Comparison Workflow Features
+
+- **Three-stage Layered Analysis**: Overview → Module → Documentation
+- **Modular Sequential Analysis**: From bottom to top (tools → logic → algorithm)
+- **Git Difference Statistics**: Automatic statistics of difference files and commits
+- **Template-driven Reporting**: Generate structured reports based on templates
+- **Update Log Generation**: Automatically generate update logs and upgrade recommendations
+
+### Workflow Builder Features
+
+- **AI-guided Requirement Collection**: Complete requirement collection in 3-5 rounds of dialogue
+- **IPD 6-stage Gate Control**: Concept → Analysis → Conceptual Design → Detailed Design → Development & Build → Quality Verification
+- **24 Design Pattern Library**: Reusable design patterns extracted from existing workflows
+- **Plugin-based Verification**: Assessment of completeness, usability, maintainability, documentation quality, and extensibility
+- **Three Complexity Options**: Lightweight/Standard/Professional levels for different skill levels
 - **Priority-driven Management**: P0-P3 priority-based stage execution
 - **Risk Control**: Comprehensive rollback mechanisms and quality checkpoints
 
