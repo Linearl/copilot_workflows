@@ -1,0 +1,69 @@
+# 验证器插件系统配置
+# Validator Plugin System Configuration
+
+# 启用的插件列表
+enabled_plugins:
+  - "security"          # 安全性评估
+  - "performance"        # 性能评估  
+  - "test_coverage"      # 测试覆盖率评估
+
+# 插件权重配置（影响最终评分）
+plugin_weights:
+  security: 1.5          # 安全性权重最高
+  performance: 1.0       # 性能标准权重
+  test_coverage: 1.2     # 测试覆盖率权重较高
+
+# 自定义插件目录
+custom_plugins_dir: "plugins/"
+
+# 插件特定设置
+plugin_settings:
+  security:
+    strict_mode: true                    # 严格安全模式
+    check_dependencies: true             # 检查依赖安全性
+    sensitive_patterns:                  # 敏感信息模式
+      - "password"
+      - "secret" 
+      - "token"
+      - "api_key"
+      - "private_key"
+  
+  performance:
+    performance_threshold: 0.8           # 性能阈值
+    check_async_support: true            # 检查异步支持
+    check_caching: true                  # 检查缓存机制
+  
+  test_coverage:
+    minimum_coverage: 0.7                # 最低测试覆盖率
+    require_ci: true                     # 要求CI配置
+    test_frameworks:                     # 支持的测试框架
+      - "pytest"
+      - "unittest"
+      - "nose"
+      - "doctest"
+
+# 评分融合策略
+scoring_strategy:
+  mode: "weighted_average"               # 加权平均模式
+  fallback_score: 5.0                   # 插件失败时的默认分数
+  normalize_scores: true                 # 标准化分数到0-10范围
+
+# 扩展评分维度（覆盖原有维度）
+dimension_overrides:
+  # 如果启用，将替换原有的maintainability评分
+  maintainability:
+    enabled: true
+    plugins: ["security", "test_coverage"]  # 使用这些插件的分数
+    weights: [0.6, 0.4]                     # 对应权重
+  
+  # 添加新的评分维度
+  # reliability:
+  #   enabled: false
+  #   plugins: ["test_coverage", "performance"] 
+  #   weights: [0.7, 0.3]
+
+# 报告设置
+reporting:
+  detailed_plugin_results: true         # 显示详细插件结果
+  include_recommendations: true         # 包含改进建议
+  export_format: "markdown"             # 导出格式

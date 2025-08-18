@@ -1,0 +1,92 @@
+# Workflow Builder System Configuration
+# 工作流构建系统配置文件
+
+# 版本信息
+version: "1.0.0"
+last_updated: "2025-08-18"
+
+# 模板文件路径配置
+templates:
+  # 主工作流模板
+  main_workflow: "workflow_builder_template.md"
+  
+  # 各步骤模板文件路径
+  step1_concept: "templates/step1_concept_report_template.md"
+  step2_analysis: "templates/step2_analysis_report_template.md"
+  step3_conceptual_design: "templates/step3_conceptual_design_template.md"
+  step3_concept_analysis: "templates/step3_concept_analysis_report_template.md"
+  step4_detailed_design: "templates/step4_detailed_design_template.md"
+  step4_detailed_analysis: "templates/step4_detailed_analysis_report_template.md"
+  step5_development_summary: "templates/step5_development_summary_template.md"
+  step5_global_task_management: "templates/step5_global_task_management_template.md"
+  step6_quality_report: "templates/step6_quality_report_template.md"
+  
+  # 基础工作流模板
+  workflow_base: "templates/workflow-base-template.md"
+
+# 工具文件路径配置
+tools:
+  # 验证工具
+  validator: "tools/validator.py"
+  
+  # 可能的其他工具(根据实际需要添加)
+  # report_generator: "tools/report_generator.py"
+  # template_processor: "tools/template_processor.py"
+
+# 目录结构配置
+directories:
+  # 核心目录(步骤5.1要求的强制目录)
+  templates: "templates/"
+  docs: "docs/"
+  tools: "tools/"
+  
+  # 可选目录
+  builds: "builds/"
+  workspace: "workspace/"
+
+# 工作流执行配置
+workflow_settings:
+  # 默认的IPD步骤数量
+  total_steps: 6
+  
+  # 必需的确认检查点数量
+  required_checkpoints: 2
+  
+  # 质量验证设置
+  validation:
+    strict_mode: true
+    check_file_references: true
+    validate_templates: true
+    
+  # 输出格式
+  output_formats:
+    - "markdown"
+    # - "html"
+    # - "pdf"
+
+# 集成设置
+integrations:
+  # VS Code集成
+  vscode:
+    enabled: true
+    workspace_settings: true
+  
+  # Git集成
+  git:
+    enabled: true
+    auto_commit: false
+    
+  # 其他集成(根据需要扩展)
+  # github: false
+  # jira: false
+
+# 扩展和插件支持
+extensions:
+  # 启用插件系统
+  plugin_support: true
+  
+  # 自定义验证规则
+  custom_validation: true
+  
+  # 模板扩展支持
+  template_inheritance: true
