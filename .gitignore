@@ -61,17 +61,6 @@ config.local.*
 *.7z
 *.tar.gz
 
-# 个人笔记和草稿
-notes/
-drafts/
-personal/
-private/
-
-# 测试输出
-test-output/
-test-results/
-coverage/
-
 # 工具生成的文件
 file-organize-system/tools/output/
 file-organize-system/tools/temp/
