@@ -78,7 +78,7 @@ class ExtensibilityPlugin(QualityAssessmentPlugin):
             logger.debug("✗ 插件或扩展点缺失")
 
         final_score = min(score, self.max_score)
-        logger.info(f"扩展性评估完成: {final_score:.1f}/10.0")
+        logger.debug(f"扩展性评估完成: {final_score:.1f}/10.0")
         return final_score
 
     def _check_configuration_support(self, workflow_dir: Path) -> bool:

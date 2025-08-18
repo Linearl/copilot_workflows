@@ -91,7 +91,7 @@ class MaintainabilityPlugin(QualityAssessmentPlugin):
             logger.debug("✗ 日志记录机制缺失")
 
         final_score = min(score, self.max_score)
-        logger.info(f"可维护性评估完成: {final_score:.1f}/10.0")
+        logger.debug(f"可维护性评估完成: {final_score:.1f}/10.0")
         return final_score
 
     def _check_code_comment_ratio(self, workflow_dir: Path) -> float:

@@ -109,7 +109,7 @@ class CompletenessPlugin(QualityAssessmentPlugin):
             logger.debug("✗ 配置文件缺失")
 
         final_score = min(score, self.max_score)
-        logger.info(f"完整性评估完成: {final_score:.1f}/10.0")
+        logger.debug(f"完整性评估完成: {final_score:.1f}/10.0")
         return final_score
 
     def get_assessment_details(self, workflow_dir: Path) -> Dict[str, Any]:

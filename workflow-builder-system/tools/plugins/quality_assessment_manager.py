@@ -123,14 +123,15 @@ class QualityAssessmentManager:
         for plugin_name, plugin in self.plugins.items():
             try:
                 logger.debug(f"执行插件评估: {plugin_name}")
-                score = plugin.assess(workflow_dir)
-                dimension_scores[plugin_name] = score
 
-                # 获取详细评估信息
+                # 获取详细评估信息（包含分数）
                 details = plugin.get_assessment_details(workflow_dir)
+                score = details.get("score", 0.0)
+
+                dimension_scores[plugin_name] = score
                 plugin_details[plugin_name] = details
 
-                logger.debug(f"插件 {plugin_name} 评估完成: {score:.1f}/10.0")
+                logger.info(f"{plugin_name}评估完成: {score:.1f}/10.0")
 
             except Exception as e:
                 logger.error(f"插件 {plugin_name} 评估失败: {e}")

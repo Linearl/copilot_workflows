@@ -32,7 +32,7 @@ Workflows ensure consistent results across different sessions and users, transfo
 
 ## 🎯 Core Workflows
 
-The system provides five primary workflows designed for AI-assisted development:
+The system provides six primary workflows designed for AI-assisted development:
 
 ### 1. Debug Workflow
 
@@ -40,7 +40,6 @@ The system provides five primary workflows designed for AI-assisted development:
 **Description**: Systematic debugging process with 6-step debugging cycle for consistent problem-solving.
 
 **Features**:
-
 - Structured problem-solving approach
 - Reproducible debugging methods
 - Comprehensive documentation system
@@ -49,53 +48,63 @@ The system provides five primary workflows designed for AI-assisted development:
 ### 2. File Organization Workflow
 
 **Template**: `file-organize-system/file_organize_workflow_template.md`
-**Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup procedures.
+**Description**: Comprehensive file organization system with three major organization approaches and systematic cleanup processes.
 
 **Features**:
-
-- Priority-based organization
+- Priority-driven organization
 - Type-based classification
-- Timeline-based sorting
-- Systematic cleanup process
-- Symbol-based file categorization
+- Timeline-oriented sorting
+- Systematic cleanup processes
+- Symbol-based file management
 
 ### 3. Analysis Workflow
 
 **Template**: `analysis_system/analysis_workflow_template.md`
-**Description**: Comprehensive code analysis and quality assessment system with multi-dimensional analysis approaches for technical debt identification, performance optimization, and refactoring guidance.
+**Description**: Comprehensive code analysis and quality assessment system using multi-dimensional analysis methods for technical debt identification, performance optimization, and refactoring guidance.
 
 **Features**:
-
 - Multi-dimensional code analysis
 - Automated tools and metrics collection
-- Systematic reporting
-- Template-driven process
+- Systematic report generation
+- Template-driven processes
 
 ### 4. Refactor Workflow
 
 **Template**: `refactor_system/refactor_workflow_template.md`
-**Description**: Systematic refactoring workflow based on code analysis results, featuring three-tier planning management and dual-loop execution mechanism.
+**Description**: Systematic refactoring workflow based on code analysis results, featuring three-tier planning management and dual-loop execution mechanisms.
 
 **Features**:
-
-- Three-tier planning system (Overall → Stage → Implementation)
-- P0-P3 priority-driven stage management
-- Dual-loop control (stage-level + modification-point-level)
-- Visual flowchart guidance with Mermaid diagrams
+- Three-tier planning system (Overall → Phase → Implementation)
+- P0-P3 priority-driven phase management
+- Dual-loop control (Phase-level + Modification-point-level)
+- Visual flowchart guidance
 - Risk control and rollback mechanisms
 
 ### 5. Version Comparison Workflow
 
 **Template**: `version-comparison-system/version-comparison-workflow-template.md`
-**Description**: Structured workflow for multi-version difference analysis with Git worktree isolation, staged modular analysis, and automated reporting.
+**Description**: Structured workflow for multi-version differential analysis, supporting Git worktree isolation, modular phase analysis, and version report generation.
+
+**Features**:
+- Three-stage layered analysis (Overview → Module → Documentation)
+- Bottom-up module ordering (tools → logic → algorithm)
+- Git diff statistics and commit classification
+- Workflow template-driven recording and reporting
+- Update log supplementation and upgrade guidance output
+
+### 6. Workflow Builder
+
+**Template**: `workflow-builder-system/workflow_builder_template.md`
+**Description**: Intelligent workflow construction system based on IPD Integrated Product Development methodology, guiding new workflow design through AI.
 
 **Features**:
 
-- Three-stage layered analysis (overview → modules → docs)
-- Bottom-up module order (tools → logic → algorithm)
-- Git diff statistics & commit classification
-- Template-driven tracking & reporting
-- Update log supplementation & upgrade guidance
+- **AI-guided requirement clarification**: Complete requirement collection in 3-5 rounds of dialogue
+- **IPD 6-stage gate control**: Concept → Analysis → Conceptual Design → Detailed Design → Development & Build → Quality Verification
+- **24 design pattern library**: Reusable design patterns extracted from existing workflows
+- **Plugin-based verification system**: Assessment of completeness, usability, maintainability, documentation quality, and extensibility
+- **Three complexity options**: Lightweight/Standard/Professional levels for different skill levels
+
 
 ## 📁 Project Structure
 
@@ -136,9 +145,22 @@ copilot_workflows/
 │   └── case-studies/                   # Refactor case studies
 ├── version-comparison-system/           # Version comparison workflow supporting files
 │   ├── version-comparison-workflow-template.md
-│   ├── README.md
-│   ├── README_en.md
-│   └── templates/
+│   ├── README.md                        # Version comparison documentation (Chinese)
+│   ├── README_en.md                     # Version comparison documentation (English)
+│   ├── templates/                       # Version comparison template collection
+│   ├── analysis/                        # Version analysis working directory
+│   └── scripts/                        # Version comparison tools
+├── workflow-builder-system/             # Workflow builder supporting files
+│   ├── workflow_builder_template.md     # Workflow builder template
+│   ├── README.md                        # Workflow builder documentation (Chinese)
+│   ├── README_en.md                     # Workflow builder documentation (English)
+│   ├── config.yaml                      # System configuration file
+│   ├── templates/                       # Builder template collection
+│   ├── tools/                          # Building tools and utilities
+│   ├── docs/                           # Builder documentation and design patterns
+│   ├── builds/                         # Generated workflow output directory
+│   ├── develop/                        # Development workspace
+│   └── logs/                           # Build logs and history
 ├── .copilot-instructions.md             # Copilot AI collaboration instructions
 ├── git-commit-workflow.md               # Git commit workflow specification
 ├── README.md                            # Main documentation (Chinese)
@@ -182,6 +204,12 @@ code analysis_system/analysis_workflow_template.md
 
 # For refactor tasks
 code refactor_system/refactor_workflow_template.md
+
+# For version comparison tasks
+code version-comparison-system/version-comparison-workflow-template.md
+
+# For building new workflows
+code workflow-builder-system/workflow_builder_template.md
 ```
 
 > **📝 Note**: These are template files. The actual workflow documents will be automatically generated when you start the workflow process.
@@ -237,12 +265,17 @@ Automatically suggest: "I see you need code refactoring assistance. Would you li
 When user mentions: version comparison, diff analysis, change tracking, version control, git diff
 Automatically suggest: "I see you need version comparison assistance. Would you like me to start the version comparison workflow? I can help you systematically analyze differences between code versions, track changes, and generate comprehensive reports."
 
+### For Workflow Builder
+When user mentions: workflow design, workflow building, custom workflow, workflow development, workflow creation
+Automatically suggest: "I see you need workflow building assistance. Would you like me to start the workflow builder? I can help you design and create custom workflows using IPD methodology and our 24 design pattern library."
+
 ## Workflow Templates
 - Debug Template: `debug-system/debug_workflow_template.md`
 - File Organization Template: `file-organize-system/file_organize_workflow_template.md`
 - Analysis Template: `analysis_system/analysis_workflow_template.md`
 - Refactor Template: `refactor_system/refactor_workflow_template.md`
 - Version Comparison Template: `version-comparison-system/version-comparison-workflow-template.md`
+- Workflow Builder Template: `workflow-builder-system/workflow_builder_template.md`
 ```
 
 ### 4B. Natural Language Interaction
@@ -256,6 +289,7 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - "I need to analyze this code quality..." → Analysis workflow suggestion
 - "I need to refactor this project..." → Refactor workflow suggestion
 - "I want to compare these versions..." → Version comparison workflow suggestion
+- "I want to create a custom workflow..." → Workflow builder suggestion
 
 ## 📋 Workflow Execution Details
 
@@ -315,6 +349,17 @@ Once configured, simply mention your needs in conversation - AI will automatical
 5. **Update Log Supplementation**: Automatically update the version history log
 6. **Reporting**: Create a structured report of the version comparison findings
 
+### For Workflow Builder
+
+> **📄 Working Document**: Created in `workflow-builder-system/builds/workflow_build_[task-name].md`
+
+1. **Requirement Clarification**: AI-guided 3-5 round dialogue to collect complete requirements
+2. **IPD Gate Control**: 6-stage gate process from concept to quality verification
+3. **Design Pattern Selection**: Choose from 24 validated design patterns
+4. **Workflow Construction**: Build workflow using selected patterns and IPD methodology
+5. **Plugin Verification**: Assess completeness, usability, maintainability, documentation quality, and extensibility
+6. **Deployment**: Generate final workflow template and documentation
+
 ## 🎯 Features
 
 ### Debug Workflow Features
@@ -353,6 +398,14 @@ Once configured, simply mention your needs in conversation - AI will automatical
 - **Template-driven Tracking**: Standardized templates for consistent tracking and reporting
 - **Update Log Supplementation**: Automatic updates to version history and upgrade guidance
 
+### Workflow Builder Features
+
+- **AI-guided Requirement Collection**: Complete requirement collection in 3-5 rounds of dialogue
+- **IPD 6-stage Gate Control**: Concept → Analysis → Conceptual Design → Detailed Design → Development & Build → Quality Verification
+- **24 Design Pattern Library**: Reusable design patterns extracted from existing workflows
+- **Plugin-based Verification**: Assessment of completeness, usability, maintainability, documentation quality, and extensibility
+- **Three Complexity Options**: Lightweight/Standard/Professional levels for different skill levels
+
 ### Shared Features
 
 - **Modular Structure**: Organized file system for efficient workflow sessions
@@ -382,6 +435,10 @@ Once configured, simply mention your needs in conversation - AI will automatical
   - [中文说明](version-comparison-system/README.md): Detailed version comparison workflow Chinese guide
   - [English Guide](version-comparison-system/README_en.md): Comprehensive version comparison workflow English guide
 
+- **Workflow Builder Documentation**:
+  - [中文说明](workflow-builder-system/README.md): Detailed workflow builder Chinese guide
+  - [English Guide](workflow-builder-system/README_en.md): Comprehensive workflow builder English guide
+
 ### Symbol Reference
 
 For detailed symbol usage and file classification guidelines, see:
@@ -405,8 +462,8 @@ For detailed version history and change information, please refer to: [Update Lo
 
 **Created**: June 21, 2025
 **Last Updated**: August 14, 2025  
-**Current Version**: v2.5.1  
-**Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement, version diff analysis
+**Current Version**: v3.0.0  
+**Use Cases**: Technical project debugging, problem troubleshooting, system optimization, file organization, project cleanup, code analysis, quality assessment, code refactoring, architecture improvement, version diff analysis, workflow design
 
 ## 🧾 Author's Note
 

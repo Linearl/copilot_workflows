@@ -94,7 +94,7 @@ class UsabilityPlugin(QualityAssessmentPlugin):
             logger.debug("✗ FAQ或故障排除文档缺失")
 
         final_score = min(score, self.max_score)
-        logger.info(f"易用性评估完成: {final_score:.1f}/10.0")
+        logger.debug(f"易用性评估完成: {final_score:.1f}/10.0")
         return final_score
 
     def _check_usage_guidance(self, workflow_dir: Path) -> bool:

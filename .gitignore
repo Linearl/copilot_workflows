@@ -82,5 +82,8 @@ reference/
 # 忽略本地工作区草稿与分析过程文件
 workspace/
 
+# 开发过程文件 - 包含开发迭代过程记录，不需要版本控制
+workflow-builder-system/develop/
+
 # 未发布的工作流
 # refactor_system/

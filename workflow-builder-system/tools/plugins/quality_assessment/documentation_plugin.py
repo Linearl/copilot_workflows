@@ -87,7 +87,7 @@ class DocumentationPlugin(QualityAssessmentPlugin):
             logger.debug("✗ 文档可能过期")
 
         final_score = min(score, self.max_score)
-        logger.info(f"文档质量评估完成: {final_score:.1f}/10.0")
+        logger.debug(f"文档质量评估完成: {final_score:.1f}/10.0")
         return final_score
 
     def _check_readme_exists(self, workflow_dir: Path) -> bool:

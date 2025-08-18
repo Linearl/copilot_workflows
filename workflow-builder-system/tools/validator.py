@@ -63,12 +63,19 @@ python validator.py /path/to/workflow --exclude "**/*.backup" --exclude "**/temp
 
 插件化质量评估:
 --------------
-现在质量评估通过独立插件实现：
+现在所有质量评估维度都通过独立插件实现，完全插件化架构：
 - CompletenessPlugin: 完整性评估 (30% 权重)
 - UsabilityPlugin: 易用性评估 (25% 权重)
 - MaintainabilityPlugin: 可维护性评估 (25% 权重)
 - DocumentationPlugin: 文档质量评估 (10% 权重)
 - ExtensibilityPlugin: 扩展性评估 (10% 权重)
+
+扩展插件支持:
+-------------
+除了核心质量评估插件，还支持扩展插件进行额外评估：
+- SecurityPlugin: 安全性评估 (检查敏感信息、权限配置等)
+- PerformancePlugin: 性能评估 (检查优化代码、并发支持等)
+- TestCoveragePlugin: 测试覆盖率评估 (检查测试文件、CI配置等)
 
 自定义权重:
 ----------
@@ -86,10 +93,12 @@ validator = WorkflowValidator(quality_weights=custom_weights)
 
 注意事项:
 --------
-1. 插件系统位于 plugins/ 目录下
-2. 日志文件会输出到 ../logs/validator.log
-3. 某些功能需要系统环境支持（如PowerShell语法检查）
-4. 大型项目验证可能需要较长时间
+1. 质量评估插件系统位于 plugins/ 目录下
+2. 扩展插件配置位于 plugins_config.yaml 文件中
+3. 所有评估维度均通过插件加载，无维度覆盖机制
+4. 日志文件会输出到 ../logs/validator.log
+5. 某些功能需要系统环境支持（如PowerShell语法检查）
+6. 大型项目验证可能需要较长时间
 """
 
 import sys
@@ -106,10 +115,12 @@ from typing import Dict, List, Any
 # 尝试导入质量评估插件系统
 try:
     from plugins import QualityAssessmentManager
+
     QUALITY_PLUGINS_AVAILABLE = True
 except ImportError:
     try:
         from .plugins import QualityAssessmentManager
+
         QUALITY_PLUGINS_AVAILABLE = True
     except ImportError:
         QUALITY_PLUGINS_AVAILABLE = False
@@ -117,10 +128,12 @@ except ImportError:
 # 尝试导入原有插件系统（用于安全性等扩展评估）
 try:
     from validator_plugins import PluginManager
+
     EXTENDED_PLUGINS_AVAILABLE = True
 except ImportError:
     try:
         from .validator_plugins import PluginManager
+
         EXTENDED_PLUGINS_AVAILABLE = True
     except ImportError:
         EXTENDED_PLUGINS_AVAILABLE = False
@@ -202,7 +215,7 @@ class WorkflowValidator:
         self,
         exclude_patterns: List[str] = None,
         quality_weights: Dict[str, float] = None,
-        enable_extended_plugins: bool = True
+        enable_extended_plugins: bool = True,
     ):
         """
         初始化工作流验证器
@@ -296,12 +309,17 @@ class WorkflowValidator:
 
                         path_parts = rel_path_str.split("/")
                         if dir_name in path_parts:
-                            logger.debug(f"排除文件: {rel_path_str} (目录匹配: {pattern})")
+                            logger.debug(
+                                f"排除文件: {rel_path_str} (目录匹配: {pattern})"
+                            )
                             return True
                     else:
-                        if (fnmatch.fnmatch(file_path.name, simple_pattern) or 
-                            rel_path_str.endswith(simple_pattern)):
-                            logger.debug(f"排除文件: {rel_path_str} (匹配模式: {pattern})")
+                        if fnmatch.fnmatch(
+                            file_path.name, simple_pattern
+                        ) or rel_path_str.endswith(simple_pattern):
+                            logger.debug(
+                                f"排除文件: {rel_path_str} (匹配模式: {pattern})"
+                            )
                             return True
 
                 elif fnmatch.fnmatch(rel_path_str, pattern):
@@ -372,12 +390,14 @@ class WorkflowValidator:
         logger.info("执行质量评估 (插件系统)")
 
         workflow_dir = Path(workflow_path)
-        
+
         # 使用质量评估插件系统
         if self.quality_manager:
             try:
                 quality_results = self.quality_manager.assess_quality(workflow_dir)
-                logger.info(f"🔌 质量评估插件系统完成 - 总分: {quality_results['overall_score']:.1f}/10.0")
+                logger.info(
+                    f"🔌 质量评估插件系统完成 - 总分: {quality_results['overall_score']:.1f}/10.0"
+                )
             except Exception as e:
                 logger.error(f"质量评估插件系统失败: {e}")
                 quality_results = {
@@ -385,7 +405,7 @@ class WorkflowValidator:
                     "grade": "评估失败",
                     "dimension_scores": {},
                     "plugin_details": {},
-                    "summary": {"error": str(e)}
+                    "summary": {"error": str(e)},
                 }
         else:
             logger.warning("质量评估插件系统不可用，跳过质量评估")
@@ -394,14 +414,22 @@ class WorkflowValidator:
                 "grade": "系统不可用",
                 "dimension_scores": {},
                 "plugin_details": {},
-                "summary": {"error": "质量评估插件系统不可用"}
+                "summary": {"error": "质量评估插件系统不可用"},
             }
 
         # 扩展插件评估（可选）
         extended_results = {}
+        extended_details = {}
         if self.extended_plugin_manager:
             try:
-                extended_results = self.extended_plugin_manager.assess_all(workflow_dir)
+                # 获取扩展插件的详细信息
+                extended_details = self.extended_plugin_manager.assess_all_with_details(
+                    workflow_dir
+                )
+                # 提取分数用于向后兼容
+                extended_results = {
+                    name: details["score"] for name, details in extended_details.items()
+                }
                 logger.info(f"🔌 扩展插件评估完成: {list(extended_results.keys())}")
             except Exception as e:
                 logger.warning(f"扩展插件评估失败: {e}")
@@ -409,6 +437,8 @@ class WorkflowValidator:
         # 合并结果
         if extended_results:
             quality_results["extended_plugin_scores"] = extended_results
+        if extended_details:
+            quality_results["extended_plugin_details"] = extended_details
 
         return quality_results
 
@@ -490,7 +520,7 @@ class WorkflowValidator:
                 continue
 
             # 检查真正的markdown标题
-            if line.startswith("#") and " " in line:  
+            if line.startswith("#") and " " in line:
                 level = len(line) - len(line.lstrip("#"))
 
                 # 检查层次跳跃
@@ -745,7 +775,9 @@ class WorkflowValidator:
         self.validation_results["dependencies"]["passed"] = 5
         self.validation_results["dependencies"]["failed"] = 0
 
-    def _generate_validation_report(self, quality_assessment: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_validation_report(
+        self, quality_assessment: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """生成验证报告"""
         total_syntax = (
             self.validation_results["syntax"]["passed"]
@@ -807,7 +839,9 @@ class WorkflowValidator:
 
         # 如果有扩展插件结果，添加到摘要中
         if "extended_plugin_scores" in quality_assessment:
-            report["summary"]["extended_plugins"] = quality_assessment["extended_plugin_scores"]
+            report["summary"]["extended_plugins"] = quality_assessment[
+                "extended_plugin_scores"
+            ]
 
         return report
 
@@ -825,19 +859,27 @@ class WorkflowValidator:
         all_issues = self._get_all_issues()
         return [issue for issue in all_issues if issue.get("type") in critical_types]
 
-    def generate_report(self) -> str:
-        """生成文本格式的验证报告"""
-        if not hasattr(self, '_last_validation_results'):
+    def generate_report(self, show_detail: bool = False) -> str:
+        """
+        生成文本格式的验证报告
+
+        Args:
+            show_detail (bool): 是否显示详细信息，包括各维度详细信息
+
+        Returns:
+            str: 格式化的验证报告
+        """
+        if not hasattr(self, "_last_validation_results"):
             return "没有可用的验证结果。请先运行 validate_workflow()。"
-            
+
         results = self._last_validation_results
-        
+
         lines = []
         lines.append("=" * 60)
         lines.append("工作流验证报告")
         lines.append("=" * 60)
         lines.append("")
-        
+
         # 摘要
         summary = results["summary"]
         lines.append(f"总体状态: {summary['overall_status']}")
@@ -845,7 +887,7 @@ class WorkflowValidator:
         lines.append(f"问题总数: {summary['total_issues']}")
         lines.append(f"严重问题: {summary['critical_issues']}")
         lines.append("")
-        
+
         # 质量评估详情
         if "quality_assessment" in results:
             qa = results["quality_assessment"]
@@ -853,24 +895,197 @@ class WorkflowValidator:
             lines.append("-" * 30)
             lines.append(f"总分: {qa.get('overall_score', 0):.1f}/10.0")
             lines.append(f"等级: {qa.get('grade', '未知')}")
-            
+
             if "dimension_scores" in qa:
                 lines.append("\n各维度得分:")
                 for dimension, score in qa["dimension_scores"].items():
                     lines.append(f"  {dimension}: {score:.1f}/10.0")
+
+            # 只有在show_detail为True时才显示详细信息
+            if show_detail:
+                lines.append("")
+                lines.append("详细评估信息:")
+                lines.append("-" * 30)
+
+                # 显示插件详细信息
+                if "plugin_details" in qa:
+                    for plugin_name, plugin_info in qa["plugin_details"].items():
+                        lines.append(f"\n{plugin_name}:")
+                        lines.append(f"  得分: {plugin_info.get('score', 0):.1f}/10.0")
+
+                        # 显示通过的检查项
+                        if (
+                            "passed_checks" in plugin_info
+                            and plugin_info["passed_checks"]
+                        ):
+                            lines.append("  通过的检查项:")
+                            for check in plugin_info["passed_checks"]:
+                                lines.append(f"    ✓ {check}")
+
+                        # 显示失败的检查项
+                        if (
+                            "failed_checks" in plugin_info
+                            and plugin_info["failed_checks"]
+                        ):
+                            lines.append("  失败的检查项:")
+                            for check in plugin_info["failed_checks"]:
+                                lines.append(f"    ✗ {check}")
+
+                        # 显示建议
+                        if (
+                            "recommendations" in plugin_info
+                            and plugin_info["recommendations"]
+                        ):
+                            lines.append("  改进建议:")
+                            for recommendation in plugin_info["recommendations"]:
+                                lines.append(f"    • {recommendation}")
+
+                # 显示权重配置
+                if "weights" in qa:
+                    lines.append("\n权重配置:")
+                    for dimension, weight in qa["weights"].items():
+                        lines.append(f"  {dimension}: {weight:.2f}")
+
+                # 显示扩展插件信息
+                if "extended_plugin_scores" in qa:
+                    lines.append("\n扩展插件评估:")
+                    for plugin, score in qa["extended_plugin_scores"].items():
+                        lines.append(f"  {plugin}: {score:.1f}/10.0")
+
+                # 显示扩展插件详细信息
+                if "extended_plugin_details" in qa:
+                    lines.append("\n扩展插件详细信息:")
+                    for plugin_name, plugin_info in qa[
+                        "extended_plugin_details"
+                    ].items():
+                        lines.append(f"\n{plugin_name}:")
+                        lines.append(f"  得分: {plugin_info.get('score', 0):.1f}/10.0")
+
+                        # 显示通过的检查项
+                        if (
+                            "passed_checks" in plugin_info
+                            and plugin_info["passed_checks"]
+                        ):
+                            lines.append("  通过的检查项:")
+                            for check in plugin_info["passed_checks"]:
+                                lines.append(f"    ✓ {check}")
+
+                        # 显示失败的检查项
+                        if (
+                            "failed_checks" in plugin_info
+                            and plugin_info["failed_checks"]
+                        ):
+                            lines.append("  失败的检查项:")
+                            for check in plugin_info["failed_checks"]:
+                                lines.append(f"    ✗ {check}")
+
+                        # 显示建议
+                        if (
+                            "recommendations" in plugin_info
+                            and plugin_info["recommendations"]
+                        ):
+                            lines.append("  改进建议:")
+                            for recommendation in plugin_info["recommendations"]:
+                                lines.append(f"    • {recommendation}")
+
+                # 显示汇总信息
+                if "summary" in qa:
+                    lines.append("\n评估汇总:")
+                    for key, value in qa["summary"].items():
+                        if key != "error":
+                            if key == "top_recommendations":
+                                lines.append(f"  {key}:")
+                                for rec in (
+                                    value if isinstance(value, list) else [value]
+                                ):
+                                    lines.append(f"    • {rec}")
+                            else:
+                                lines.append(f"  {key}: {value}")
+
             lines.append("")
-        
+
         return "\n".join(lines)
 
 
 def main():
     """命令行主入口"""
-    parser = argparse.ArgumentParser(description="工作流验证器 - 重构版本")
-    parser.add_argument("workflow_path", help="工作流目录路径")
-    parser.add_argument("--output", "-o", help="输出文件路径")
-    parser.add_argument("--format", "-f", choices=["text", "json"], default="text", help="输出格式")
-    parser.add_argument("--exclude", action="append", help="排除文件模式")
-    parser.add_argument("--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO", help="日志级别")
+    # 创建更详细的帮助描述
+    description = """
+工作流验证器 - 重构版本 v3.0.0
+
+这是一个全面的工作流验证工具，采用插件化架构提供：
+• 语法验证：检查Markdown、Python、PowerShell、JSON文件的语法正确性
+• 逻辑验证：验证工作流的逻辑一致性和完整性  
+• 依赖验证：检查文件间的依赖关系和引用完整性
+• 质量评估：通过插件系统进行多维度质量评估
+
+质量评估维度：
+• 完整性 (30%) - 检查工作流的完整性和必要组件
+• 易用性 (25%) - 评估工作流的易用性和用户体验
+• 可维护性 (25%) - 检查代码结构、模块化程度和维护便利性
+• 文档质量 (10%) - 评估文档的完整性、准确性和清晰度
+• 扩展性 (10%) - 检查工作流的扩展能力和配置灵活性
+
+示例用法：
+  python validator.py /path/to/workflow
+  python validator.py /path/to/workflow --output report.txt
+  python validator.py /path/to/workflow --format json --show_detail
+  python validator.py /path/to/workflow --exclude "**/*.backup" --log-level DEBUG
+    """
+
+    epilog = """
+更多信息和文档请参考：
+  项目地址: workflow-builder-system/
+  插件模板: workflow-builder-system/tools/plugin_template.py
+  配置文件: workflow-builder-system/tools/plugins_config.yaml
+    """
+
+    parser = argparse.ArgumentParser(
+        description=description,
+        epilog=epilog,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        prog="工作流验证器",
+    )
+
+    # 位置参数
+    parser.add_argument("workflow_path", help="工作流目录的绝对路径或相对路径")
+
+    # 输出选项
+    parser.add_argument(
+        "--output",
+        "-o",
+        metavar="FILE",
+        help="指定验证报告的输出文件路径（默认输出到控制台）",
+    )
+    parser.add_argument(
+        "--format",
+        "-f",
+        choices=["text", "json"],
+        default="text",
+        help="输出格式：text(默认)为人类可读格式，json为机器可读格式",
+    )
+
+    # 筛选选项
+    parser.add_argument(
+        "--exclude",
+        action="append",
+        metavar="PATTERN",
+        help="排除文件或目录的模式（支持通配符），可多次使用。"
+        "示例：--exclude '**/*.backup' --exclude '**/temp/**'",
+    )
+
+    # 详细程度选项
+    parser.add_argument(
+        "--show_detail",
+        action="store_true",
+        help="显示详细的评分构成信息，包括各维度的具体检查项、通过/失败状态和改进建议",
+    )
+    parser.add_argument(
+        "--log-level",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        default="INFO",
+        help="设置日志输出级别：DEBUG(最详细) INFO(默认) WARNING ERROR(最简洁)",
+    )
 
     args = parser.parse_args()
 
@@ -889,7 +1104,7 @@ def main():
         if args.format == "json":
             output = json.dumps(results, ensure_ascii=False, indent=2)
         else:
-            output = validator.generate_report()
+            output = validator.generate_report(show_detail=args.show_detail)
 
         # 输出到文件或控制台
         if args.output:

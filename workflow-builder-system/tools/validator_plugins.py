@@ -211,6 +211,30 @@ class BasePlugin(ABC):
         """
         pass
 
+    def get_assessment_details(self, workflow_dir: Path) -> Dict[str, Any]:
+        """
+        获取评估的详细信息（可选实现）
+
+        Args:
+            workflow_dir (Path): 工作流目录路径
+
+        Returns:
+            Dict[str, Any]: 详细评估信息，包含:
+                - score: 得分
+                - passed_checks: 通过的检查项列表
+                - failed_checks: 失败的检查项列表
+                - recommendations: 改进建议列表
+
+        Note:
+            子类可以重写此方法来提供详细的评估信息
+        """
+        return {
+            "score": self.assess(workflow_dir),
+            "passed_checks": [],
+            "failed_checks": [],
+            "recommendations": [],
+        }
+
     @property
     @abstractmethod
     def description(self) -> str:
@@ -333,6 +357,64 @@ class SecurityPlugin(BasePlugin):
             score += 1
 
         return (score / total_checks) * 10
+
+    def get_assessment_details(self, workflow_dir: Path) -> Dict[str, Any]:
+        """
+        获取安全性评估的详细信息
+
+        Args:
+            workflow_dir (Path): 工作流目录路径
+
+        Returns:
+            Dict[str, Any]: 详细评估信息
+        """
+        passed_checks = []
+        failed_checks = []
+        recommendations = []
+
+        # 1. 检查敏感信息硬编码
+        if self._check_no_hardcoded_secrets(workflow_dir):
+            passed_checks.append("无硬编码敏感信息")
+        else:
+            failed_checks.append("发现硬编码敏感信息")
+            recommendations.append("移除代码中硬编码的密码、密钥等敏感信息")
+
+        # 2. 检查.gitignore文件
+        if (workflow_dir / ".gitignore").exists():
+            passed_checks.append(".gitignore文件存在")
+        else:
+            failed_checks.append(".gitignore文件缺失")
+            recommendations.append("创建.gitignore文件以避免提交敏感文件")
+
+        # 3. 检查权限控制配置
+        if self._check_permission_config(workflow_dir):
+            passed_checks.append("权限控制配置存在")
+        else:
+            failed_checks.append("权限控制配置缺失")
+            recommendations.append("在config.yaml中添加security或permissions配置")
+
+        # 4. 检查输入验证
+        if self._check_input_validation(workflow_dir):
+            passed_checks.append("输入验证机制存在")
+        else:
+            failed_checks.append("输入验证机制缺失")
+            recommendations.append(
+                "添加输入验证代码（validate、sanitize、isinstance、assert）"
+            )
+
+        # 5. 检查依赖安全性
+        if self._check_dependency_security(workflow_dir):
+            passed_checks.append("依赖版本固定")
+        else:
+            failed_checks.append("依赖版本未固定")
+            recommendations.append("在requirements.txt中固定依赖包版本（使用==）")
+
+        return {
+            "score": self.assess(workflow_dir),
+            "passed_checks": passed_checks,
+            "failed_checks": failed_checks,
+            "recommendations": recommendations,
+        }
 
     def _check_no_hardcoded_secrets(self, workflow_dir: Path) -> bool:
         """
@@ -656,6 +738,28 @@ class PluginManager:
                 except Exception as e:
                     print(f"警告: 插件 {name} 评估失败: {e}")
                     results[name] = 0.0
+
+        return results
+
+    def assess_all_with_details(self, workflow_dir: Path) -> Dict[str, Any]:
+        """执行所有插件评估并获取详细信息"""
+        results = {}
+
+        for name, plugin in self.plugins.items():
+            if plugin.enabled:
+                try:
+                    # 获取详细评估信息
+                    details = plugin.get_assessment_details(workflow_dir)
+                    results[name] = details
+                    print(f"插件 {name}: {details['score']:.1f}/10.0")
+                except Exception as e:
+                    print(f"警告: 插件 {name} 评估失败: {e}")
+                    results[name] = {
+                        "score": 0.0,
+                        "passed_checks": [],
+                        "failed_checks": [f"插件执行失败: {str(e)}"],
+                        "recommendations": ["检查插件配置和工作流目录权限"],
+                    }
 
         return results
 
